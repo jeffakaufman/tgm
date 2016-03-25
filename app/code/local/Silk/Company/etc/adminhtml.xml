@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Silk_Company extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Silk
+ * @package        Silk_Company
+ * @copyright      Copyright (c) 2015
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <company translate="title" module="company">
+                                        <title>Company</title>
+                                    </company>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                    <customer>
+                        <children>
+                            <company translate="title" module="company">
+                                <title>Manage Companys</title>
+                                <sort_order>5</sort_order>
+                            </company>                        
+                        </children>
+                    </customer>
+
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    <menu>
+        <customer>
+            <children>
+                <company translate="title" module="company">
+                    <title>Manage Companies</title>
+                    <action>adminhtml/customer/index/is_b2b/1</action>
+                    <sort_order>0</sort_order>
+                </company>       
+            </children>
+        </customer>
+
+    </menu>
+</config>

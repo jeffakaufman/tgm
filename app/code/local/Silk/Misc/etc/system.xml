@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <sections>
+         <carriers translate="label" module="shipping">
+             <groups>
+                <flatrate translate="label">
+                    <fields>
+                        <region translate="label">
+                            <label>Exclude States(only for US)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </region>
+                        <maxweight translate="label">
+                            <label>Maximum Package Weight(LB)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>101</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </maxweight>
+                    </fields>
+                </flatrate>
+
+                <fedex translate="label" module="usa">
+                    <label>FedEx</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>120</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <region translate="label">
+                            <label>Specific States(only for US) for Exclude Methods</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>301</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </region>
+                        <exclude_method translate="label">
+                            <label>Exclude Methods</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>302</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </exclude_method>
+                    </fields>
+                </fedex>
+               </groups>
+        </carriers>
+    </sections>
+
+</config>

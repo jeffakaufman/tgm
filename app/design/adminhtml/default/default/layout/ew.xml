@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <ew_adminhtml_ew_index>
+        <reference name="content">
+            <block type="ew/adminhtml_ew" name="ew" />
+        </reference>
+    </ew_adminhtml_ew_index>
+</layout>

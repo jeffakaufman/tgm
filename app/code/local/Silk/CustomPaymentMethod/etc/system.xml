@@ -1,0 +1,21 @@
+<config>
+    <sections>
+        <payment translate="label" module="payment">
+            <groups>
+                <checkmo translate="label">
+                    <fields>
+                        <specificgroups translate="label">
+                            <label>Payment for Specific Customer Groups</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>52</sort_order>
+                            <source_model>adminhtml/system_config_source_customer_group</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </specificgroups>
+                    </fields>
+                </checkmo>
+            </groups>
+        </payment>
+    </sections>
+</config>

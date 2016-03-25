@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2015 Amasty (https://www.amasty.com)
+ * @package Amasty_Paction
+ */
+-->
+<config>
+    <modules>
+        <Amasty_Paction>
+            <version>1.5.8</version>
+        </Amasty_Paction>
+    </modules>
+    
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Amasty_Paction after="Mage_Adminhtml">Amasty_Paction_Adminhtml</Amasty_Paction>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <events>
+            <core_block_abstract_to_html_before>
+                <observers>
+                    <ampaction>
+                        <type>singleton</type>
+                        <class>ampaction/observer</class>
+                        <method>onCoreBlockAbstractToHtmlBefore</method>
+                    </ampaction>
+                </observers>
+            </core_block_abstract_to_html_before>
+        </events> 
+            
+        <translate>
+            <modules>
+                <Amasty_Paction>
+                    <files>
+                        <default>Amasty_Paction.csv</default>
+                    </files>
+                </Amasty_Paction>
+            </modules>
+        </translate>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <catalog>
+                            <children>
+                                <products>
+                                    <children>
+                                        <mass_product_actions translate="title">
+                                            <title>Mass Product Actions</title>
+                                            <children>
+                                                <addcategory translate="title">
+                                                    <title>Assign Category</title>
+                                                </addcategory>
+                                                <removecategory translate="title">
+                                                    <title>Remove Category</title>
+                                                </removecategory>
+                                                <replacecategory translate="title">
+                                                    <title>Replace Categories</title>
+                                                </replacecategory>
+                                                <modifycost translate="title">
+                                                    <title>Update Cost</title>
+                                                </modifycost>
+                                                <modifyprice translate="title">
+                                                    <title>Update Price</title>
+                                                </modifyprice>
+                                                <modifyspecial translate="title">
+                                                    <title>Update Special Price</title>
+                                                </modifyspecial>
+                                                <modifyallprices translate="title">
+                                                    <title>Update All Types of Price</title>
+                                                </modifyallprices>
+                                                <addspecial translate="title">
+                                                    <title>Modify Special Price using Price</title>
+                                                </addspecial>
+                                                <addprice translate="title">
+                                                    <title>Modify Price using Cost</title>
+                                                </addprice>
+                                                <addspecialbycost translate="title">
+                                                    <title>Modify Special Price using Cost</title>
+                                                </addspecialbycost>
+                                                <relate translate="title">
+                                                    <title>Relate</title>
+                                                </relate>
+                                                <upsell translate="title">
+                                                    <title>Up-sell</title>
+                                                </upsell>
+                                                <crosssell translate="title">
+                                                    <title>Cross-sell</title>
+                                                </crosssell>
+                                                <unrelate translate="title">
+                                                    <title>Remove Relations</title>
+                                                </unrelate>
+                                                <unupsell translate="title">
+                                                    <title>Remove Up-sells</title>
+                                                </unupsell>
+                                                <uncrosssell translate="title">
+                                                    <title>Remove Cross-Sells</title>
+                                                </uncrosssell>
+                                                <copyrelate translate="title">
+                                                    <title>Copy Relations</title>
+                                                </copyrelate>
+                                                <copyupsell translate="title">
+                                                    <title>Copy Up-sells</title>
+                                                </copyupsell>
+                                                <copycrosssell translate="title">
+                                                    <title>Copy Cross-sells</title>
+                                                </copycrosssell>
+                                                <copyoptions translate="title">
+                                                    <title>Copy Custom Options</title>
+                                                </copyoptions>
+                                                <copyattr translate="title">
+                                                    <title>Copy Attributes</title>
+                                                </copyattr>
+                                                <copyimg translate="title">
+                                                    <title>Copy Images</title>
+                                                </copyimg>
+                                                <removeimg translate="title">
+                                                    <title>Remove Images</title>
+                                                </removeimg>
+                                                <changeattributeset translate="title">
+                                                    <title>Change Attribute Set</title>
+                                                </changeattributeset>
+                                                <delete translate="title">
+                                                    <title>Fast Delete</title>
+                                                </delete>
+                                                <appendtext translate="title">
+                                                    <title>Append Text</title>
+                                                </appendtext>
+                                                <replacetext translate="title">
+                                                    <title>Replace Text</title>
+                                                </replacetext>
+                                            </children>
+                                        </mass_product_actions>
+                                    </children>
+                                </products>
+                            </children>
+                        </catalog>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <ampaction translate="title" module="ampaction">
+                                            <title>Mass Product Actions</title>
+                                        </ampaction>
+                                    </children>
+                                </config>
+                            </children>
+                        </system> 
+                     </children>
+                </admin> 
+            </resources>
+        </acl>
+    </adminhtml>
+    
+    <global>
+        <models>
+            <ampaction>
+                <class>Amasty_Paction_Model</class>
+                <resourceModel>ampaction_mysql4</resourceModel>
+            </ampaction>
+            <ampaction_mysql4>
+                <class>Amasty_Paction_Model_Mysql4</class>
+            </ampaction_mysql4>
+        </models>
+        
+		<resources>
+             <ampaction_setup>
+                <setup>
+                    <module>Amasty_Paction</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </ampaction_setup>
+		    <ampaction_write>
+		        <connection><use>core_write</use></connection>
+		    </ampaction_write>
+		    <ampaction_read>
+		        <connection><use>core_read</use></connection>
+		    </ampaction_read>
+		</resources>
+		  
+        <blocks>
+            <ampaction>
+                <class>Amasty_Paction_Block</class>
+            </ampaction>
+        </blocks>
+        
+        <helpers>
+            <ampaction>
+                <class>Amasty_Paction_Helper</class>
+            </ampaction>
+        </helpers>
+    </global>
+    
+    <default>
+        <ampaction>
+            <general>
+                <commands>0,addcategory,removecategory,replacecategory,4,modifycost,modifyprice,modifyspecial,modifyallprices,addspecial,addprice,addspecialbycost,11,relate,upsell,crosssell,15,unrelate,unupsell,uncrosssell,19,copyoptions,copyattr,copyimg,removeimg,24,changeattributeset,26,delete,28,appendtext,replacetext,32</commands>
+                <round>math</round>
+                <fixed>0.99</fixed>
+                <categories>1</categories>
+                <cat_type>0</cat_type>
+                <attr></attr>
+                <replace_in_attr>description,short_description,name</replace_in_attr>
+                <append_text_position>after</append_text_position>
+            </general>
+            <links>
+                <upsell>0</upsell>
+                <upsell_reverse>0</upsell_reverse>
+
+                <crosssell>0</crosssell>
+                <crosssell_reverse>0</crosssell_reverse>
+
+                <relate>0</relate> 
+                <relate_reverse>0</relate_reverse>
+            </links>
+        </ampaction>
+    </default>
+    
+</config>

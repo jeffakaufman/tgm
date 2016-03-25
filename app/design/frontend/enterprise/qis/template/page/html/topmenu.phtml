@@ -1,0 +1,96 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+<?php
+/**
+ * Top menu for store
+ *
+ * @see Mage_Page_Block_Html_Topmenu
+ */
+?>
+<?php $_menu = $this->getHtml('level-top') ?>
+<?php if($_menu): ?>
+<div class="navcontainer not_mobile">
+    <ul class="navi">
+        <?php echo $_menu ?>
+    </ul>
+</div>
+<div class="mnavcontainer mobile">
+    <ul class="mnavi">
+        <?php echo $_menu ?>
+    </ul>
+</div>
+<?php endif ?>
+<script type="text/javascript">
+jQuery.noConflict();
+(function( $ ) {
+	$(function() {
+		$(".header-inner .navi ul.level0 li").each(function(){
+			var that = $(this);
+			var timoutid = 0;
+			if(that.attr('active-category')==="currentCategory"){
+				that.find('a').css("background","url("+that.attr("hover-img")+") no-repeat 50% 70%");
+				that.find('a').css("color","#fdc0ae");
+			}else{
+				that.find('a').css("background","url("+that.attr("general-img")+") no-repeat 50% 70%");
+				that.find('a').css("color","#fff");
+			}
+			that.mouseover(function(){
+				timoutid  = setTimeout(function(){
+					that.find('a').css("background","url("+that.attr("hover-img")+") no-repeat 50% 70%");
+					that.find('a').css("color","#fdc0ae")
+				},150);
+			}).mouseout(function(){
+				clearTimeout(timoutid);
+				if((that.attr('active-category')!=="currentCategory")){
+					that.find('a').css("background","url("+that.attr("general-img")+") no-repeat 50% 70%");
+					that.find('a').css("color","#fff");
+				}
+			});
+		});
+		$(".header-inner .mnavi ul.level0 li").each(function(){
+			var that = $(this);
+			var timoutid = 0;
+			if(that.attr('active-category')==="currentCategory"){
+				that.find('a').css("color","#fdc0ae");
+			}else{
+				that.find('a').css("color","#fff");
+			}
+			that.mouseover(function(){
+				timoutid  = setTimeout(function(){
+					that.find('a').css("color","#fdc0ae")
+				},150);
+			}).mouseout(function(){
+				clearTimeout(timoutid);
+				if((that.attr('active-category')!=="currentCategory")){
+					that.find('a').css("color","#fff");
+				}
+			});
+		});		
+		
+    });
+})( jQuery );
+</script>

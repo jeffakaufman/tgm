@@ -1,0 +1,76 @@
+<div class="content-header">
+    <table cellspacing="0">
+        <tbody><tr>
+            <td><h3 class="head-dashboard">Search Processing Reports</h3></td>
+        </tr>
+    </tbody></table>
+</div>
+<form action="" method="post" id="ixcbadv_search" onsubmit="return submitFunc();">
+<table width="100%">
+	<tbody>
+		<tr>
+		    <td>
+			<div class="entry-edit">
+				<div class="entry-edit-head">
+					<h4>Please Enter Reference Id & Click Submit Button to See the Report</h4>
+				</div>
+				<div id="base_fieldset" class="fieldset fieldset-wide">
+				    <div class="hor-scroll">
+					<table cellspacing="0" class="form-list">
+					    <tbody>
+						<tr>
+							<td class="label">
+								<label for="code">Reference Id <span class="required">*</span></label>
+							</td>
+							<td class="value">
+								<input type="text" class="input-text required-entry" title="Reference Id" value="" name="reference_id" id="reference_id">            
+							</td>
+						</tr>
+						<tr>
+							<td class="label">
+								&nbsp;
+							</td>
+							<td class="value">
+								<button style="" onclick="ixcbadvsearch.validate()&&submitFunc();" class="scalable save" type="button" title="Submit"><span><span><span>Submit</span></span></span></button>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<div id="result_div"></div>
+							</td>
+						</tr>
+					    </tbody>
+					</table>
+				    </div>
+				</div>
+			</div>
+		    </td>
+		</tr>
+	</tbody>
+</table>
+</form>
+<script type="text/javascript">
+    ixcbadvsearch = new varienForm('ixcbadv_search', '');
+    function submitFunc(){
+	if(document.getElementById('reference_id') && document.getElementById('reference_id').value!='') {
+		var request = new Ajax.Request(
+		    '<?php echo $this->getUrl("ixcbadv/adminhtml_ixcbadv/getDetails/", array("_secure"=>true)) ?>',
+		    {
+			method: 'post',
+			onComplete: function(transport){ // Defining Complete Callback Function
+	 
+			    // Getting Ajax Response Text Which is JSON Object
+			    var jsonResponse = transport.responseText;
+			    if(document.getElementById('result_div')) {
+				document.getElementById('result_div').innerHTML = jsonResponse;
+			    }
+			},
+			parameters: Form.serialize($("ixcbadv_search"))    // Seriallizing the form input values
+		    }
+		);
+		return false;
+	} else {
+		return false;
+	}
+    }
+</script>

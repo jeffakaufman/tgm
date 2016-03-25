@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Silk_Custom>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Silk_Custom>
+    </modules>
+</config> 

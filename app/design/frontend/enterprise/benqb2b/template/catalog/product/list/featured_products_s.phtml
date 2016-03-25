@@ -1,0 +1,49 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+
+
+?>
+
+<?php
+	$featuredProducts = $this->getSideFeaturedCollection();
+    $i = 0;
+?>
+
+
+<div class="benq_featured_products">
+    <h3>Featured Products</h3>
+    <ul>
+        <?php foreach ($featuredProducts as $_product):?>
+        <?php $product = $_product->load($_product->getId());?>
+        <li class="item<?php echo ($i==0?' first':'');?>"><div class="alb"><a href="<?php echo $product->getProductUrl();?>" title="<?php echo $product->getName();?>"><img src="<?php echo $this->helper('catalog/image')->init($product, 'image')->resize(88);?>" border="0" width="88" height="88" /></a></div>
+        <h5><a href="<?php echo $product->getProductUrl();?>" title="<?php echo $product->getName();?>"><?php echo $product->getName();?></a></h5>
+        <p class="description"><?php echo Mage::helper('core/string')->truncate($this->stripTags($product->getShortDescription(), null, true), 100); ?></p>
+        <p class="price"><?php echo Mage::getModel('directory/currency')->format($product->getFinalPrice());?></p>
+        </li>
+ <?php $i = $i + 1;?>
+<?php endforeach;?>
+    </ul>
+</div>

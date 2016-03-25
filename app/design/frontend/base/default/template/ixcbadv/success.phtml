@@ -1,0 +1,161 @@
+<?php
+/**
+ * Mageix LLC
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to Mageix LLC's  End User License Agreement
+ * that is bundled with this package in the file LICENSE.pdf
+ * It is also available through the world-wide-web at this URL:
+ * http://ixcba.com/index.php/license-guide/
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to webmaster@mageix.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ * 
+ * Magento Mageix IXCBADV Module
+ *
+ * @category	Checkout & Payments, Customer Registration & Login
+ * @package 	Mageix_Ixcbadv
+ * @copyright   Copyright (c) 2014 -  Mageix LLC 
+ * @author      Brian Graham
+ * @license	    http://ixcba.com/index.php/license-guide/   End User License Agreement
+ *
+ *
+ *
+ * Magento Mageix IXCBA Module
+ * 
+ * @category   Checkout & Payments
+ * @package	   Mageix_Ixcba
+ * @copyright  Copyright (c) 2011 Mageix LLC
+ * @author     Brian Graham
+ * @license   http://mageix.com/index.php/license-guide/   End User License Agreement
+ */
+
+ $amazon_order_id = Mage::helper('core')->htmlEscape($_GET['amazonorderid']);
+ if(isset($_SESSION['amzn_orderid']) && $_SESSION['amzn_orderid'] == $amazon_order_id) {
+	header("location:".$this->getUrl('checkout/cart'));	exit;
+ }else{
+	$_SESSION['amzn_orderid'] = $amazon_order_id;
+ }
+ 
+
+?>
+<?php
+      $styles = ''; $getConfigVar =  $this->allConfigVars();
+      
+      if($getConfigVar['buttons_bg_color'] != '' || $getConfigVar['buttons_border_color'] != '') {
+	if($getConfigVar['buttons_bg_color'] != '') { $getConfigVar['buttons_bg_color'] = 'background: '.$getConfigVar['buttons_bg_color'].'; '; }
+	if($getConfigVar['buttons_border_color'] != '') { $getConfigVar['buttons_border_color'] = 'border: 1px solid '.$getConfigVar['buttons_border_color'].'; '; }
+	$styles .= ".ixcbadv-inline .btn2, .ixcbadv-inline .btn { ".$getConfigVar['buttons_bg_color'].$getConfigVar['buttons_border_color']."  } "; 
+      }
+
+      if($getConfigVar['buttons_font_style'] != '' || $getConfigVar['buttons_font_color'] != '') {
+	if($getConfigVar['buttons_font_style'] != '') { $getConfigVar['buttons_font_style'] = 'font-family: '.$getConfigVar['buttons_font_style'].'; '; }
+	if($getConfigVar['buttons_font_color'] != '') { $getConfigVar['buttons_font_color'] = 'color: '.$getConfigVar['buttons_font_color'].'; '; }
+	$styles .= ".ixcbadv-inline .btn2, .ixcbadv-inline .btn { ".$getConfigVar['buttons_font_style'].$getConfigVar['buttons_font_color']."  } "; 
+      }
+
+      if($getConfigVar['inline_bg_color'] != '' || $getConfigVar['inline_font_style'] != '' || $getConfigVar['inline_font_color'] != '') {
+	if($getConfigVar['inline_bg_color'] != '') { $getConfigVar['inline_bg_color'] = 'background-color: '.$getConfigVar['inline_bg_color'].'; '; }
+	if($getConfigVar['inline_font_style'] != '') { $getConfigVar['inline_font_style'] = 'font-family: '.$getConfigVar['inline_font_style'].'; '; }
+	if($getConfigVar['inline_font_color'] != '') { $getConfigVar['inline_font_color'] = 'color: '.$getConfigVar['inline_font_color'].'; '; }
+	$styles .= " .ixcbadv-inline .sh1, .ixcbadv-inline .sh2, .ixcbadv-inline .title, .ixcbadv-inline .see-all, .ixcbadv-inline .total { ".$getConfigVar['inline_bg_color']."  } "; 
+	$styles .= " .ixcbadv-inline .title { ".$getConfigVar['inline_font_style'].$getConfigVar['inline_font_color']."  } "; 
+      }
+
+      if($getConfigVar['inline_message_bg_color'] != '' || $getConfigVar['inline_message_font_color'] != '' || $getConfigVar['inline_message_font_style'] != '' || $getConfigVar['inline_message_border_color'] != '') {
+        if($getConfigVar['inline_message_bg_color'] != '') { $getConfigVar['inline_message_bg_color'] = 'background-color: '.$getConfigVar['inline_message_bg_color'].'; '; }
+	if($getConfigVar['inline_message_font_color'] != '') { $getConfigVar['inline_message_font_color'] = 'color: '.$getConfigVar['inline_message_font_color'].'; '; }
+	if($getConfigVar['inline_message_font_style'] != '') { $getConfigVar['inline_message_font_style'] = 'font-family: '.$getConfigVar['inline_message_font_style'].'; '; }
+	if($getConfigVar['inline_message_border_color'] != '') { $getConfigVar['inline_message_border_color'] = 'border-color: '.$getConfigVar['inline_message_border_color'].'; '; }
+
+	$styles .= " .ixcbadv-inline .before_selection_message { ".$getConfigVar['inline_message_bg_color'].$getConfigVar['inline_message_font_color'].$getConfigVar['inline_message_font_style'].$getConfigVar['inline_message_border_color']."  } .ixcbadv-inline .before_selection_message h1 { ".$getConfigVar['inline_message_font_color']." } ";
+      }
+?>
+<?php if($styles != '') { ?> <style> <?php echo $styles; ?> </style> <?php } ?>
+<div class="ixcbadv-inline">
+	<div class="content_success">
+		<div class="topbar">
+		</div>
+		<div class="title">Order Confirmation</div>
+		<div class="gift">
+			 
+			<div style="float:left; width:53%;">
+				<span class="thankyou">
+					<strong>Thank You! </strong>
+				 </span>
+				 <div class="cl"></div>
+				<p class="paragraph" style="text-align:justify;">
+					Your order has been processed. You will receive an email confirmation shortly with additional order details.
+					<!--<br/> <br/>
+					Please note that we will wait to get a confirmation to ship from Amazon before we actually ship out or enable downloads.
+					<br/>
+					The time to get this notification depends on Amazon and varies from order to order.
+					-->
+					<br/> <br/>
+					Your Amazon Order Number is: <?php echo Mage::helper('core')->htmlEscape($_GET['amazonorderid']); ?>
+					and details are as shown to the right.
+				</p>
+				<div class="cl"></div>
+				<br/>
+				<a href="javascript:void(0);" class="btn" title="Continue Shopping"  onclick="window.location='<?php echo $this->getUrl(); ?>';">
+					Continue Shopping
+				</a>
+			</div>
+			<div style="float:right; width:auto;">
+				<!--<div id="amazonOrderDetail"></div>-->
+				<div id="readOnlyAddressBookWidgetDiv"></div>
+				<!--<div id="readOnlyWalletWidgetDiv"></div>-->
+				
+				
+				<?php
+				foreach( Mage::getSingleton('checkout/session')->getQuote()->getItemsCollection() as $item ){
+                                //Mage::getSingleton('checkout/cart')->removeItem( $item->getId() )->save();
+                                }
+				
+					$merchantid = Mage::helper('core')->decrypt(Mage::getStoreConfig('payment/ixcbadv/merchantid'));
+					$amazon_order_id = Mage::getSingleton('core/session')->getOrderReferenceId();
+				?>
+				<script>
+				
+new OffAmazonPayments.Widgets.AddressBook({
+  sellerId: "<?php echo $merchantid; ?>",
+  amazonOrderReferenceId: "<?php echo $amazon_order_id; ?>",
+  // amazonOrderReferenceId obtained from Button widget
+  displayMode: "Read",
+  design: {
+     size : {width:'400px', height:'185px'}
+  },
+  onError: function(error) {
+   // your error handling code
+  }
+}).bind("readOnlyAddressBookWidgetDiv");
+
+
+
+new OffAmazonPayments.Widgets.Wallet({
+  sellerId: "<?php echo $merchantid; ?>",
+  amazonOrderReferenceId: "<?php echo $amazon_order_id; ?>",  
+  // amazonOrderReferenceId obtained from Button widget
+  displayMode: "Read",
+  design: {
+     size : {width:'400px', height:'185px'}
+  },
+  onError: function(error) {
+   // your error handling code
+  }
+}).bind("readOnlyWalletWidgetDiv");
+
+				</script>
+			</div>	 
+		</div>
+	</div>
+	<div class="cl"></div>
+        <div class="powered-by"><a href="https://ixcba.com/" target="_blank"><img src="<?php echo $this->getSkinUrl('ixcbadv/images/powered.jpg') ?>" alt="" width="15" height="109"></a></div>
+</div>
+
+<?php
+//}
+?>

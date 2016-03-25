@@ -1,0 +1,83 @@
+<?php
+/**
+ * Mageix LLC
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to Mageix LLC's  End User License Agreement
+ * that is bundled with this package in the file LICENSE.pdf
+ * It is also available through the world-wide-web at this URL:
+ * http://ixcba.com/index.php/license-guide/
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to webmaster@mageix.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ * 
+ * Magento Mageix IXCBADV Module
+ *
+ * @category	Checkout & Payments, Customer Registration & Login
+ * @package 	Mageix_Ixcbadv
+ * @copyright   Copyright (c) 2014 -  Mageix LLC 
+ * @author      Brian Graham
+ * @license	    http://ixcba.com/index.php/license-guide/   End User License Agreement
+ *
+ *
+ *
+ * Magento Mageix IXCBA Module
+ * 
+ * @category   Checkout & Payments
+ * @package	   Mageix_Ixcba
+ * @copyright  Copyright (c) 2011 Mageix LLC
+ * @author     Brian Graham
+ * @license   http://mageix.com/index.php/license-guide/   End User License Agreement
+ */
+ ?>
+
+<div class="lightface">  <!-- lightface start -->
+  <div class="lightfaceContent fl"> <!-- lightfaceContent start -->
+	  <h2 class="lightfaceTitle"><?php echo $this->__('Pay with Amazon') ?></h2>
+	  <div class="lightfaceMessageBox"> <!-- lightfaceMessageBox start -->
+		<div class="stp">
+			<div class="active2"><span><?php echo $this->__('Order Review') ?></span></div>
+			<div class="active2"><span><?php echo $this->__('Advanced Ixcba®') ?></span></div>
+			<div class="last active"><span>&nbsp;<?php echo $this->__('Success!') ?> &nbsp;</span></div>
+			<div class="cl"></div>
+		</div>
+		<div class="cl"></div>
+		
+		<!--<div class="order-review" id="checkout-review-load">
+		    <?php echo $this->getChildHtml('info') ?>
+		</div>
+		-->
+		
+		<div class="block_wrapper block_wrapper-full">
+			<div class="block-head" >
+				<h2>ORDER CONFIRMATION</h2>
+			</div>
+				
+			<div class="block-content">
+				<h3>Thank You!!</h3><br/>
+				<p>Your order has been received. You will receive an email confirmation shortly with your order details. </p>
+				<br/>
+				<p>Please note that we will wait to get a "You May Ship Now" notification before we actually ship out the order. The time to get this notification depends on Amazon and varies from order to order. You may contact Amazon directly for any further information. Your Amazon Order Number is: <span id="amazon_order_id">THAT</span></p>
+			</div>
+		</div>
+			
+
+		<div class="cl"></div>
+	</div> <!-- lightfaceMessageBox end -->
+	<div class="lightfaceFooter" style="display: block;"> <!-- lightfaceFooter start -->
+		 <!-- <img src="<?php echo $this->getSkinUrl('ixcbadv/images/truste-logo.jpg') ?>" class="fl" alt=""> -->
+		 <!--<a href="javascript:accordion.openSection('ixcbadv-billing');">Back</a>-->
+		 <label class="lightfacegreen">
+			<input type="button" value="Continue Shopping" onclick="window.location='<?php echo $this->getUrl(); ?>';">
+		 </label>
+		 <label><input type="button" value="Close" onclick="$jQueryconflict('#lightbox_close').click();"></label>
+		 <div class="cl"></div>
+		 <div class="setting">
+			<a href="https://ixcba.com/" target="_blank" title="<?php echo $this->__('Powered by Mageix&#8482; IXCBA®') ?>" class="bottom_line_mageix"><?php echo $this->__('Powered by Mageix&#8482; IXCBA®') ?></a>
+		 </div>
+	</div> <!-- lightfaceFooter end -->
+  </div> <!-- lightfaceContent end -->
+</div> <!-- lightface end -->

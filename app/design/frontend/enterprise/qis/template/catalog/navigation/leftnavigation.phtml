@@ -1,0 +1,51 @@
+<div class="leftcat">
+<p class="slight"><span><?php echo $this->__('Shop Lighting') ?></span></p>
+<ul class="allcat">
+<?php foreach ($this->getCurrentChildCategories() as $category):?>
+<li <?php echo $this->getMenuImg($category->getId());?>><a href="<?php echo $category->getUrl()?>"><?php echo $category->getName()?></a></li>
+<?php endforeach;?>
+<li class="viewall" id="leftviewall"><a href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?>led-lighting.html">view all lighting</a></li>
+</ul>
+
+</div>
+<script type="text/javascript">
+jQuery.noConflict();
+(function( $ ) {
+	$(function() {
+		$(".col-left .allcat li:not('#leftviewall')").each(function(){
+			var that = $(this);
+			var timoutid = 0;
+			if(that.attr('active-category')==="currentCategory"){
+				that.find('a').css("background","url("+that.attr("hover-img")+") no-repeat 14% 50%");
+				that.find('a').css("background-size","11%");
+				that.find('a').css("color","#fdc0ae");
+				that.css("background","#191919");
+			}else{
+				that.find('a').css("background","url("+that.attr("general-img")+") no-repeat 14% 50%");
+				that.find('a').css("background-size","11%");
+				that.find('a').css("color","#fff");
+			}
+			that.mouseover(function(){
+				timoutid  = setTimeout(function(){
+					that.find('a').css("background","url("+that.attr("hover-img")+") no-repeat 14% 50%");
+					that.find('a').css("color","#fdc0ae")
+					that.find('a').css("background-size","11%");
+				},150);
+			}).mouseout(function(){
+				clearTimeout(timoutid);
+				if((that.attr('active-category')!=="currentCategory")){
+					that.find('a').css("background","url("+that.attr("general-img")+") no-repeat 14% 50%");
+					that.find('a').css("color","#fff");
+					that.find('a').css("background-size","11%");
+				}
+			});
+		});
+    });
+	if(location.href === "<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB)?>led-lighting.html"){
+		//$(".leftcat>.valight").css('display','none');
+		$("#leftviewall").addClass('valight');
+	}else{
+		$("#leftviewall").removeClass('valight');
+	}
+})( jQuery);
+</script>

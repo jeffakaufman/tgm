@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mageix LLC
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to Mageix LLC's  End User License Agreement
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://mageix.com/index.php/license-guide/
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to webmaster@mageix.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+
+ *
+ * @category	Mageix
+ * @package 	Mageix_Ixcba
+ * @copyright   Copyright (c) 2011 Mageix LLC (http://mageix.com)
+ * @license	http://mageix.com/index.php/license-guide/  End User License Agreement
+ */
+
+/*
+ * Magento Mageix IXCBA Module
+ *
+ * @category   Checkout & Payments
+ * @package	Mageix_Ixcba
+ * @copyright  Copyright (c) 2011 Mageix LLC (http://mageix.com)
+ * @designer & author  Brian Graham
+  *@licence 	http://mageix.com/index.php/license-guide/ 
+ */
+-->
+<layout version="0.1.0">
+	<customer_account_login translate="label">		
+	<reference name="head">				
+	<action method="addItem"><type>skin_js</type><name>ixcbadv/js/jquery-1.7.min.js</name><params/></action>				
+	<action method="addItem"><type>skin_js</type><name>ixcbadv/js/amazon_widgets.js</name></action>				
+	<block type="ixcbadv/inline_head" name="ixcbadv.inline.head" as="head" template="ixcbadv/inline/head.phtml"/>			
+	</reference>		
+	
+	<reference name="content">			
+	<block type="ixcbadv/inline_link" name="ixcbadv.amazon.login" template="ixcbadv/lwa.phtml" after="-" />		
+	</reference>	 
+	</customer_account_login>
+	
+	<customer_account_logoutsuccess translate="label">
+        <reference name="head">				
+	<action method="addItem"><type>skin_js</type><name>ixcbadv/js/jquery-1.7.min.js</name><params/></action>				
+	<action method="addItem"><type>skin_js</type><name>ixcbadv/js/amazon_widgets.js</name></action>				
+	<block type="ixcbadv/inline_head" name="ixcbadv.inline.head" as="head" template="ixcbadv/inline/head.phtml"/>			
+	</reference>
+	
+        <reference name="content">
+            <!--<block type="core/template" name="customer_logout" template="customer/logout.phtml"/>-->
+            <block type="ixcbadv/inline_link" name="ixcbadv.amazon.logout" template="ixcbadv/customer/logout.phtml"/>	
+        </reference>
+        </customer_account_logoutsuccess>
+	
+		
+	<checkout_cart_index>
+			<reference name="checkout.cart.top_methods">
+			   <block type="ixcbadv/inline_link" name="ixcbadv.inline.top_links" template="ixcbadv/inline/toplink.phtml" before="-"/>
+			</reference>
+			<reference name="checkout.cart.methods">
+			<block type="ixcbadv/inline_bottomlink" name="ixcbadv.inline.bottom_links" template="ixcbadv/inline/bottomlink.phtml" before="-" />
+			</reference>
+			<reference name="head">
+				<action method="addCss" ifconfig="ixcbadv/mageix_group/inline_ixcbadv_enabled"><stylesheet>ixcbadv/jquery.lightbox.css</stylesheet></action>
+				<action method="addItem" ifconfig="ixcbadv/mageix_group/inline_ixcbadv_enabled"><type>skin_css</type><name>ixcbadv/jquery.lightbox.ie6.css</name><params/><if>lt IE 7</if></action>
+				<action method="addItem" ifconfig="ixcbadv/mageix_group/inline_ixcbadv_enabled"><type>skin_js</type><name>ixcbadv/js/jquery-1.7.min.js</name><params/></action>
+				<action method="addItem" ifconfig="ixcbadv/mageix_group/inline_ixcbadv_enabled"><type>skin_js</type><name>ixcbadv/js/amazon_widgets.js</name></action>
+				<action method="addItem" ifconfig="ixcbadv/mageix_group/inline_ixcbadv_enabled"><type>skin_js</type><name>ixcbadv/js/inlinecheckout.js</name></action>
+				<block type="ixcbadv/inline_head" name="ixcbadv.inline.head" as="head" template="ixcbadv/inline/head.phtml"/>
+			</reference>
+	</checkout_cart_index>
+	
+	<ixcbadv_empty_index translate="label">
+		<reference name="head">
+			<action method="addCss"><stylesheet>ixcbadv/lightface.css</stylesheet></action>
+			<action method="addCss"><stylesheet>ixcbadv/style.css</stylesheet></action>
+		</reference>
+		<remove name="left"/>
+		<remove name="right"/>
+        <reference name="root">
+            <action method="setTemplate"><template>page/popup.phtml</template></action>
+        </reference>
+		<reference name="content">
+            <block type="ixcbadv/inline" name="ixcbadv.empty" template="ixcbadv/empty.phtml" />
+		</reference>
+	</ixcbadv_empty_index>
+
+	<ixcbadv_success_index translate="label">
+		<reference name="head">
+			<action method="addCss"><stylesheet>ixcbadv/style.css</stylesheet></action>
+			<action method="addCss"><stylesheet>ixcbadv/lightface.css</stylesheet></action>
+			<action method="addCss"><stylesheet>ixcbadv/jquery.lightbox.css</stylesheet></action>
+			<action method="addItem"><type>skin_css</type><name>ixcbadv/jquery.lightbox.ie6.css</name><params/><if>lt IE 7</if></action>
+			<action method="addItem"><type>skin_js</type><name>ixcbadv/js/jquery-1.7.min.js</name><params/></action>
+			<action method="addItem"><type>skin_js</type><name>ixcbadv/js/amazon_widgets.js</name></action>
+			<action method="addItem"><type>skin_js</type><name>ixcbadv/js/inlinecheckout.js</name></action>
+			<block type="ixcbadv/inline_head" name="ixcbadv.inline.head" as="head" template="ixcbadv/inline/head.phtml"/>
+		</reference>
+		<remove name="left"/>
+		<remove name="right"/>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+		<reference name="content">
+            <block type="ixcbadv/inline" name="ixcbadv.success" template="ixcbadv/success.phtml" />
+		</reference>
+	</ixcbadv_success_index>
+
+	<ixcbadv_inline_index translate="label">
+        <label>Inline Checkout</label>
+        <!-- Mageix_IXCBA -->
+        <remove name="left"/>
+		<remove name="right"/>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+		
+		<reference name="head">
+			<action method="addCss"><stylesheet>ixcbadv/style.css</stylesheet></action>
+			<action method="addCss"><stylesheet>ixcbadv/lightface.css</stylesheet></action>
+			<action method="addCss"><stylesheet>ixcbadv/jquery.lightbox.css</stylesheet></action>
+			<action method="addItem"><type>skin_css</type><name>ixcbadv/jquery.lightbox.ie6.css</name><params/><if>lt IE 7</if></action>
+			<action method="addItem"><type>skin_js</type><name>ixcbadv/js/jquery-1.7.min.js</name><params/></action>
+			<action method="addItem"><type>skin_js</type><name>ixcbadv/js/amazon_widgets.js</name></action>
+			<action method="addItem"><type>skin_js</type><name>ixcbadv/js/inlinecheckout.js</name></action>
+			<block type="ixcbadv/inline_head" name="ixcbadv.inline.head" as="head" template="ixcbadv/inline/head.phtml"/>
+		</reference>
+		
+        <reference name="content">
+            <block type="ixcbadv/inline" name="ixcbadv.inline" template="ixcbadv/inline.phtml">
+	    <block type="ixcbadv/inline" name="ixcbadv.inline.login" as="login" template="ixcbadv/inline/login.phtml">
+            <block type="page/html_wrapper" name="ixcbadv.inline.login.before" as="login_before" translate="label">
+                        <label>Login/Registration Before</label>
+                        <action method="setMayBeInvisible"><value>1</value></action>
+                    </block>
+                </block>
+				<block type="ixcbadv/inline" name="ixcbadv.empty" as="empty" template="ixcbadv/empty.phtml" />
+				<block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="ixcbadv/inline/agreements.phtml"/>
+            </block>
+        </reference>
+    </ixcbadv_inline_index>
+
+	<ixcbadv_inline_paymentmethod>
+        <remove name="right"/>
+        <remove name="left"/>
+        <block type="ixcbadv/inline_payment_methods" name="root" output="toHtml" template="ixcbadv/inline/payment/methods.phtml">
+            <action method="setMethodFormTemplate"><method>purchaseorder</method><template>payment/form/purchaseorder.phtml</template></action>
+        </block>
+    </ixcbadv_inline_paymentmethod>
+
+	<ixcbadv_inline_shippingmethod>
+        <remove name="right"/>
+        <remove name="left"/>
+        <block type="ixcbadv/inline_shipping_method_available" name="root" output="toHtml" template="ixcbadv/inline/shipping_method/available.phtml"/>
+    </ixcbadv_inline_shippingmethod>
+	
+	<ixcbadv_inline_totals>
+        <remove name="right"/>
+        <remove name="left"/>
+        <block type="ixcbadv/inline_totals" name="root" output="toHtml" template="ixcbadv/inline/totals.phtml"/>
+    </ixcbadv_inline_totals>
+	
+	<ixcbadv_inline_review translate="label">
+        <label>Ixcba Checkout Overview</label>
+        <remove name="right"/>
+        <remove name="left"/>
+        <block type="ixcbadv/inline_review_info" name="root" output="toHtml" template="ixcbadv/inline/review/info.phtml">
+            <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>ixcbadv/inline/review/item.phtml</template></action>
+            <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>ixcbadv/inline/review/item.phtml</template></action>
+            <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>ixcbadv/inline/review/item.phtml</template></action>
+            <block type="checkout/cart_totals" name="ixcbadv.inline.review.info.totals" as="totals" template="ixcbadv/inline/review/totals.phtml"/>
+            <block type="core/text_list" name="ixcbadv.inline.review.info.items.before" as="items_before" translate="label">
+                <label>Items Before</label>
+            </block>
+            <block type="core/text_list" name="ixcbadv.inline.review.info.items.after" as="items_after" translate="label">
+                <label>Items After</label>
+            </block>
+            <block type="ixcbadv/agreements" name="ixcbadv.inline.agreements" as="agreements" template="ixcbadv/inline/agreements.phtml"/>
+            <block type="core/template" name="ixcbadv.inline.review.button" as="button" template="ixcbadv/inline/review/button.phtml"/>
+        </block>
+    </ixcbadv_inline_review>
+
+	
+	<checkout_onepage_index>
+    	<reference name='head'>
+    		<action method="addCss"  ifconfig="ixcbadv/mageix_group/enable_disable_ixcbadv"> <stylesheet>ixcbadv/jquery.lightbox.css</stylesheet></action>
+			<action method="addItem" ifconfig="ixcbadv/mageix_group/enable_disable_ixcbadv"><type>skin_css</type><name>ixcbadv/jquery.lightbox.ie6.css</name><params/><if>lt IE 7</if></action>
+			<action method="addItem" ifconfig="ixcbadv/mageix_group/enable_disable_ixcbadv"><type>skin_js</type><name>ixcbadv/js/jquery-1.7.min.js</name><params/></action>
+			<action method="addItem" ifconfig="ixcbadv/mageix_group/enable_disable_ixcbadv"><type>skin_js</type><name>ixcbadv/js/amazon_widgets.js</name></action>
+			<action method="addItem" ifconfig="ixcbadv/mageix_group/enable_disable_ixcbadv"><type>skin_js</type><name>ixcbadv/js/inlinecheckout.js</name></action>			
+			<block type="ixcbadv/inline_head" name="ixcbadv.inline.head" as="head" template="ixcbadv/inline/head.phtml"/>
+    	</reference>
+    	<reference name="checkout.onepage.login">			
+    	<action method='setTemplate' ifconfig="ixcbadv/mageix_group/enable_disable_ixcbadv"><template>ixcbadv/checkout/onepage/method.phtml</template></action>		
+    	</reference>
+		<reference name='checkout.onepage.billing'>
+    		<action method='setTemplate' ifconfig="ixcbadv/mageix_group/enable_disable_ixcbadv"><template>ixcbadv/checkout/onepage/billing.phtml</template></action>
+    	</reference>
+		<reference name='checkout.onepage.payment'>
+    		<action method='setTemplate' ifconfig="ixcbadv/mageix_group/enable_disable_ixcbadv"><template>ixcbadv/checkout/onepage/payment.phtml</template></action>
+    	</reference>
+    </checkout_onepage_index>
+
+</layout>

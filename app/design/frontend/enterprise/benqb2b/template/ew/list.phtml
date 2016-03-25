@@ -1,0 +1,75 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+
+<?php $_ews = $this->getEws(); ?>
+<div class="page-title">
+    <h1><?php echo Mage::helper('ew')->__('My Extended Warranty') ?></h1>
+</div>
+
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<?php echo $this->getChildHtml('pager'); ?>
+<?php if(count($_ews)): ?>
+    <table class="data-table" id="my-ew-table">
+        <thead>
+            <tr>
+                <th><?php echo Mage::helper('ew')->__('#') ?></th>
+                <th><?php echo Mage::helper('ew')->__('Model #') ?></th>
+                <th><?php echo Mage::helper('ew')->__('Serial #') ?></th>
+                <th><?php echo Mage::helper('ew')->__('Date Of Purchase') ?></th>
+                <th><?php echo Mage::helper('ew')->__('Retail Price') ?></th>
+                <th><?php echo Mage::helper('ew')->__('Product Quality') ?></th>
+                <th><?php echo Mage::helper('ew')->__('Expiration Date') ?></th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        
+       <tbody>
+        <?php $_odd = ''; ?>
+        <?php foreach ($_ews as $_ew): ?>
+        <tr>
+            <td><?php echo $_ew->getEwId() ?></td>
+            <td><?php echo $_ew->getModelNumber() ?></td>
+            <td><?php echo $_ew->getSerialNumber() ?></td>
+            <td><?php echo $_ew->getDateOfPurchase() ?></td>
+            <td><?php echo $_ew->getRetailPrice() ?></td>
+            <td><?php echo $this->getProductQuality($_ew->getProductQuality()) ?></td>
+            <td><?php echo $this->getExpirationDate($_ew); ?></td>
+            <td class="a-center">
+                <span class="nobr"><a href="<?php echo $this->getViewUrl($_ew) ?>"><?php echo $this->__('View Detail') ?></a>
+                </span>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+    
+    
+         </table>
+<?php else: ?>
+    <p><?php echo Mage::helper('ew')->__('You have not applied any extended warranty yet.'); ?></p>
+<?php endif; ?>
+<?php echo $this->getChildHtml('pager'); ?>

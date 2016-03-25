@@ -1,0 +1,88 @@
+<?php
+/**
+ * Mageix LLC
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to Mageix LLC's  End User License Agreement
+ * that is bundled with this package in the file LICENSE.pdf
+ * It is also available through the world-wide-web at this URL:
+ * http://ixcba.com/index.php/license-guide/
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to webmaster@mageix.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ * 
+ * Magento Mageix IXCBADV Module
+ *
+ * @category	Checkout & Payments, Customer Registration & Login
+ * @package 	Mageix_Ixcbadv
+ * @copyright   Copyright (c) 2014 -  Mageix LLC 
+ * @author      Brian Graham
+ * @license	    http://ixcba.com/index.php/license-guide/   End User License Agreement
+ *
+ *
+ *
+ * Magento Mageix IXCBA Module
+ * 
+ * @category   Checkout & Payments
+ * @package	   Mageix_Ixcba
+ * @copyright  Copyright (c) 2011 Mageix LLC
+ * @author     Brian Graham
+ * @license   http://mageix.com/index.php/license-guide/   End User License Agreement
+ */
+
+
+ $getConfigVar =  $this->allConfigVars();
+ 
+ $merchantId = Mage::helper('core')->decrypt(Mage::helper("ixcbadv")->getMerchantId());
+ $sizeval = Mage::getStoreConfig('ixcbadv/mageix_button/button_size_ixcbadv');
+ $colorval = Mage::getStoreConfig('ixcbadv/mageix_button/button_color_ixcbadv');
+ 
+ if (Mage::app()->getStore()->isCurrentlySecure()) {
+	$checkouturl = $this->getIxcbadvCheckoutUrl('secure');
+ }else{
+	$checkouturl = $this->getIxcbadvCheckoutUrl('not secure');
+ }
+
+?>
+
+<?php if ($this->isPossibleIxcbadvCheckout() && ($getConfigVar['active'] == 1)): ?>
+<div style="width:84%; text-align:center; float:right;">	
+	<?php if ($this->earlyPos()): ?>
+	    <span class="paypal-or"><?php echo $this->__('-OR-');?></span>
+	<?php endif; ?>
+
+	<div id="AmazonPayButtonBottom"></div>
+
+	<?php if ($this->afterPos()): ?>
+		<span class="paypal-or" style="padding:8px 0;"><?php echo $this->__('-OR-');?></span>
+	<?php endif; ?>
+</div>
+<?php endif?>
+
+
+<script type="text/javascript">
+	<!--
+
+
+<?php
+	if (Mage::app()->getStore()->isCurrentlySecure()) {
+		$updateurl = $this->getUrl('ixcbadv/inline/inlinePost/', array('_secure'=>true));
+		$urlPath = Mage::getUrl('ixcbadv/inline/session', array('_secure'=>true));
+	}else{
+		$updateurl = $this->getUrl('ixcbadv/inline/inlinePost/', array('_secure'=>false));
+		$urlPath = Mage::getUrl('ixcbadv/inline/session', array('_secure'=>false));
+	}
+	
+	$buttonType = "PwA";
+?>
+<?php echo str_replace('replace', '$', $this->getApaButton("amazon_widget_bottom", "AmazonPayButtonBottom" , "openframe_top", $urlPath, $buttonType, $checkouturl, $sizeval, $colorval)); ?>
+
+	//-->
+</script>
+
+<?php
+//}
+?>

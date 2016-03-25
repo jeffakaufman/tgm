@@ -1,0 +1,83 @@
+<?php
+if(is_array(ioncube_check_license_properties()) == false ) { 
+
+//Place module code here
+?>
+<?php if( sizeof($this->getTotals()) > 0 ): ?>
+<div class="box">
+    <div class="entry-edit">
+        <table border="0" cellspacing="0" width="100%">
+            <tr>
+            <?php foreach( $this->getTotals() as $_total ): ?>
+                <td class="a-center">
+                    <div <?php if ($_total['grand']): ?>class="grand-total"<?php endif; ?>>
+                        <?php echo $_total['label'] ?><br />
+                        <?php echo $_total['value'] ?>
+                    </div>
+                </td>
+            <?php endforeach; ?>
+            </tr>
+        </table>
+    </div>
+</div>
+<?php endif; ?>
+
+<?php
+	if($this->getOrder()->getPayment()->getMethod() && $this->getOrder()->getPayment()->getMethod() == 'ixcbadv') {
+?>
+
+	<div class="box-right entry-edit">
+	    <div class="entry-edit-head"><h4>Select Adjustment Reason</h4></div>
+	    <fieldset id="history_form">
+		<select name="adjustment_reason" id="adjustment_reason">
+			<option value="NoInventory">NoInventory</option>
+			<option value="CustomerReturn">CustomerReturn</option>
+			<option value="GeneralAdjustment" selected>GeneralAdjustment</option>
+			<option value="CouldNotShip">CouldNotShip</option>
+			<option value="DifferentItem">DifferentItem</option>
+			<option value="Abandoned">Abandoned</option>
+			<option value="CustomerCancel">CustomerCancel</option>
+			<option value="PriceError">PriceError</option>
+			<option value="ProductOutofStock">ProductOutofStock</option>
+			<option value="CustomerAddressIncorrect">CustomerAddressIncorrect</option>
+			<option value="Exchange">Exchange</option>
+			<option value="Other">Other</option>
+			<option value="CarrierCreditDecision">CarrierCreditDecision</option>
+			<option value="RiskAssessmentInformationNotValid">RiskAssessmentInformationNotValid</option>
+			<option value="CarrierCoverageFailure">CarrierCoverageFailure</option>
+			<option value="TransactionRecord">TransactionRecord</option>
+		</select>
+	    </fieldset>
+	</div>
+
+	<input type="hidden" name="cancel_complete_order" id="cancel_complete_order" value="no"/>
+	
+	<script type="text/javascript">
+		//<![CDATA[
+			function ixcbadvCancelOrderOnline() {
+				var r = confirm("Are you sure you want to cancel this order?");
+				if (r == true) {
+					if(document.getElementById('cancel_complete_order')) {
+						document.getElementById('cancel_complete_order').value = 'yes';
+					}
+					document.forms["edit_form"].submit();
+				} else {
+					return false;
+				}
+			}
+		//]]>
+	</script>
+
+<?php
+	}
+?>
+<script type="text/javascript">
+	//<![CDATA[
+		function ixcbadvDisableCancelOrderOnline() {
+			var cancel_complete_order = $$('.cancel_complete_order');
+			cancel_complete_order.each(function (elem) {elem.disabled=true;elem.addClassName('disabled');});
+		}
+	//]]>
+</script>
+
+<?php } ?>

@@ -1,0 +1,71 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+
+/**
+ * @deprecated  after 1.4.0.0-beta1
+ */
+?>
+<?php $_ew = $this->getEw() ?>
+<div class="page-title">
+    <h1><?php echo $this->__('My Extended Warranty - Details') ?></h1>
+</div>
+
+<div class="col2-set">
+<h2 class="sub-title"><?php echo $this->__('Extended Warranty') ?></h2>
+    <div class="col-1">
+<div class="info-box">
+        <h3 class="box-title"><?php echo $this->__('Customer Information') ?></h3>
+        <address class="box-content"><?php echo $_ew->getFirstName() ?> <?php echo $_ew->getLastName() ?><br />
+        <?php echo $_ew->getEmail() ?><br />
+        <?php echo $_ew->getStreetAddress() ?><br />
+        <?php echo $_ew->getStreetAddress1() ?><br />
+        <?php echo $_ew->getCity() ?>, <?php echo $_ew->getState() ?> <?php echo $_ew->getZipCode() ?><br />
+        <?php echo $_ew->getPhone() ?><br />
+       </address>
+    </div> 
+    </div>
+<div class="col-2">
+    <div class="info-box">
+       <h3 class="box-title"><?php echo $this->__('Product Information') ?></h3>
+       <address class="box-content">
+        <?php echo Mage::helper('ew')->__('Model #: ') ?><?php echo $_ew->getModelNumber() ?><br />
+        <?php echo Mage::helper('ew')->__('Serial #: ') ?><?php echo $_ew->getSerialNumber() ?><br />
+        <?php echo Mage::helper('ew')->__('Order #: ') ?><?php echo $_ew->getOrderNumber() ?><br />
+        <?php echo Mage::helper('ew')->__('Warranty SKU: ') ?><?php echo $_ew->getEwSku() ?><br />
+        <?php echo Mage::helper('ew')->__('Product Quality: ') ?><?php echo $this->getProductQuality($_ew->getProductQuality()) ?><br />
+        <?php echo Mage::helper('ew')->__('Retail Price: ') ?><?php echo Mage::helper('core')->currency($_ew->getRetailPrice()) ?><br />
+        <?php echo Mage::helper('ew')->__('Date Of Purchase: ') ?><?php echo $_ew->getDateOfPurchase() ?><br />
+        <?php echo Mage::helper('ew')->__('Registration Date: ') ?><?php echo $_ew->getCreatedTime() ?><br />
+     </address>
+    </div>
+</div>
+
+</div>
+
+ <div class="buttons-set">
+        <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->getBackTitle() ?></a></p>
+</div>
+

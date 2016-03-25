@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+<modules>
+  <Silk_Webservices>
+    <version>0.1.0</version>
+    <depends>
+    <Mage_Sales />
+    </depends>
+  </Silk_Webservices>
+</modules>
+
+<global>
+  <models>
+   <sales>
+    <rewrite>
+     <order_shipment_api_v2>Silk_Webservices_Model_Sales_Order_Shipment_Api_V2</order_shipment_api_v2>
+    </rewrite>
+   </sales>
+ </models>
+
+ <helpers>
+  <webservices>
+    <class>Silk_Webservices_Helper</class>
+  </webservices>
+ </helpers>
+</global>
+
+</config>

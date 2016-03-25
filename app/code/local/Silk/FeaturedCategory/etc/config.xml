@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<config>
+    <modules>
+        <Silk_FeaturedCategory>
+            <version>0.1.0</version>
+        </Silk_FeaturedCategory>
+    </modules>
+    <global>
+            <resources>
+                <featuredcategory_setup>
+                  <setup>
+                    <module>Silk_FeaturedCategory</module>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
+                  </setup>
+                  <connection>
+                    <use>default_setup</use>
+                  </connection>
+                </featuredcategory_setup>
+            </resources>
+    </global>
+</config>

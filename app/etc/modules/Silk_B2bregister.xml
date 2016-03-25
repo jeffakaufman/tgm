@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Silk_B2bregister>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Silk_B2bregister>
+    </modules>
+</config>

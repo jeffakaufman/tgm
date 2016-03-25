@@ -1,0 +1,65 @@
+
+<?php 
+//get the current category
+$_cat = new Mage_Catalog_Block_Navigation();
+$currentCat = $_cat->getCurrentCategory();
+//get the children of the current category
+$subCats = Mage::getModel('catalog/category')->load($currentCat->getId())->getAllChildren();
+//get sub category ids
+$subCatIds = explode(',',$subCats);
+
+$collection  = Mage::getModel('catalog/category')
+             ->getCollection()
+             ->addAttributeToSelect("*")
+             ->addFieldToFilter('featured_category',array('eq' => 1))
+             ->addFieldToFilter("entity_id", array("in", $subCatIds) )
+             ->addIsActiveFilter()
+             ->addAttributeToSort('position', 'asc');
+
+$featureds = array();
+foreach ($collection as $_category) {    
+    $thumb_url = Mage::getBaseUrl('media').'catalog/category/default.jpg';
+    if($_category->getThumbnail()){
+      $thumb_url = Mage::getBaseUrl('media').'catalog/category/'.$_category->getThumbnail();
+    }
+    $featureds[$_category->getLevel()][] = array('thumburl'=>$thumb_url, 'name'=>$_category->getName(), 'url'=>$_category->getUrl());
+}
+?>
+
+
+<!-- top featured categories -->
+<?php $_columnCount = 3;?>
+<?php if (isset($featureds[$_columnCount])):?>
+<?php $i = 0; foreach($featureds[$_columnCount] as $f):?>
+<?php if ($i++%$_columnCount==0): ?>
+    <ul class="category clearfix">
+    <?php endif ?>
+        <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+            <div class="alb"><a href="<?php echo $f['url']; ?>" title="<?php echo $f['name']; ?>"><img src="<?php echo $f['thumburl']; ?>" width="142" height="142"  /></a></div>
+            <h4 class="category-name"><a href="<?php echo $f['url']; ?>" title="<?php echo $f['name']; ?>"><?php echo $f['name']; ?></a></h4>
+        </li>
+    <?php if ($i%$_columnCount==0 || $i==count($featureds[$_columnCount])): ?>
+    </ul>
+    <?php endif ?>
+<?php endforeach ?>
+<?php endif ?>
+
+<!-- sub featured categories -->
+<?php $_columnCount = 4;?>
+<?php if (isset($featureds[$_columnCount])):?>
+<?php $i = 0; foreach($featureds[$_columnCount] as $f):?>
+<?php if ($i++%$_columnCount==0): ?>
+    <ul class="subcategory clearfix">
+    <?php endif ?>
+        <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+            <div class="alb"><a href="<?php echo $f['url']; ?>" title="<?php echo $f['name']; ?>"><img src="<?php echo $f['thumburl']; ?>" width="101" height="101"  /></a></div>
+            <h5 class="category-name"><a href="<?php echo $f['url']; ?>" title="<?php echo $f['name']; ?>"><?php echo $f['name']; ?></a></h5>
+        </li>
+    <?php if ($i%$_columnCount==0 || $i==count($featureds[4])): ?>
+    </ul>
+    <?php endif ?>
+<?php endforeach ?>
+<?php endif ?>
+
+
+    

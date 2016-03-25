@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Silk_Company extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Silk
+ * @package        Silk_Company
+ * @copyright      Copyright (c) 2015
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+--> 
+<layout>
+    <adminhtml_company_company_index>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>customer/silk_company/company</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="silk_company/adminhtml_company" name="company" />
+
+        </reference>
+    </adminhtml_company_company_index>
+    <adminhtml_company_company_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="silk_company/adminhtml_company_grid" name="company_grid"/>
+        </block>
+    </adminhtml_company_company_grid>
+    <!-- Company add/edit action -->
+    <adminhtml_company_company_edit>
+        <update handle="editor"/>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>customer/silk_company/company</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="silk_company/adminhtml_company_edit" name="company_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="silk_company/adminhtml_company_edit_tabs" name="company_tabs"></block>
+        </reference>
+    </adminhtml_company_company_edit>
+
+    <adminhtml_company_company_comment_index>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>customer/silk_company/company_comment</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="silk_company/adminhtml_company_comment" name="company_comment_grid"/>
+        </reference>
+    </adminhtml_company_company_comment_index>
+    <adminhtml_company_company_comment_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="silk_company/adminhtml_company_comment_grid" name="company_comment_grid"/>
+        </block>
+    </adminhtml_company_company_comment_grid>
+    <adminhtml_company_company_comment_edit>
+        <update handle="editor"/>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>customer/silk_company/company_comment</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="silk_company/adminhtml_company_comment_edit" name="company_comment_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="silk_company/adminhtml_company_comment_edit_tabs" name="company_comment_tabs"></block>
+        </reference>
+    </adminhtml_company_company_comment_edit>
+</layout>

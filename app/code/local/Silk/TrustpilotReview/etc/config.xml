@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Silk_TrustpilotReview>
+            <version>0.1.0</version>
+        </Silk_TrustpilotReview>
+    </modules>
+
+    <global>
+        <models>
+            <trustpilot>
+                <class>Silk_TrustpilotReview_Model</class>
+            </trustpilot>
+        </models>
+        <helpers>
+            <trustpilot>
+                <class>Silk_TrustpilotReview_Helper</class>
+            </trustpilot>
+        </helpers>
+        <blocks>
+            <trustpilot>
+                <class>Silk_TrustpilotReview_Block</class>
+           </trustpilot>
+        </blocks>
+    </global>
+    <adminhtml>
+        <events>
+           <core_block_abstract_prepare_layout_after>
+                <observers>
+                    <trustpilot_review_product_remove_tab>
+                        <type>singleton</type>
+                        <class>trustpilot/observer</class>
+                        <method>removeProductTabBlock</method>
+                    </trustpilot_review_product_remove_tab>
+                </observers>
+           </core_block_abstract_prepare_layout_after>
+        </events>
+    </adminhtml>
+</config>

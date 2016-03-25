@@ -1,0 +1,181 @@
+
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+?>
+<?php
+$_productCollection = $this->getQuickattriute();
+$quickorderguest = Mage::getStoreConfig('quickorder/quickorder/quickorderguest');
+$quickordercartguest = Mage::getStoreConfig('quickorder/quickorder/quickordercartguest');
+?>
+
+
+<?php if(!count($_productCollection)): ?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php else: ?>
+<form id="quick-order" action="<?php echo $this->getUrl('quickorder/index'); ?>" method="post" class="data-table-quick">
+<div class="category-products">
+	<?php echo $this->getSortbarHtml() ?>
+    <?php $_iterator = 0; ?>
+    <?php if($this->helper('customer')->isLoggedIn()){ ?>
+
+        <div class="search-box"><input id="searchInput" value="Search by SKU/Name"> <a href="javascript:showall();">View All</a>&nbsp;&nbsp;<a href="javascript:showSelected();">Show Selected</a></div>
+
+		<div class="quickorder-top-button"><button type="submit" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" ><?php echo $this->__('Add to Cart') ?></button></div>
+    <?php } ?>
+    <?php if(!$this->helper('customer')->isLoggedIn() && ($quickordercartguest == '1')){ ?>
+		<div class="quickorder-add-button"><button type="submit" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" ><?php echo $this->__('Add to Cart') ?></button></div>
+    <?php } ?>
+    <table width="100%" cellspacing="0" cellpadding="0" border="0" class="data-table" id="products-list">
+	<tbody>
+		<tr class="productListing-rowheading">
+			<th id="listCell0-1" scope="col" class="productListing-heading"><?php echo $this->__('Item Name') ?></a></th>
+			<th id="listCell0-1" scope="col" class="productListing-heading"><?php echo $this->__('SKU') ?></a></th>
+			<th id="listCell0-1" scope="col" class="productListing-heading"><?php echo $this->__('Available') ?></a></th>
+			<?php if($this->helper('customer')->isLoggedIn()): ?>
+			<th align="right" id="listCell0-2" scope="col" class="productListing-heading"><?php echo $this->__('Price') ?></th>
+			<th align="right" id="listCell0-2" scope="col" class="productListing-heading"><?php echo $this->__('Qty') ?></th>
+			<th align="right" id="listCell0-2" scope="col" class="productListing-heading"><?php echo $this->__('Action') ?></th>
+			<?php endif; ?>
+			<?php if(!$this->helper('customer')->isLoggedIn() && ($quickorderguest == '1')):?>
+			<th align="right" id="listCell0-2" scope="col" class="productListing-heading"><?php echo $this->__('Price') ?></th>
+			<?php elseif (!$this->helper('customer')->isLoggedIn() && ($quickorder1 == '0')): ?>
+			<div class="pri"><p>"Login to view product price"</p></div>
+			<?php endif; ?>
+			<?php if(!$this->helper('customer')->isLoggedIn() && ($quickordercartguest == '1')): ?>
+			<th align="right" id="listCell0-2" scope="col" class="productListing-heading"><?php echo $this->__('Qty') ?></th>
+			<th align="right" id="listCell0-2" scope="col" class="productListing-heading"><?php echo $this->__('Action') ?></th>
+			<?php elseif (!$this->helper('customer')->isLoggedIn() && ($quickordercartguest == '0')): ?>
+			<div class="pri"><p><?php echo $this->__('Login to Add to cart') ?></p></div>
+			<?php endif; ?>
+		</tr>
+		<?php foreach ($_productCollection as $_product): ?>
+			<tr class="item<?php if( ++$_iterator == sizeof($_productCollection) ): ?> last<?php endif; ?>">
+				<td class="productListing-data">
+					<?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+					<h3 class="product-name">
+						<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><?php echo $_product->getName(); ?></a>
+					</h3>
+				</td>
+                 <td align="right" class="productListing-data">
+					 <?php echo $_product->getData('sku'); ?>
+				</td>
+                 <td align="right" class="productListing-data">
+					 <?php echo $_product->getStockItem()->getIsInStock()?'In Stock':'Out Of Stock'; ?>
+				</td>
+				<?php if($this->helper('customer')->isLoggedIn()): ?>
+				<td align="right" class="productListing-data">
+					 <?php echo Mage::helper('core')->currency($_product->getFinalPrice(),true,false); ?>
+				</td>
+				<?php elseif (!$this->helper('customer')->isLoggedIn() &&($quickorderguest == '1')): ?>
+				<td align="right" class="productListing-data">
+					 <?php echo Mage::helper('core')->currency($_product->getFinalPrice(),true,false); ?>
+				</td>
+				<?php endif; ?>
+				<?php if($this->helper('customer')->isLoggedIn()): ?>
+				<td align="right" class="productListing-data">
+					<input type="text" name="all[<?php echo $_product->getId(); ?>][qty]" id="qty" maxlength="12" value="1" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+				</td>
+				<td align="right" class="productListing-data productListing-addto">
+					 <input type="checkbox" class="checkbox" name="all[<?php echo $_product->getId(); ?>][checkbox]" value="1">
+					 <input type="hidden" name="all[<?php echo $_product->getId(); ?>][product_id]" value="<?php echo $_product->getId(); ?>" />
+				</td>
+				<?php elseif (!$this->helper('customer')->isLoggedIn() && ($quickordercartguest == '1')): ?>
+				<td align="right" class="productListing-data">
+					<input type="text" name="all[<?php echo $_product->getId(); ?>][qty]" id="qty" maxlength="12" value="1" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+				</td>
+				<td align="right" class="productListing-data productListing-addto">
+					 <input type="checkbox" class="checkbox" name="all[<?php echo $_product->getId(); ?>][checkbox]" value="1">
+					 <input type="hidden" name="all[<?php echo $_product->getId(); ?>][product_id]" value="<?php echo $_product->getId(); ?>" />
+				</td>
+				<?php endif ?>
+			</tr>
+		<?php endforeach; ?>
+	</tbody>
+    </table>
+    <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>
+    <?php if($this->helper('customer')->isLoggedIn()){ ?>
+		<div class="quickorder-bottom-button"><button type="submit" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" ><?php echo $this->__('Add to Cart') ?></button></div>
+    <?php } ?>
+</div>
+</form>
+<?php endif; ?>
+
+<script>
+jQuery.expr[':'].contains = function(a, i, m) {
+  return jQuery(a).text().toUpperCase()
+        .indexOf(m[3].toUpperCase()) >= 0;
+};
+
+jQuery("#searchInput").keyup(function () {
+    //split the current value of searchInput
+    var data = this.value.split(" ");
+    //create a jquery object of the rows
+    var jo = jQuery("#products-list").find("tr");
+    if (this.value == "") {
+        jo.show();
+        return;
+    }
+    //hide all the rows
+    jo.hide();
+
+    //Recusively filter the jquery object to get results.
+    jo.filter(function (i, v) {
+        var jQueryt = jQuery(this);
+        for (var d = 0; d < data.length; ++d) {
+            if (jQueryt.is(":contains('" + data[d] + "')")) {
+                return true;
+            }
+        }
+        return false;
+    })
+    //show the rows that match.
+    .show();
+}).focus(function () {
+    this.value = "";
+    jQuery(this).css({
+        "color": "black"
+    });
+    jQuery(this).unbind('focus');
+}).css({
+    "color": "#C0C0C0"
+});
+
+var showall=function() {
+   jQuery('#searchInput').val('');
+   var jo = jQuery("#products-list").find("tr");
+   jo.show();
+}
+
+var showSelected = function (){
+	jQuery('.checkbox').each(function (){
+		if (jQuery(this).is(':checked')){
+			jQuery(this).closest('tr').show();
+		} else {
+			jQuery(this).closest('tr').hide();
+		}
+	});
+}
+// function check(){
+// var formData=jQuery("#quick-order").serializeArray();
+// jQuery.ajax({
+// 	'type':'post',
+// 	'url':'/quickorder/index/ajax',
+// 	'data':formData,
+// 	'dataType':'html',
+// 	'async':true,
+// 	'success':function (msg){
+// 		if (msg){
+// 			jQuery('.inner-wrapper').replaceWith(msg);
+// 			alert(msg);
+// 		}else{
+// 			alert(1);
+// 		}
+// 	}
+// });
+// return false;
+// }
+</script>

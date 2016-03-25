@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Silk_PaypalPartner>
+            <active>false</active>
+            <codePool>community</codePool>
+            <depends>
+                <Mage_Paypal />
+            </depends>
+        </Silk_PaypalPartner>
+    </modules>
+</config>

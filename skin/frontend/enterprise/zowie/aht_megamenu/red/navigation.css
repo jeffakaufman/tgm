@@ -1,0 +1,185 @@
+.nav-container{
+	margin:auto;
+	position:relative;
+	background: #e4e4e4 url('images/bg.gif') left top repeat-x;
+	text-align:left;
+}
+ul.megamenu li.level0{
+	float:left; 
+	display:block; 
+	background: url('images/border-right.png') no-repeat scroll right top transparent;
+	padding:0 2px 0 0;
+}
+
+ul.megamenu li.level0.right{
+	float:right;
+	background: url('images/border-right.png') no-repeat scroll left top transparent;
+	padding:0 0 0 2px;
+}
+ul.megamenu li.level0:hover{
+	background: url('images/bg.gif') left bottom repeat-x;
+}
+
+ul.megamenu li.level0.active, .cms-index-index .megamenu li.homepage, .cms-index-index .megamenu li.homepage:hover{
+	background: url('images/bg.gif') left center repeat-x;
+}
+.cms-index-index .megamenu li.homepage:hover a.level0{
+	color:#fff;
+}
+ul.megamenu li.level0 a.level0{
+	color: #fff;
+    display: block;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    outline: 0 none;
+    text-decoration: none;
+	padding: 0 14px 0 15px;
+	text-transform:uppercase;
+}
+ul.megamenu li.level0 a.parent span{
+	background: url('images/dropdown-ico.png') right -1px no-repeat;
+	padding-right:18px;
+}
+
+ul.megamenu li.level0:hover a.parent span{
+	background-position:right -79px;
+}
+
+ul.megamenu li.active a.parent span, ul.megamenu li.active:hover a.parent span{
+	background-position:right -40px;
+}
+
+ul.megamenu li.level0.right a.level0{
+	padding: 0 10px 0 8px;
+}
+ul.megamenu li.level0:hover a.level0{
+	color:#262626;
+}
+ul.megamenu li.active:hover a.level0{
+	color:#fff;
+}
+
+ul.megamenu li.level0 a.level0 span{
+	display:block;
+}
+.dropdown-container{
+	display:none;
+	position:absolute;
+	left:0;
+	z-index:100;
+}
+ul.megamenu li.level0:hover .dropdown-container{
+	display:block;
+}
+.dropdown-container.right{
+	right:0px;
+	left:auto;
+}
+ul.megamenu li.left .dropdown-container.right{
+	right:3px;
+}
+.dropdown-container .dropdown{
+	float:left;
+	background: #f9f9f9 url('images/dropdown-bg.gif') left bottom repeat-x;
+    z-index: 20;
+	width:100%;
+	border-bottom:3px solid #990000;
+	-webkit-box-shadow: 0px 5px 4px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    0px 5px 4px rgba(50, 50, 50, 0.75);
+	box-shadow:         0px 5px 4px rgba(50, 50, 50, 0.75);
+}
+.dropdown-container .dropdown p{
+	margin:0
+}
+.dropdown-container .dropdown .col{
+	padding:10px;
+	clear:both;
+}
+.category-list{
+	clear: both;
+    float: left;
+    width: 100%;
+}
+.dropdown-container .sub-column{float:left}
+.dropdown-container .sub-column ul{float:left; width:100%; margin-bottom:5px}
+.dropdown-container .dropdown a{
+	display:block;
+	text-decoration:none;
+	font-family: arial;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 15px;
+	color: #C82D2A;
+    padding: 3px 0 3px 0;
+    text-transform: none;
+	float:left;
+	width:85%;
+}
+.dropdown-container .dropdown li.level3 a{
+	font-size:11px;
+	font-weight:normal;
+}
+.dropdown-container .dropdown a.level1{
+    color: #353535;
+	font-weight:bold;
+	padding-left:0;
+	font-size:14px;
+}
+.dropdown-container .dropdown a.level1:hover{
+	text-decoration:none;
+}
+.dropdown-container .dropdown a.level2{
+	background: url('images/bg-cate-megamenu.png') no-repeat scroll 0 center transparent;
+}
+.dropdown-container .dropdown li.level1 ul li ul{
+	margin-left:10px
+}
+
+.dropdown-container .dropdown a:hover{
+	text-decoration:underline;
+}
+.dropdown-container .dropdown ul li a{
+	padding-left:10px;
+}
+/*
+.dropdown-container .col1{
+	width:20%;
+}
+.dropdown-container .col2{
+	width:40%;
+}
+.dropdown-container .col3{
+	width:60%;
+}
+.dropdown-container .col4{
+	width:80%;
+}
+.dropdown-container .col5{
+	width:99.8%;
+}
+*/
+.col2 .sub-column{width:50%}
+.col3 .sub-column{width:33.3%}
+.col4 .sub-column{width:25%}
+.col5 .sub-column{width:20%}
+.dropdown-container .widget a{
+	background: url("images/bg-cate-megamenu.png") no-repeat scroll 0 center transparent;
+}
+.dropdown-container table{width:100%}
+.dropdown-container .top_content{margin-bottom:10px}
+.dropdown-container .bottom_content{clear:both;}
+.dropdown-container .category-thumbnail{margin-bottom:5px}
+.dropdown-container .static-content{font-size:11px; color:#000}
+.col .col2 .half{width:45%; float:left; font-size:11px; margin-right:10px}
+.dropdown-container .fieldset{margin-bottom:10px; margin-top:23px}
+.dropdown-container .form-list li.wide textarea{width:345px; height: 97px}
+.dropdown-container .buttons-set{margin:0}
+.dropdown-container .products-grid{background:none; border:none}
+.dropdown-container .products-grid li.item{width:164px; text-align:center; padding-bottom:10px}
+.dropdown-container .widget .widget-title{padding-left:15px; padding-top:0}
+.dropdown-container .widget-products a{background:none; padding-left:0; }
+.dropdown-container .dropdown .products-grid li a{width:100%; float:none}
+.dropdown-container .products-grid .product-image{margin: 5px auto; float:none}
+.dropdown-container .products-grid .ratings, .dropdown-container .products-grid .add-to-links{display:none; }
+.dropdown-container .products-grid .actions{position:inherit}

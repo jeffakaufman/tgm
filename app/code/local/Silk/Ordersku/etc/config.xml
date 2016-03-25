@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Silk_Ordersku>
+            <version>0.1.1</version>
+        </Silk_Ordersku>
+    </modules>
+
+    <global>
+        <models>
+            <ordersku>
+                <class>Silk_Ordersku_Model</class>
+            </ordersku>
+        </models>
+        <helpers>
+            <ordersku>
+                <class>Silk_Ordersku_Helper</class>
+            </ordersku>
+        </helpers>
+        <blocks>
+            <ordersku>
+            <class>Silk_Ordersku_Block</class>
+           </ordersku>
+        </blocks>
+    </global>
+
+    <adminhtml>
+        <events>
+            <sales_order_grid_collection_load_before>
+                <observers>
+                    <enterprise_salesarchive>
+                        <type>disabled</type>
+                    </enterprise_salesarchive>
+                    <ordersku_add_custom_columns_select>
+                        <type>singleton</type>
+                        <class>ordersku/observer</class>
+                        <method>addCustomColumnsSelect</method>
+                    </ordersku_add_custom_columns_select>
+                </observers>
+            </sales_order_grid_collection_load_before>
+            <core_layout_block_create_after>
+                <observers>
+                    <ordersku_add_custom_columns>
+                        <type>singleton</type>
+                        <class>ordersku/observer</class>
+                        <method>addColumnsToSalesOrdersGrid</method>
+                    </ordersku_add_custom_columns>
+                    <ordersku_add_custom_columns_for_customer>
+                        <type>singleton</type>
+                        <class>ordersku/observer</class>
+                        <method>addColumnsToCustomerOrdersGrid</method>
+                    </ordersku_add_custom_columns_for_customer>
+                </observers>
+            </core_layout_block_create_after>
+        </events>
+    </adminhtml>
+</config>

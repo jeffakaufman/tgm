@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     enterprise_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+
+-->
+<layout version="0.1.0">
+    
+
+<!--
+Default layout, loads most of the pages
+-->
+
+    <checkout_cart_index translate="label">
+      <reference name="checkout.cart.shipping">
+          <action method="setTemplate" ifconfig="tax/cybersourcetax_soap/active"><template>cybersourcetax/cart/shipping.phtml</template></action>
+      </reference>
+    </checkout_cart_index>
+    
+    
+     <sales_order_view translate="label">
+        <reference name="tax"><action method="setTemplate" ifconfig="tax/cybersourcetax_soap/active"><template>cybersourcetax/order/tax.phtml</template></action></reference>
+    </sales_order_view>
+    
+      <sales_order_invoice translate="label">
+          <reference name="tax"><action method="setTemplate" ifconfig="tax/cybersourcetax_soap/active"><template>cybersourcetax/order/tax.phtml</template></action></reference>
+      </sales_order_invoice>
+      
+      <sales_order_creditmemo translate="label">
+          <reference name="tax"><action method="setTemplate" ifconfig="tax/cybersourcetax_soap/active"><template>cybersourcetax/order/tax.phtml</template></action></reference>
+      </sales_order_creditmemo>
+      
+      <sales_order_print translate="label">
+          <reference name="tax"><action method="setTemplate" ifconfig="tax/cybersourcetax_soap/active"><template>cybersourcetax/order/tax.phtml</template></action></reference>
+      </sales_order_print>
+      
+      <sales_order_printinvoice translate="label">
+          <reference name="tax"><action method="setTemplate" ifconfig="tax/cybersourcetax_soap/active"><template>cybersourcetax/order/tax.phtml</template></action></reference>
+      </sales_order_printinvoice>
+      
+      <sales_order_printcreditmemo>
+          <reference name="tax"><action method="setTemplate" ifconfig="tax/cybersourcetax_soap/active"><template>cybersourcetax/order/tax.phtml</template></action></reference>
+      </sales_order_printcreditmemo>
+      
+      <!--<sales_email_order_items>
+          <reference name="tax"><action method="setTemplate" ifconfig="tax/cybersourcetax_soap/active"><template>cybersourcetax/order/tax.phtml</template></action></reference>
+      </sales_email_order_items>-->
+      
+      <!--<sales_email_order_invoice_items>
+          <reference name="tax"><action method="setTemplate" ifconfig="tax/cybersourcetax_soap/active"><template>cybersourcetax/order/tax.phtml</template></action></reference>
+      </sales_email_order_invoice_items>-->
+      
+      <!--<sales_email_order_creditmemo_items>
+          <reference name="tax"><action method="setTemplate" ifconfig="tax/cybersourcetax_soap/active"><template>cybersourcetax/order/tax.phtml</template></action></reference>
+      </sales_email_order_creditmemo_items>-->
+      
+      <sales_guest_view translate="label">
+          <reference name="tax"><action method="setTemplate" ifconfig="tax/cybersourcetax_soap/active"><template>cybersourcetax/order/tax.phtml</template></action></reference>
+      </sales_guest_view>
+      
+      <sales_guest_invoice translate="label">
+          <reference name="tax"><action method="setTemplate" ifconfig="tax/cybersourcetax_soap/active"><template>cybersourcetax/order/tax.phtml</template></action></reference>
+      </sales_guest_invoice>
+      
+      <sales_guest_creditmemo translate="label">
+          <reference name="tax"><action method="setTemplate" ifconfig="tax/cybersourcetax_soap/active"><template>cybersourcetax/order/tax.phtml</template></action></reference>
+      </sales_guest_creditmemo>
+      
+      <sales_guest_print translate="label">
+          <reference name="tax"><action method="setTemplate" ifconfig="tax/cybersourcetax_soap/active"><template>cybersourcetax/order/tax.phtml</template></action></reference>
+      </sales_guest_print>
+      
+      <sales_guest_printinvoice translate="label">
+          <reference name="tax"><action method="setTemplate" ifconfig="tax/cybersourcetax_soap/active"><template>cybersourcetax/order/tax.phtml</template></action></reference>
+      </sales_guest_printinvoice>
+      
+      <sales_guest_printcreditmemo>
+          <reference name="tax"><action method="setTemplate" ifconfig="tax/cybersourcetax_soap/active"><template>cybersourcetax/order/tax.phtml</template></action></reference>
+      </sales_guest_printcreditmemo>
+
+
+
+</layout>

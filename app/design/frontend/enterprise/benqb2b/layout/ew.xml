@@ -1,0 +1,93 @@
+<layout version="0.1.0">
+
+<customer_account>
+    <reference name="customer_account_navigation">
+        <action method="addLink" translate="label" module="ew">
+            <name>ew_list</name>
+            <path>ew/index/list</path>
+            <label>My Extended Warranty</label></action>
+    </reference>
+</customer_account>
+
+
+    <ew_index_index translate="label"> 
+        <label>Apply Extended Warranty</label> 
+        <reference name="root"> 
+            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+        </reference> 
+        <reference name="head">
+            <action method="setTitle" translate="title"><title>Apply Extended Warranty</title></action>
+            <action method="addItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name><params></params></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar.js</name></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name></action>
+            <block type="core/html_calendar" name="head.calendar" as="calendar" template="page/js/calendar.phtml"></block>
+
+        </reference> 
+        <update handle="customer_account"/>
+        <reference name="my.account.wrapper">
+            <block type="ew/form" name="ew_form" />
+        </reference>
+        <reference name="root">
+        <action method="setHeaderTitle" translate="title" module="ew"><title>Apply Extended Warranty</title></action>
+        </reference>
+    </ew_index_index>
+
+    <ew_index_list translate="label"> 
+        <label>My Extended Warranty</label> 
+        <update handle="customer_account"/>
+        <reference name="my.account.wrapper">
+            <block type="ew/list" name="ew_list" />
+        </reference>
+        <reference name="head">
+            <action method="setTitle" translate="title"><title>My Extended Warranty</title></action>
+        </reference> 
+        <reference name="root">
+        <action method="setHeaderTitle" translate="title" module="ew"><title>My Extended Warranty</title></action>
+        </reference>
+    </ew_index_list>
+    
+    <ew_index_view translate="label"> 
+        <label>View Extended Warranty Detail</label> 
+        <update handle="customer_account"/>
+        <reference name="my.account.wrapper">
+            <block type="ew/details" name="ew_details" />
+        </reference>
+        <reference name="head">
+            <action method="setTitle" translate="title"><title>View Extended Warranty Detail</title></action>
+        </reference> 
+        <reference name="root">
+        <action method="setHeaderTitle" translate="title" module="ew"><title>View Extended Warranty Detail</title></action>
+        </reference>
+    </ew_index_view>
+    
+
+    <ew_index_success translate="label"> 
+        <label>Extended Warranty - Success!</label> 
+        <update handle="customer_account"/>
+        <reference name="my.account.wrapper">
+            <block type="core/template" name="extended_success" template="ew/success.phtml" />
+        </reference>
+        <reference name="head">
+            <action method="setTitle" translate="title"><title>Extended Warranty - Success!</title></action>
+        </reference> 
+        <reference name="root">
+        <action method="setHeaderTitle" translate="title" module="ew"><title>Extended Warranty - Success</title></action>
+        </reference>
+    </ew_index_success>
+   
+   <ew_index_loadewsku translate="label"> 
+        <reference name="content">
+            <block type="ew/ewsku" name="ew_ewsku" output="toHtml" />
+        </reference>
+  </ew_index_loadewsku>
+
+
+ <ew_index_loadmodel translate="label"> 
+        <reference name="content">
+            <block type="ew/modeln" name="ew_modeln" output="toHtml" />
+        </reference>
+  </ew_index_loadmodel>
+
+
+
+</layout>

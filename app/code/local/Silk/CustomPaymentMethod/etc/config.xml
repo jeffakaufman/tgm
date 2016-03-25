@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Silk_CustomPaymentMethod>
+            <version>1.0</version>
+        </Silk_CustomPaymentMethod>
+    </modules>
+    <global>
+        <blocks>
+            <custompaymentmethod>
+                <class>Mage_Core_Block</class>
+            </custompaymentmethod>
+            <checkout>
+                <rewrite>
+                    <onepage_payment_methods>Silk_CustomPaymentMethod_Block_Onepage_Payment_Methods</onepage_payment_methods>
+                </rewrite>
+            </checkout>
+        </blocks>
+    </global>
+</config>

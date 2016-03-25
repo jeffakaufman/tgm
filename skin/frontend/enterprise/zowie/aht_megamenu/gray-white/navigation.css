@@ -1,0 +1,157 @@
+.nav-container{
+	margin:auto;
+	position:relative;
+	text-align:left;
+	background: #f8f8f8;
+	border:1px solid #e1e1e1;
+}
+
+ul.megamenu li.level0{
+	float:left; 
+	display:block; 
+	padding:0;
+}
+ul.megamenu li.level0.right{
+	float:right;
+
+	padding:0 0 0 2px;
+}
+ul.megamenu li.level0 a.level0{
+	color: #333333;
+    display: block;
+    font-family: Arial,Helvetica,Verdana,sans-serif;
+    font-size: 13px;
+    outline: 0 none;
+    text-decoration: none;
+	padding: 0 15px;
+	font-weight:normal;
+}
+ul.megamenu li.level0 a.parent span{
+	background: url('images/menu-arrow-down.png') right center no-repeat;
+	padding-right:15px;
+}
+ul.megamenu li.level0.right a.level0{
+	padding: 0 10px 0 8px;
+}
+
+ul.megamenu li.level0:hover a.level0{
+	background:#fff;
+}
+ul.megamenu li.active a.level0, .cms-index-index .megamenu li.homepage a.level0{
+	background:#333;
+	color:#fff;
+}
+ul.megamenu li.active:hover a.level0, .cms-index-index .megamenu li.homepage:hover a.level0{
+	background:#fff;
+	color:#333333;
+}
+
+ul.megamenu li.level0 a.level0 span{
+	display:block;
+}
+.dropdown-container{
+	display:none;
+	position:absolute;
+	left:-1px;
+	z-index:100;
+	
+}
+ul.megamenu li.level0:hover .dropdown-container{
+	display:block;
+}
+.dropdown-container.right{
+	right:0px;
+	left:auto;
+}
+ul.megamenu li.left .dropdown-container.right{
+	right:1px;
+}
+.dropdown-container .dropdown{
+	background: #fff;
+	float:left;
+    border: 1px solid #e1e1e1;
+    z-index: 20;
+	border-top:none;
+	width:100%;
+}
+.dropdown-container .dropdown p{
+	margin:0
+}
+.dropdown-container .dropdown .col{
+	padding:10px;
+	clear:both;
+}
+.category-list{
+	clear: both;
+    float: left;
+    width: 100%;
+}
+.dropdown-container .sub-column{float:left}
+.dropdown-container .sub-column ul{float:left; width:100%; margin-bottom:5px}
+.dropdown-container .dropdown a{
+	display:block;
+	text-decoration:none;
+	font-family: arial;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 15px;
+	color: #333;
+    padding: 3px 0 3px 0;
+    text-transform: none;
+	float:left;
+	width:85%;
+	margin-bottom:5px;
+}
+.dropdown-container .dropdown li.level3 a{
+	font-size:11px;
+}
+.dropdown-container .dropdown a.level1{
+    color: #333;
+	font-weight:normal;
+	padding-left:0;
+	border-bottom:1px solid #e1e1e1;
+	font-family:"Times New Roman", arial, tahoma;
+	font-size:16px;
+	padding-bottom:5px;
+	margin-bottom:3px;
+}
+.dropdown-container .dropdown a.level2{
+	background: url('images/bg-cate-megamenu.png') no-repeat scroll 0 center transparent;
+}
+.dropdown-container .dropdown li.level1 ul li ul{
+	margin-left:10px
+}
+
+.dropdown-container .dropdown a:hover{
+	text-decoration:underline;
+}
+.dropdown-container .dropdown a.level1:hover{
+	text-decoration:none;
+}
+.dropdown-container .dropdown ul li a{
+	padding-left:20px;
+}
+.col2 .sub-column{width:50%}
+.col3 .sub-column{width:33.3%}
+.col4 .sub-column{width:25%}
+.col5 .sub-column{width:20%}
+.dropdown-container .widget a{
+	background: url("images/bg-cate-megamenu.png") no-repeat scroll 0 center transparent;
+}
+.dropdown-container table{width:100%}
+.dropdown-container .top_content{margin-bottom:10px}
+.dropdown-container .bottom_content{clear:both;}
+.dropdown-container .category-thumbnail{margin-bottom:5px}
+.dropdown-container .static-content{font-size:11px; color:#777}
+.col .col2 .half{width:45%; float:left; font-size:11px; margin-right:10px}
+.dropdown-container .fieldset{margin-bottom:10px; margin-top:23px}
+.dropdown-container .form-list li.wide textarea{width:345px; height: 97px}
+.dropdown-container .buttons-set{margin:0}
+.dropdown-container .products-grid{background:none; border:none}
+.dropdown-container .products-grid li.item{width:164px; text-align:center; padding-bottom:10px}
+.dropdown-container .widget .widget-title{padding-left:15px; padding-top:0}
+.dropdown-container .widget-products a{background:none; padding-left:0; }
+.dropdown-container .dropdown .products-grid li a{width:100%; float:none}
+.dropdown-container .products-grid .product-image{margin: 5px auto; float:none}
+.dropdown-container .products-grid .ratings, .dropdown-container .products-grid .add-to-links{display:none; }
+.dropdown-container .products-grid .actions{position:inherit}

@@ -1,0 +1,873 @@
+<?php
+/**
+ * Mageix LLC
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to Mageix LLC's  End User License Agreement
+ * that is bundled with this package in the file LICENSE.pdf
+ * It is also available through the world-wide-web at this URL:
+ * http://ixcba.com/index.php/license-guide/
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to webmaster@mageix.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ * 
+ * Magento Mageix IXCBADV Module
+ *
+ * @category	Checkout & Payments, Customer Registration & Login
+ * @package 	Mageix_Ixcbadv
+ * @copyright   Copyright (c) 2014 -  Mageix LLC 
+ * @author      Brian Graham
+ * @license	    http://ixcba.com/index.php/license-guide/   End User License Agreement
+ *
+ *
+ *
+ * Magento Mageix IXCBA Module
+ * 
+ * @category   Checkout & Payments
+ * @package	   Mageix_Ixcba
+ * @copyright  Copyright (c) 2011 Mageix LLC
+ * @author     Brian Graham
+ * @license   http://mageix.com/index.php/license-guide/   End User License Agreement
+ */
+
+
+$isAllowedGuestCheckout = Mage::getStoreConfigFlag('checkout/options/guest_checkout', $this->getQuote()->getStoreId());
+
+?>
+<style>
+.ixcbadv-inline .ixcbadv-agreement-content
+{z-index: 9999999;}
+#confirmMessagePayment{
+background-color:transparent;
+border:none;
+}
+</style>
+<script>
+var Ixcbadv_Agreements=Class.create();
+        Ixcbadv_Agreements.prototype={
+           initialize:function(){
+                },
+            show:function(c){
+                a='QC-AG-Bk';
+                a+=c;
+                b='QC-AG-CO';
+                b+=c;
+                $(a).setStyle({
+                    opacity:0,
+                    visibility:"visible"
+                });
+                new Effect.Opacity(a,{
+                    duration:0.9,from:0,to:0.8
+                });
+                Element.show(b)
+            },
+            hide:function(c){
+                a='QC-AG-Bk'+c;
+                b='QC-AG-CO'+c;
+                new Effect.Opacity(a,{
+                    duration:0.9,
+                    from:0.8,to:0,
+                    afterFinish:function(){
+                        $(a).setStyle({
+                            opacity:0,visibility:"hidden"
+                        })
+                    }
+                });
+                Element.hide(b)
+            }
+        };
+</script>
+<?php 
+      $styles = ''; $getConfigVar =  $this->allConfigVars();
+	  
+	  if($getConfigVar['inline_content_width'] != '') {
+	  	
+		$widthInteg = str_replace('px', '', $getConfigVar['inline_content_width']);
+		  
+		$contentWidth = $widthInteg - 225;
+		$asideWidth = $widthInteg - 669;
+
+		
+		$contentWidth = 'width: '.$contentWidth.'px; '; 
+		$asideWidth = 'width: '.$asideWidth.'px; ';
+		
+	
+		 //$getConfigVar['inline_content_width'] = 'width: '.$getConfigVar['inline_content_width'].'; '; 
+	  
+	  }
+      
+      if($getConfigVar['buttons_bg_color'] != '' || $getConfigVar['buttons_border_color'] != '') {
+	if($getConfigVar['buttons_bg_color'] != '') { $getConfigVar['buttons_bg_color'] = 'background: '.$getConfigVar['buttons_bg_color'].'; '; }
+	if($getConfigVar['buttons_border_color'] != '') { $getConfigVar['buttons_border_color'] = 'border: 1px solid '.$getConfigVar['buttons_border_color'].'; '; }
+	$styles .= ".ixcbadv-inline  { ".$getConfigVar['inline_content_width'].$getConfigVar['inline_content_width']."  } ";
+
+	//$styles .= ".ixcbadv-inline aside { ".$contentWidth.$contentWidth."  } ";
+	//$styles .= ".ixcbadv-inline aside { ".$asideWidth.$asideWidth."  } ";
+	
+	
+	
+	$styles .= ".ixcbadv-inline .btn2, .ixcbadv-inline .btn { ".$getConfigVar['buttons_bg_color'].$getConfigVar['buttons_border_color']."  } "; 
+      }
+
+      if($getConfigVar['buttons_font_style'] != '' || $getConfigVar['buttons_font_color'] != '') {
+	if($getConfigVar['buttons_font_style'] != '') { $getConfigVar['buttons_font_style'] = 'font-family: '.$getConfigVar['buttons_font_style'].'; '; }
+	if($getConfigVar['buttons_font_color'] != '') { $getConfigVar['buttons_font_color'] = 'color: '.$getConfigVar['buttons_font_color'].'; '; }
+	$styles .= ".ixcbadv-inline .btn2, .ixcbadv-inline .btn { ".$getConfigVar['buttons_font_style'].$getConfigVar['buttons_font_color']."  } "; 
+      }
+
+    if($getConfigVar['inline_bg_color'] != '' || $getConfigVar['inline_font_style'] != '' || $getConfigVar['inline_font_color'] != '') {
+	if($getConfigVar['inline_bg_color'] != '') { $getConfigVar['inline_bg_color'] = 'background-color: '.$getConfigVar['inline_bg_color'].'; '; }
+	
+	
+	 //* font size heading shipping information */	
+	 
+	 if($getConfigVar['heading_font_size'] != '') { $getConfigVar['heading_font_size'] = 'font-size: '.$getConfigVar['heading_font_size'].'; '; }
+	 if($getConfigVar['subheading_font_size'] != '') { $getConfigVar['subheading_font_size'] = 'font-size: '.$getConfigVar['subheading_font_size'].'; '; }
+     if($getConfigVar['text_font_size'] != '') { $getConfigVar['text_font_size'] = 'font-size: '.$getConfigVar['text_font_size'].'; '; }
+	 if($getConfigVar['smethods_font_size'] != '') { $getConfigVar['smethods_font_size'] = 'font-size: '.$getConfigVar['smethods_font_size'].'; '; }
+	 if($getConfigVar['buttons_font_size'] != '') { $getConfigVar['buttons_font_size'] = 'font-size: '.$getConfigVar['buttons_font_size'].'; '; }
+	 if($getConfigVar['inline_message_font_size'] != '') { $getConfigVar['inline_message_font_size'] = 'font-size: '.$getConfigVar['inline_message_font_size'].'; '; }
+	 if($getConfigVar['ajaxheader_font_size'] != '') { $getConfigVar['ajaxheader_font_size'] = 'font-size: '.$getConfigVar['ajaxheader_font_size'].'; '; }
+	//* font size heading shipping information ends here */
+	if($getConfigVar['inline_font_style'] != '') { $getConfigVar['inline_font_style'] = 'font-family: '.$getConfigVar['inline_font_style'].'; '; }
+	if($getConfigVar['inline_font_color'] != '') { $getConfigVar['inline_font_color'] = 'color: '.$getConfigVar['inline_font_color'].'; '; }
+	$styles .= " .ixcbadv-inline .sh1,.ixcbadv-inline .sh2,  .ixcbadv-inline .title, .ixcbadv-inline .see-all, .ixcbadv-inline .total { ".$getConfigVar['inline_bg_color']."  } "; 	$styles .= ".ixcbadv-inline .sh2{ ".$getConfigVar['inline_bg_color']."  } ";
+	$styles .= " .ixcbadv-inline .title { ".$getConfigVar['inline_font_style'].$getConfigVar['inline_font_color']."  } "; 
+	$styles .= " .ixcbadv-inline .context { ".$getConfigVar['inline_font_style'].$getConfigVar['inline_font_color']."  } ";
+	$styles .= " .ixcbadv-inline .create-ac { ".$getConfigVar['inline_font_style'].$getConfigVar['inline_font_color']."  } ";
+	$styles .= " .ixcbadv-inline .create-ac span.or { ".$getConfigVar['inline_font_style'].$getConfigVar['inline_font_color']."  } ";
+	$styles .= " .ixcbadv-inline .create-ac span.or_name { ".$getConfigVar['inline_font_style'].$getConfigVar['inline_font_color']."  } ";
+    $styles .= " .ixcbadv-inline .promo span { ".$getConfigVar['inline_font_style'].$getConfigVar['inline_font_color']."  } ";
+    $styles .= " .ixcbadv-inline .gift span { ".$getConfigVar['inline_font_style'].$getConfigVar['inline_font_color']."  } "; 
+    $styles .= " .ixcbadv-inline .g-total td { ".$getConfigVar['inline_font_style'].$getConfigVar['inline_font_color']."  } "; 
+    $styles .= " .ixcbadv-inline .totals-table { ".$getConfigVar['inline_font_style'].$getConfigVar['inline_font_color']."  } ";
+    $styles .= " .ixcbadv-inline .united { ".$getConfigVar['inline_font_style'].$getConfigVar['inline_font_color']."  } ";
+    $styles .= " .ixcbadv-inline .pro { ".$getConfigVar['inline_font_style'].$getConfigVar['inline_font_color']."  } ";
+    $styles .= " .ixcbadv-inline .edit-cart { ".$getConfigVar['inline_font_style'].$getConfigVar['inline_font_color']."  } ";
+    $styles .= " .ixcbadv-inline .payment { ".$getConfigVar['inline_font_style'].$getConfigVar['inline_font_color']."  } ";
+	$styles .= " .ixcbadv-inline .name { ".$getConfigVar['inline_font_color'].$getConfigVar['inline_font_color']."  } ";
+	$styles .= " .ixcbadv-inline .qty-price { ".$getConfigVar['inline_font_color'].$getConfigVar['inline_font_color']."  } ";
+	$styles .= " .ixcbadv-inline .qty-price span { ".$getConfigVar['inline_font_color'].$getConfigVar['inline_font_color']."  } ";
+	
+	$styles .= " .ixcbadv-inline .sh1 { ".$getConfigVar['heading_font_size'].$getConfigVar['heading_font_size']."  } ";
+	$styles .= " .ixcbadv-inline .t4 { ".$getConfigVar['heading_font_size'].$getConfigVar['heading_font_size']."  } ";
+	$styles .= " .ixcbadv-inline .title { ".$getConfigVar['heading_font_size'].$getConfigVar['heading_font_size']."  } ";
+	
+	$styles .= " .ixcbadv-inline .sh2 { ".$getConfigVar['subheading_font_size'].$getConfigVar['subheading_font_size']."  } ";
+	$styles .= " .ixcbadv-inline .t2 { ".$getConfigVar['subheading_font_size'].$getConfigVar['subheading_font_size']."  } ";
+	$styles .= " .ixcbadv-inline .t3 { ".$getConfigVar['subheading_font_size'].$getConfigVar['subheading_font_size']."  } ";
+	
+	$styles .= " .ixcbadv-inline .create-ac { ".$getConfigVar['text_font_size'].$getConfigVar['text_font_size']."  } ";
+	$styles .= " .ixcbadv-inline .create-ac span.or_name { ".$getConfigVar['text_font_size'].$getConfigVar['text_font_size']."  } ";
+	$styles .= " .ixcbadv-inline .create-ac span.or { ".$getConfigVar['text_font_size'].$getConfigVar['text_font_size']."  } ";
+	$styles .= " .ixcbadv-inline .promo span { ".$getConfigVar['text_font_size'].$getConfigVar['text_font_size']."  } ";
+	$styles .= " .ixcbadv-inline .gift span { ".$getConfigVar['text_font_size'].$getConfigVar['text_font_size']."  } ";
+	$styles .= " .ixcbadv-inline .g-total td { ".$getConfigVar['text_font_size'].$getConfigVar['text_font_size']."  } "; 
+    $styles .= " .ixcbadv-inline .totals-table { ".$getConfigVar['text_font_size'].$getConfigVar['text_font_size']."  } ";
+	$styles .= " .ixcbadv-inline .totals-table td { ".$getConfigVar['text_font_size'].$getConfigVar['text_font_size']."  } ";
+	$styles .= " .ixcbadv-inline .edit-cart { ".$getConfigVar['text_font_size'].$getConfigVar['text_font_size']."  } ";
+	$styles .= " .ixcbadv-inline .agreements_border p { ".$getConfigVar['text_font_size'].$getConfigVar['text_font_size']."  } ";
+	$styles .= " .ixcbadv-inline .name { ".$getConfigVar['text_font_size'].$getConfigVar['text_font_size']."  } ";
+	
+	
+	$styles .= " .ixcbadv-inline .united { ".$getConfigVar['smethods_font_size'].$getConfigVar['smethods_font_size']."  } ";
+	$styles .= " .ixcbadv-inline .shipping-add { ".$getConfigVar['smethods_font_size'].$getConfigVar['smethods_font_size']."  } ";
+	$styles .= " .ixcbadv-inline .pro { ".$getConfigVar['smethods_font_size'].$getConfigVar['smethods_font_size']."  } ";
+	$styles .= " .ixcbadv-inline .context { ".$getConfigVar['smethods_font_size'].$getConfigVar['smethods_font_size']."  } ";
+	
+	$styles .= ".ixcbadv-inline .btn2, .ixcbadv-inline .btn { ".$getConfigVar['buttons_font_size'].$getConfigVar['buttons_font_size']."  } ";
+	
+	$styles .= ".ixcbadv-inline .before_selection_message { ".$getConfigVar['inline_message_font_size'].$getConfigVar['inline_message_font_size']."  } ";
+	
+	
+	
+ 
+	  }
+
+      if($getConfigVar['inline_message_bg_color'] != '' || $getConfigVar['inline_message_font_color'] != '' || $getConfigVar['inline_message_font_style'] != '' || $getConfigVar['inline_message_border_color'] != '') {
+        if($getConfigVar['inline_message_bg_color'] != '') { $getConfigVar['inline_message_bg_color'] = 'background-color: '.$getConfigVar['inline_message_bg_color'].'; '; }
+	if($getConfigVar['inline_message_font_color'] != '') { $getConfigVar['inline_message_font_color'] = 'color: '.$getConfigVar['inline_message_font_color'].'; '; }
+	if($getConfigVar['inline_message_font_style'] != '') { $getConfigVar['inline_message_font_style'] = 'font-family: '.$getConfigVar['inline_message_font_style'].'; '; }
+	if($getConfigVar['inline_message_border_color'] != '') { $getConfigVar['inline_message_border_color'] = 'border-color: '.$getConfigVar['inline_message_border_color'].'; '; }
+
+	$styles .= " .ixcbadv-inline .before_selection_message { ".$getConfigVar['inline_message_bg_color'].$getConfigVar['inline_message_font_color'].$getConfigVar['inline_message_font_style'].$getConfigVar['inline_message_border_color']."  } .ixcbadv-inline .before_selection_message h1 { ".$getConfigVar['inline_message_font_color']." } ";
+      }
+	 
+?>
+<?php if($styles != '') { ?> <style> <?php echo $styles; ?> </style> <?php } ?>
+<?php
+	if (Mage::app()->getStore()->isCurrentlySecure()) {
+		$formaction = $this->getUrl('ixcbadv/inline/placeorder/', array('_secure'=>true));
+		$hidden_url = $this->getUrl('ixcbadv/success/', array('_secure'=>true));
+		$getShippingMethodsUrl = $this->getUrl('ixcbadv/inline/availableshippingmethods/', array('_secure'=>true));
+	}else{
+		$formaction = $this->getUrl('ixcbadv/inline/placeorder/', array('_secure'=>false));
+		$hidden_url = $this->getUrl('ixcbadv/success/', array('_secure'=>true));
+		$getShippingMethodsUrl = $this->getUrl('ixcbadv/inline/availableshippingmethods/', array('_secure'=>false));
+	}
+	
+	 $getConfigVar =  $this->allConfigVars();
+ 
+         $merchantId = Mage::helper('core')->decrypt(Mage::helper("ixcbadv")->getMerchantId());
+         //$widthval = Mage::helper('core')->decrypt(Mage::helper("ixcbadv")->getWidthValue());
+         //$heightval = Mage::helper('core')->decrypt(Mage::helper("ixcbadv")->getHeightValue());
+         $widthval = Mage::getStoreConfig('ixcbadv/mageix_button/widgets_width_ixcbadv');
+         $heightval = Mage::getStoreConfig('ixcbadv/mageix_button/widgets_height_ixcbadv');
+         $displayMode = "Edit";
+         
+         $layout = $getConfigVar['inline_checkout_layout'];
+
+         
+         if($layout == 1){
+         
+         $total_cart_items = 7;
+         }else {
+         $total_cart_items = 4;
+         }
+         
+         $orderReferenceId = $_GET["session"];
+         
+         Mage::getSingleton('core/session')->setOrderReferenceId($orderReferenceId);
+         
+         
+
+?>
+	
+	<div class="ixcbadv-inline">
+		<div class="content">
+			<!--[if lte IE 7]>
+				<style>
+					.ixcbadv-inline .ixcbadv-agreement-content { z-index:9999; }
+					.ixcbadv-inline .btn { padding:0px; font-size:13px; }
+				</style>
+			<![endif]-->
+			<div class="topbar" id="topbar_ixcbadv">
+				<?php if (!$this->isCustomerLoggedIn()) { ?>	
+
+					<!--[if IE 9]>
+						<style>
+							.ixcbadv-inline .create-ac span.or { padding:27px; }
+						</style>
+					<![endif]-->
+					
+					
+					
+					<div class="create-ac">
+
+					
+					<input type="radio" name="checkout_method" id="ixcbadvlogin:register" value="register"<?php if($this->getQuote()->getCheckoutMethod()=='register' || $this->getQuote()->getCheckoutMethod()!='guest'): ?> checked="checked"<?php endif ?> class="radio" /><label for="ixcbadvlogin:register"><?php echo $this->__('Create an account') ?></label>	
+							
+							
+						
+						<?php if($isAllowedGuestCheckout) { ?>
+							<!--[if lte IE 7]>
+								<style>
+									.ixcbadv-inline .btn2 { margin-top:-21px; }
+								</style>
+							<![endif]-->
+							<span class="or">
+								<?php echo $this->__('- OR -') ?>
+							</span>
+							<input type="radio" name="checkout_method" id="ixcbadvlogin:guest" value="guest"<?php if($this->getQuote()->getCheckoutMethod()=='guest'): ?> checked="checked"<?php endif; ?> class="radio" /><label for="ixcbadvlogin:guest"><?php echo $this->__('Checkout as Guest') ?></label>
+									
+							
+							
+							<span class="or">
+								<?php echo $this->__('Already have an account in this store ?') ?>
+							</span>
+						<?php }else{ ?>
+							<!--[if lte IE 7]>
+								<style>
+									.ixcbadv-inline .btn2 { margin-top:-17px; }
+								</style>
+							<![endif]-->
+
+						<?php } ?>
+						
+						<div class="btn2" title="<?php echo $this->__('LOGIN') ?>" onclick="ixcbadv_login.show('login_1_div');" style="float:right !important;">
+							<?php echo $this->__('LOGIN') ?>
+						</div>
+					</div>
+					
+					<?php if(!$isAllowedGuestCheckout) { ?>
+						<span class="or" style="float:right; margin: 6px 126px 0 0; font: bold 11px Georgia,'Times New Roman',Times,serif;">
+							<?php echo $this->__('Already have an account in this store?') ?>
+						</span>
+					<?php } ?>
+
+					<?php echo $this->getChildHtml('login'); ?>
+				<?php } else { ?>	
+					<div class="create-ac">
+						<span class="or_name">
+							Welcome <?php echo ucfirst(Mage::getSingleton('customer/session')->getCustomer()->getName()); ?>,
+						</span>
+					</div>
+				<?php } ?>
+			</div>
+			
+			<div class="title" style="padding:0;">
+				<div class="sh1">
+					<?php echo $this->__('Shipping Information') ?>
+				</div>
+				<div class="sh2">
+					<?php echo $this->__('Shipping Methods') ?>
+				</div>
+			</div>
+
+			<div class="shipping-add">
+				 
+				 
+				<div id='addressBookWidget'></div>
+				
+								
+			</div>
+	
+
+			<div class="united">
+				 <div id="shipping_methods">
+					<div class="before_selection_message">
+					<h1>Step 2</h1>
+					Please select Shipping Address first to see the available Shipping Methods.
+					</div>
+					
+				</div>
+			</div>
+
+			<div class="cl"></div>
+			
+			<?php
+				if($this->getPromotionalCode() && $layout == 1) {
+					$total_cart_items += 2;
+			?>
+
+				<div class="title">
+					<div class="t2">
+					<?php echo $this->__('Promotion Code') ?>
+					</div>
+					
+					</div>
+				
+				
+				
+				<div class="promo">
+				  <form style="text-align:left!important;" action="" id="cart-mini-form">
+					  <div id="items_div"></div>
+					  
+					  
+					  
+					  <span><?php echo $this->__('Coupon Code :') ?></span> <input type="text" class="txt required-entry" name="coupon_code" id="coupon_code">
+					  
+					  <a href="javascript:void(0);" id="buttons-container" class="btn" onclick="return couponFunction();"><?php echo $this->__('Apply Now') ?></a>
+					  
+					  <img src="<?php echo $this->getSkinUrl('ixcbadv/images/loading.gif') ?>" alt="<?php echo $this->__('Updating Cart...') ?>" title="<?php echo $this->__('Updating Cart...') ?>" class="v-middle" id="please-wait-orderitems" style="display:none;"/>
+				  </form>
+				</div>
+			<?php } ?>
+
+			<?php
+				if($this->getGiftInformation() && $layout == 1) {
+					$total_cart_items += 2;
+			?>
+				<div class="title">
+					<div class="t2"><?php echo $this->__('Gift Information') ?></div>
+						
+					</div>
+				
+				<div class="gift">
+					 <span>
+						<input name="gift_information" id="gift_information" type="radio" value="Gift Information">
+						
+					<?php echo $this->__('Gift Wrap My Order') ?>
+						
+						<br>
+						<div class="context"><?php echo $this->__('Gift Message') ?></div>
+					 </span>
+					 <textarea class="area" name="gift_information_message" id="gift_information_message"></textarea>
+					 <div class="cl"></div>
+				</div>
+			<?php } ?>
+            
+            
+            <?php if($layout == 1){ ?>
+			<div class="payment_cart_totals">
+			<?php }else { ?>
+				
+				<div class="payment_cart_totals_v2">
+					
+			<?php } ?>
+				
+				<?php if($layout == 1){ ?>
+					
+					
+				<div class="title t4" style="width:425px; float:left;"><?php echo $this->__('Payment Information') ?></div>
+				<div class="title t3" style="width:211px; float:right;"><?php echo $this->__('Cart Totals') ?></div>
+				<?php }else { ?>
+				
+				<div class="title t4" style="width:418px; float:left; border-right:2px solid #e6e0c5; vertical-align:bottom;"><?php echo $this->__('Payment Information') ?></div>
+				
+				<?php } ?>
+				<table width="100%" height="100%" >
+					<tr>
+						<td>
+							<?php if($layout == 1){ ?>
+							
+							<div class="payment">
+							
+							<?php }else { ?>
+							
+							<div class="payment"  style ="border-right:2px solid #e6e0c5; vertical-align:bottom;">
+							
+							<?php } ?>
+							
+							  <div id='AmazonWalletWidget'>
+							  
+
+								<div class="before_selection_message big_center">
+								<h1>Step 3</h1>
+								Please select Shipping Method first to see your available Payment Methods
+								</div>
+							  </div>
+							  <?php echo $this->getChildHtml('agreements'); ?>
+							</div>
+						</td>
+						
+						
+						
+						
+						<?php if($layout == 1){ ?>
+						
+						<td style=" border-left:2px solid #e6e0c5; vertical-align:bottom; ">
+							<div class="height_100">
+								<div class="cart-totals">
+								  <div class="total">
+									<div class="totals-board">
+										<div class="ixcbadv_total_minheight">
+											<table class="totals-table">
+												<col />
+												<col width="1" />
+													<?php echo $this->renderTotals(); ?>
+												<tfoot class="g-total">
+													<?php echo $this->renderTotals('footer'); ?>
+												</tfoot>
+											</table>
+										</div>					
+									</div>
+									<form style="text-align:left!important;" action="<?php echo $formaction; ?>">
+				<input name="hidden_success_url" id="hidden_success_url" type="hidden" value="<?php echo $hidden_url; ?>" />
+				
+				
+										<input name="shipping_method_amazon" id="shipping_method_amazon" type="hidden" value="" />
+										<input name="gift_message_amazon" id="gift_message_amazon" type="hidden" value="" />
+										<div>
+											<div class="cl"></div>
+											<div class="g-total-place-order">
+												<div class="before_selection_message small_center" id="confirmMessagePayment">
+													<input type="button" class="btn"  value="Place Your Order" onclick="return checkoutStart(this);"	/>
+												</div>
+												
+												<div class="success_selection_message small_center" id="successMessagePayment">
+													Your Order Is Being Processed. Please Wait
+												</div>
+												<input type="button" class="btn" id="confirmAction" value="Place Your Order" onclick="return checkoutStart(this);"	/>
+											</div>
+										</div>
+									</form>
+								  </div>
+								</div>
+							</div>
+						</td>
+						
+						<?php } ?>
+					</tr>
+				</table>
+			</div>
+		</div>
+		
+	
+		<div class="aside">
+		
+		
+		
+			<div class="edit-cart"><?php echo $this->__('Forgot an item?') ?> <a href="<?php echo $this->getUrl('checkout/cart/', array('_secure'=>true)); ?>"><?php echo $this->__('Edit Your Cart') ?></a></div>
+			<div class="title"><?php echo $this->__('Cart') ?></div>
+			<div class="pro">
+				<div class="hdn">
+					<div class="item"><?php echo $this->__('Item') ?></div>
+					<div class="qty"><?php echo $this->__('Qty') ?></div>
+					<div class="price"><?php echo $this->__('Price') ?></div>
+				</div>
+				<div class="cl"></div>
+				<?php $cur_items = 1; foreach($this->getItems() as $item): ?>
+					<?php if ($cur_items>$total_cart_items) continue; $cur_items++; ?>
+					<?php $cProduct = $this->getImgProduct($item->getProductId()); ?>
+					<div class="product">
+						<img src="<?php echo $cProduct->getImageUrl(); ?>" class="fl" alt="" style="max-width:46px; max-height:57px;">
+						<div class="name"><?php echo $item->getName(); ?></div>
+						<div class="qty-price">
+							<input name="input" type="text" class="txt" value="<?php echo $item->getQty(); ?>" disabled="true">
+							<!--<div style="float:left;"><?php echo $item->getSku(); ?></div>-->
+							<?php echo $this->getFormatPrice($item->getBaseCalculationPrice()); ?>
+						</div>
+					</div>
+				<?php endforeach; ?>
+			</div>
+			<div class="see-all">
+				<?php if ($cur_items>$total_cart_items) { ?>
+					<a href="<?php echo $this->getUrl('checkout/cart/', array('_secure'=>true)); ?>"><?php echo $this->__('See All') ?></a>
+				<?php }else{ ?>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<?php } ?>
+				&nbsp;&nbsp;
+				<input type="button" class="btn" onclick="window.location='<?php echo $this->getUrl('checkout/cart/', array('_secure'=>true)); ?>'; " value="<?php echo $this->__('Edit Cart') ?>">
+			</div>
+			
+			
+		
+		<?php if($layout != 1){ ?>
+                
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+				
+				<div id="totals">
+				
+				<div class ="title" style = "margin-right:5px; text-align:center; "><?php echo $this->__('Cart Totals') ?></div>
+				
+				 
+				 <div><br></div>
+			
+				<table height="100%" style="float:right;  ">
+					<tr>
+					
+
+						<td style=" border-left:0px solid #e6e0c5; vertical-align:bottom;">
+							<div class="height_100">
+								<div class="cart-totals"  style="width:221px;">
+								  <div class="total">
+									<div class="totals-board">
+										<div class="ixcbadv_total_minheight">
+											<table class="totals-table">
+												<col />
+												<col width="1" />
+													<?php echo $this->renderTotals(); ?>
+												<tfoot class="g-total">
+													<?php echo $this->renderTotals('footer'); ?>
+												</tfoot>
+											</table>
+										</div>					
+									</div>
+									<form style="text-align:left!important;" action="<?php echo $formaction; ?>">
+				<input name="hidden_success_url" id="hidden_success_url" type="hidden" value="<?php echo $hidden_url; ?>" />
+				
+				
+										<input name="shipping_method_amazon" id="shipping_method_amazon" type="hidden" value="" />
+										<input name="gift_message_amazon" id="gift_message_amazon" type="hidden" value="" />
+										<div>
+											<div class="cl"></div>
+											<div class="g-total-place-order">
+												<div class="before_selection_message small_center" id="confirmMessagePayment">
+													<input type="button" class="btn"  value="Place Your Order" onclick="return checkoutStart(this);"	/>
+												</div>
+												
+												<div class="success_selection_message small_center" id="successMessagePayment">
+													Your Order Is Being Processed. Please Wait
+												</div>
+												<input type="button" class="btn" id="confirmAction" value="Place Your Order" onclick="return checkoutStart(this);"	/>
+											</div>
+										</div>
+									</form>
+								  </div>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</table>
+				
+				
+				</div>
+				
+			</div>
+				
+		   
+		<?php } ?>
+				
+	            <?php if($layout == 1){ ?>
+			</div>
+				
+		    <?php } ?>
+			
+		<div class="cl"></div>
+		
+	  </div>
+	
+    
+	
+	<input type="hidden" name="hidden_login" id="hidden_login" value="<?php if ($this->isCustomerLoggedIn()) { ?>1<?php }else{ ?>0<?php } ?>" />
+	<script type="text/javascript">
+		//<![CDATA[
+			function checkoutStart(obj) {
+				if(document.getElementById("hidden_login") && document.getElementById("hidden_login").value == 0) {
+					var off_checkout_method = document.getElementsByName('checkout_method');
+					var ischecked_method = false;
+					var chk_method = '';
+					for ( var i = 0; i < off_checkout_method.length; i++) {
+					    if(off_checkout_method[i].checked) {
+						ischecked_method = true;
+						chk_method = off_checkout_method[i].value;
+					    }
+					}
+					if(!ischecked_method) {
+						if ($jQueryconflict('ixcbadvlogin:guest')) {
+							alert(Translator.translate('Please choose to register or to checkout as a guest'));
+							return false;
+						}
+						else {
+							alert(Translator.translate('Please choose to register.'));
+							return false;
+						}
+					}
+					
+					chk_method = document.querySelector('input[name="checkout_method"]:checked').value;
+					
+					var request = new Ajax.Request(
+					    '<?php echo $this->getUrl("ixcbadv/inline/saveMethod") ?>',
+					    {
+						method: 'post',
+						onComplete: function(transport){},
+						parameters: {method:chk_method}
+					    }
+					);
+				}
+				
+				var ischecked = '';
+				var shippingValue = '';
+				var methods = document.getElementsByName('shipping_method');
+				if (methods.length==0) {
+				    alert(Translator.translate('Your order cannot be completed at this time as there is no shipping methods available for it. Please make necessary changes in your shipping address.'));
+				    return false;
+				}
+
+				for (var i=0; i<methods.length; i++) {
+				    if (methods[i].checked) {
+					shippingValue = methods[i].value;
+					ischecked = 'checked';
+				    }
+				}
+
+				if(ischecked != 'checked') {
+					alert(Translator.translate('Please specify shipping method.'));
+					return false;
+				}
+				if(shippingValue) {
+					if(document.getElementById("shipping_method_amazon")) {
+						document.getElementById("shipping_method_amazon").value = shippingValue;
+						document.getElementById("confirmAction").style.display = "inline-block";
+			            document.getElementById("confirmMessagePayment").style.display = "none";
+					}
+				}
+				
+				if(document.getElementById('gift_information')) {
+					var giftinfo = document.getElementById('gift_information');
+					if(giftinfo.checked) {
+						if(document.getElementById('gift_information_message') && document.getElementById('gift_information_message').value != '') {
+							if(document.getElementById('gift_message_amazon')) {
+								document.getElementById('gift_message_amazon').value = document.getElementById('gift_information_message').value;
+							}
+						}
+					}
+				}
+				
+				if(document.getElementsByName('agreement[]')) {
+					var chks = document.getElementsByName('agreement[]');
+					for (var i = 0; i < chks.length; i++)
+					{
+						if (chks[i].checked)
+						{	
+						} else {
+							alert("Please select all terms and conditions.");
+							return false;
+						}
+					}
+				}
+
+
+				inlineCheckout(obj);
+				
+			}
+			
+			
+			/* *****************checkout method as guest or register *************************************************** */
+			function checkout_method_call(chk_method){
+			if(chk_method){	
+					<?php
+						if (Mage::app()->getStore()->isCurrentlySecure()) {
+							$checkoutMethod = $this->getUrl('ixcbadv/inline/saveMethod', array('_secure'=>true));
+						}else{
+							$checkoutMethod = $this->getUrl('ixcbadv/inline/saveMethod', array('_secure'=>false));
+						}
+					?>
+					<?php if($customer = Mage::getSingleton('customer/session')->isLoggedIn()) { ?>
+					
+						<?php   
+							$customer = Mage::getSingleton('customer/session')->getCustomer();
+							$custId = $customer->getEntity_id(); 
+						?>
+							$jQueryconflict.post('<?php echo $checkoutMethod; ?>',{'method':'<?php echo $custId ?>'}, function(data){});
+					<?php  }else{ ?>
+						$jQueryconflict.post('<?php echo $checkoutMethod; ?>',{'method':chk_method}, function(data){});
+					<?php } ?>
+				}
+			}
+			
+			window.onload = function(){
+			var loggedinCustomerId='<?php echo $custId; ?>';
+				var chk_method = $jQueryconflict('input[name="checkout_method"]:checked').val();
+				if(loggedinCustomerId){ chk_method=loggedinCustomerId; }
+				if(chk_method){checkout_method_call(chk_method);}
+			}
+			$jQueryconflict('input[name="checkout_method"]').change(function(){
+				checkout_method_call($jQueryconflict('input[name="checkout_method"]:checked').val());
+			});
+			/* ****************************************************************** */
+			function render_address(){
+				amazon_widgets.renderWidget(amazon_widgets.addressWidget,'AmazonAddressWidget');
+			}
+			
+			
+			function addressSelected (path, target){
+				data = {
+					method:'register'
+				}
+				if(document.getElementById("confirmMessagePayment")) {
+				document.getElementById("confirmMessagePayment").style.display = 'block';
+				}
+				if(document.getElementById("confirmAction")) {
+				document.getElementById("confirmAction").style.display = 'none';
+				}
+				$jQueryconflict("#"+target).html('<div class="before_selection_message_loading"><div class="loading_next_step" />Available Shipping Methods Loading. Please Wait</div>');
+				$jQueryconflict.post(path, data, function (data){
+					$jQueryconflict("#"+target).html(data);
+					/* Code For Cheapest shipping method select by default */ 
+					var inputobj=$jQueryconflict("#shipping_methods input.radio");
+					/* inputobj is object array of all input in shipping method */
+					if(inputobj!==null && typeof inputobj==='object'){
+					/* Above if is check for object and is shipping method is loaded or not. */
+						var cheapest_input,temproroy_check,final_variable=0,cheapest_input_value;
+						/* 
+						"cheapest_input" is id of cheapest input
+						"temproroy_check" is for checking lowest price
+						"final_variable" is for final price we will not use it just for check 
+						"cheapest_input_value" is for getting value of cheapest input we will use it in shipping method update
+						Below is logic for getting cheapest method
+						*/
+						var current_currency = '<?php echo Mage::app()->getLocale()->Currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol() ?>';
+						for(var i=0;i<inputobj.length;i++)
+						{
+							if(i==0){
+								final_variable=parseFloat($jQueryconflict('label[for='+inputobj[i].id+']').find('.price').html().replace(current_currency,''));
+								temproroy_check=parseFloat($jQueryconflict('label[for='+inputobj[i].id+']').find('.price').html().replace(current_currency,''));
+								cheapest_input=inputobj[i].id;
+								cheapest_input_value=inputobj[i].value;
+							}else{
+								temproroy_check=parseFloat($jQueryconflict('label[for='+inputobj[i].id+']').find('.price').html().replace(current_currency,''));
+								if(temproroy_check<final_variable){
+								final_variabe=temproroy_check;
+								cheapest_input=inputobj[i].id;
+								cheapest_input_value=inputobj[i].value;
+								if(final_variabe==0){ break;}
+								}
+							}
+							
+						}
+						/* Here we have cheapest method  */
+						document.getElementById(cheapest_input).checked="true";
+						$jQueryconflict(cheapest_input).click();
+						/* After check we have to update Total and Wallet widget below code is for this. */
+						$jQueryconflict(".totals-board").html('<div class="before_selection_message_loading height_big"><div class="loading_next_step small_center" />Cart Total Loading. Please Wait</div>');
+						<?php
+						if (Mage::app()->getStore()->isCurrentlySecure()) {
+							$saveShippingMethod = $this->getUrl('ixcbadv/inline/saveShippingMethod/', array('_secure'=>true));
+						}else{
+							$saveShippingMethod = $this->getUrl('ixcbadv/inline/saveShippingMethod/', array('_secure'=>false));
+						}
+						?>
+						$jQueryconflict.post("<?php echo $saveShippingMethod; ?>",{'shipping_method':cheapest_input_value}, function(data){
+							data = $jQueryconflict.parseJSON(data);
+							$jQueryconflict(".totals-board").html(data.update_section.html);
+						});
+						render_wallet();
+					}
+					
+				});
+			}
+			
+			
+			function removeAlertMsg() {
+				if(document.getElementById('msg_ixcbadv')) { document.getElementById('msg_ixcbadv').style.display = 'none'; }
+			}
+			function showWaitingIxcbadv() {
+				if(document.getElementById('buttons-container')) { document.getElementById('buttons-container').style.display = 'none'; }
+				if(document.getElementById('please-wait-orderitems')) { document.getElementById('please-wait-orderitems').style.display = 'inline-block'; }
+			}
+			function hideWaitingIxcbadv() {
+				if(document.getElementById('buttons-container')) { document.getElementById('buttons-container').style.display = 'inline-block'; }
+				if(document.getElementById('please-wait-orderitems')) { document.getElementById('please-wait-orderitems').style.display = 'none'; }
+			}
+			function couponFunction() {
+				var couponForm = new VarienForm('cart-mini-form', true);
+				if(couponForm.validator && couponForm.validator.validate()){
+					showWaitingIxcbadv();
+					<?php
+						if (Mage::app()->getStore()->isCurrentlySecure()) {
+							$updateurl = $this->getUrl('ixcbadv/inline/couponPost/', array('_secure'=>true));
+						}else{
+							$updateurl = $this->getUrl('ixcbadv/inline/couponPost/', array('_secure'=>false));
+						}
+					?>
+					var request = new Ajax.Request(
+					    '<?php echo $updateurl; ?>',
+					    {
+						method: 'post',
+						onComplete: function(transport){ // Defining Complete Callback Function
+						    var jsonResponse=transport.responseText;
+						    if(document.getElementById('items_div')) { document.getElementById('items_div').innerHTML = jsonResponse; }
+						    hideWaitingIxcbadv();
+						    $jQueryconflict(".totals-board").html('<div class="before_selection_message_loading height_big"><div class="loading_next_step small_center" />Cart Total Loading. Please Wait</div>');
+						    <?php
+							if (Mage::app()->getStore()->isCurrentlySecure()) {
+								$saveShippingMethod = $this->getUrl('ixcbadv/inline/reloadTotal/', array('_secure'=>true));
+							}else{
+								$saveShippingMethod = $this->getUrl('ixcbadv/inline/reloadTotal/', array('_secure'=>false));
+							}
+						    ?>
+						    $jQueryconflict.post("<?php echo $saveShippingMethod; ?>",{}, function(data){
+							data = $jQueryconflict.parseJSON(data);
+							$jQueryconflict(".totals-board").html(data.update_section.html);
+						    });
+						    setTimeout("removeAlertMsg()",3000);
+						    return false;
+						},
+						parameters: Form.serialize($("cart-mini-form"))
+					    }
+					);
+				}
+			}
+		
+		
+
+<?php echo  $this->getAddressWidget ("addressbook",$getShippingMethodsUrl, 'shipping_methods' , $widthval, $heightval,'Edit', $orderReferenceId, 'addressBookWidget', $merchantId); ?>
+
+function render_wallet(){
+<?php echo  $this->getWalletWidget ("wallet",$widthval, $heightval,'Edit', $orderReferenceId, 'AmazonWalletWidget', $merchantId); ?>
+}
+
+
+		//]]>
+	</script>
+
+<?php
+//}
+?>

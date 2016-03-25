@@ -1,0 +1,1 @@
+ ALTER TABLE  `sales_flat_shipment` ADD  `benq_erp_do` VARCHAR( 120 ) NOT NULL;

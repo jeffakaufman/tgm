@@ -1,0 +1,21 @@
+<?php $_company = $this->getCompany(); ?>
+<?php if($_company):?>
+<div class="box-account box-info">
+    <div class="box-head">
+        <h2><?php echo $this->__('Company Information') ?></h2>
+    </div>
+    <div class="col2-set">
+    	<div class="col-1">
+    		<div class="box">
+    			<div class="box-title"><?php echo $_company->getName(); ?></div>
+    			<div class="box-content">
+                <?php echo $_company->getZip().' '.$_company->getAddress(); ?></br>
+                <?php echo $_company->getStreet().' '.$_company->getState(); ?></br>
+                <?php echo $_company->getCountry(); ?>
+                <p><?php echo $_company->getAbout(); ?></p>
+                </div>
+    		</div>
+    	</div>
+    </div> 
+</div>
+<?php endif;?>

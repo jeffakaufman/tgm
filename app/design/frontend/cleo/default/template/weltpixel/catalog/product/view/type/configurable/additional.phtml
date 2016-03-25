@@ -1,0 +1,9 @@
+<?php
+    $swatchInfo = $this->getAdditionalInfo();
+    $preselectOptions = Mage::getStoreConfig('weltpixel_selector/productpageoptions/preselect_configurable_options');
+?>
+<script>
+    jQuery(document).ready(function(){
+        Weltpixel_Productswatch.init(<?php echo $swatchInfo ?>, <?php echo $preselectOptions ?>);
+    });
+</script>

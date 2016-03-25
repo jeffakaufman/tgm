@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Silk_Webservices>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Silk_Webservices>
+    </modules>
+</config>
+

@@ -1,0 +1,283 @@
+<?php
+/**
+ * Mageix LLC
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to Mageix LLC's  End User License Agreement
+ * that is bundled with this package in the file LICENSE.pdf
+ * It is also available through the world-wide-web at this URL:
+ * http://ixcba.com/index.php/license-guide/
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to webmaster@mageix.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ * 
+ * Magento Mageix IXCBADV Module
+ *
+ * @category	Checkout & Payments, Customer Registration & Login
+ * @package 	Mageix_Ixcbadv
+ * @copyright   Copyright (c) 2014 -  Mageix LLC 
+ * @author      Brian Graham
+ * @license	    http://ixcba.com/index.php/license-guide/   End User License Agreement
+ *
+ *
+ *
+ * Magento Mageix IXCBA Module
+ * 
+ * @category   Checkout & Payments
+ * @package	   Mageix_Ixcba
+ * @copyright  Copyright (c) 2011 Mageix LLC
+ * @author     Brian Graham
+ * @license   http://mageix.com/index.php/license-guide/   End User License Agreement
+ */
+
+
+$styles = ''; $getConfigVar =  $this->allConfigVars();
+      if($getConfigVar['header_bg_color'] != '' || $getConfigVar['header_font_style'] != '' || $getConfigVar['header_font_color'] != '' || $getConfigVar['header_border_color'] != '') {
+	if($getConfigVar['header_bg_color'] != '') { $getConfigVar['header_bg_color'] = 'background-color: '.$getConfigVar['header_bg_color'].'; '; }
+	if($getConfigVar['header_font_style'] != '') { $getConfigVar['header_font_style'] = 'font-family: '.$getConfigVar['header_font_style'].'; '; }
+	if($getConfigVar['header_font_color'] != '') { $getConfigVar['header_font_color'] = 'color: '.$getConfigVar['header_font_color'].'; '; }
+	if($getConfigVar['header_border_color'] != '') { $getConfigVar['header_border_color'] = 'border: 1px solid '.$getConfigVar['header_border_color'].'; '; }
+	$styles .= ".ixcbadv .lightface .lightfaceContent .lightfaceTitle, .ixcbadv .lightface .coupon { ".$getConfigVar['header_bg_color'].$getConfigVar['header_font_style'].$getConfigVar['header_font_color'].$getConfigVar['header_border_color']."  } "; 
+      }
+
+      if($getConfigVar['header_font_color'] != '') {
+        $styles .= ".ixcbadv .lightface .lightfaceFooter label.lightfaceblue input { ".$getConfigVar['header_font_color']." }";
+      }
+      
+      if($getConfigVar['buttons_bg_color'] != '' || $getConfigVar['buttons_border_color'] != '') {
+	if($getConfigVar['buttons_bg_color'] != '') { $getConfigVar['buttons_bg_color'] = 'background-color: '.$getConfigVar['buttons_bg_color'].'; '; }
+	if($getConfigVar['buttons_border_color'] != '') { $getConfigVar['buttons_border_color'] = 'border: 1px solid '.$getConfigVar['buttons_border_color'].'; '; }
+	$styles .= ".ixcbadv .lightface .lightfaceFooter label.lightfacegreen, .ixcbadv .lightface label.lightfacegreen_login { ".$getConfigVar['buttons_bg_color'].$getConfigVar['buttons_border_color']."  } "; 
+      }
+
+      if($getConfigVar['buttons_font_style'] != '' || $getConfigVar['buttons_font_color'] != '') {
+	if($getConfigVar['buttons_font_style'] != '') { $getConfigVar['buttons_font_style'] = 'font-family: '.$getConfigVar['buttons_font_style'].'; '; }
+	if($getConfigVar['buttons_font_color'] != '') { $getConfigVar['buttons_font_color'] = 'color: '.$getConfigVar['buttons_font_color'].'; '; }
+	$styles .= ".ixcbadv .lightface .lightfaceFooter label.lightfacegreen input, .ixcbadv .lightface label.lightfacegreen_login input { ".$getConfigVar['buttons_font_style'].$getConfigVar['buttons_font_color']."  } "; 
+      }
+
+      if($getConfigVar['inline_bg_color'] != '' || $getConfigVar['inline_font_style'] != '' || $getConfigVar['inline_font_color'] != '') {
+	if($getConfigVar['inline_bg_color'] != '') { $getConfigVar['inline_bg_color'] = 'background-color: '.$getConfigVar['inline_bg_color'].'; '; }
+	if($getConfigVar['inline_font_style'] != '') { $getConfigVar['inline_font_style'] = 'font-family: '.$getConfigVar['inline_font_style'].'; '; }
+	if($getConfigVar['inline_font_color'] != '') { $getConfigVar['inline_font_color'] = 'color: '.$getConfigVar['inline_font_color'].'; '; }
+	$styles .= " .ixcbadv .lightface .block-head, .ixcbadv .lightface .footer_grand_total { ".$getConfigVar['inline_bg_color']."  } "; 
+	$styles .= " .ixcbadv .lightface .block-head h2 { ".$getConfigVar['inline_font_style'].$getConfigVar['inline_font_color']."  } "; 
+      }
+
+      if($getConfigVar['inline_message_bg_color'] != '' || $getConfigVar['inline_message_font_color'] != '' || $getConfigVar['inline_message_font_style'] != '' || $getConfigVar['inline_message_border_color'] != '') {
+        if($getConfigVar['inline_message_bg_color'] != '') { $getConfigVar['inline_message_bg_color'] = 'background-color: '.$getConfigVar['inline_message_bg_color'].'; '; }
+	if($getConfigVar['inline_message_font_color'] != '') { $getConfigVar['inline_message_font_color'] = 'color: '.$getConfigVar['inline_message_font_color'].'; '; }
+	if($getConfigVar['inline_message_font_style'] != '') { $getConfigVar['inline_message_font_style'] = 'font-family: '.$getConfigVar['inline_message_font_style'].'; '; }
+	if($getConfigVar['inline_message_border_color'] != '') { $getConfigVar['inline_message_border_color'] = 'border-color: '.$getConfigVar['inline_message_border_color'].'; '; }
+
+	$styles .= " .ixcbadv .lightface .before_selection_message { ".$getConfigVar['inline_message_bg_color'].$getConfigVar['inline_message_font_color'].$getConfigVar['inline_message_font_style'].$getConfigVar['inline_message_border_color']."  } .ixcbadv .lightface .before_selection_message h1 { ".$getConfigVar['inline_message_font_color']." } ";
+      }
+?>
+<?php if($styles != '') { ?> <style> <?php echo $styles; ?> </style> <?php } ?>
+
+<div id="<?php echo 'QC-AG-Bklogin_1_div' ;?>" class="ixcbadv-agreement-back" style="visibility:hidden;" onclick="ixcbadv_login.hide('login_1_div');"></div>
+
+<div class="ixcbadv-agreement-content" id="QC-AG-COlogin_1_div" style="display:none;">
+	<div class="width" style="width:500px;">
+		<div class="ixcbadv">
+			<div class="lightface">  <!-- lightface start -->
+			  <div class="lightfaceContent fl"> <!-- lightfaceContent start -->
+				  <h2 class="lightfaceTitle"><?php echo $this->__('Store Login') ?></h2>
+				  <div class="lightfaceMessageBox"> <!-- lightfaceMessageBox start -->
+					<div class="cl"></div>
+					  <div id="login-div">
+						<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+						<form id="mini-login-form" action="" method="post" onsubmit="return false;">
+						<fieldset>
+						    <h4><?php echo $this->__('Already registered? Please log in below:') ?></h4>
+						    <small style="font-size: 10px; color:red;">Do not use your Amazon account login credentials here. This is only for store login.</small>
+						    <ul class="form-list">
+							<li>
+							    <label for="login-email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
+							    <div class="input-box">
+								<input type="text" class="input-text required-entry validate-email" id="login-email" name="login[username]" value="<?php echo $this->htmlEscape($this->getUsername()) ?>"/>
+							    </div>
+							</li>
+							<li>
+							    <label for="login-password" class="required"><em>*</em><?php echo $this->__('Password') ?></label>
+							    <div class="input-box">
+								<input type="password" class="input-text required-entry" id="login-password" name="login[password]"/>
+							    </div>
+							</li>
+						    </ul>
+						</fieldset>
+						<input type="submit" name="submit" class="hid_submit_ixcbadv" value="" onclick="return ixcbadvLogin(this);" />
+						</form>
+
+						<label class="lightfacegreen_login">
+							<span class="" id="logplease-wait" style="display:none; float:left;">
+								<img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Validating...') ?>" title="<?php echo $this->__('Validating...') ?>" class="v-middle" /> <?php echo $this->__('Validating...') ?>
+							</span>
+							<input type="button" id="login-buttons-container" onclick="ixcbadvLogin(this);" value="<?php echo $this->__('Login') ?>" />
+						</label>		
+						&nbsp;&nbsp;
+						<a href="javascript:void(0);" onclick="return showhideforgotpassword('forgot_password_div', 'block', 'login-div', 'none');"><?php echo $this->__('Forgot Your Password?') ?></a>
+					  </div>
+					  <div class="cl"></div>
+					  <div id="forgot_password_div" style="display:none;">
+						<h4><?php echo $this->__('Forgot Password') ?></h4>
+						<form id="forgot-password-form" action="" method="post" onsubmit="return false;">
+						<fieldset>
+						    <ul class="form-list">
+							<li>
+							    <label for="login-email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
+							    <div class="input-box">
+								<input type="text" class="input-text required-entry validate-email" id="forgot-email" name="forgot-email" value="" />
+							    </div>
+							</li>
+						    </ul>
+						</fieldset>
+						<input type="submit" name="submit" class="hid_submit_ixcbadv" value="" onclick="return ixcbadvForgotPass(this);" />
+						</form>
+
+						<label class="lightfacegreen_login">
+							<span class="" id="forgot-please-wait" style="display:none; float:left;">
+								<img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Validating...') ?>" title="<?php echo $this->__('Validating...') ?>" class="v-middle" /> <?php echo $this->__('Validating...') ?>
+							</span>
+							<input type="button" id="forgot-buttons-container" onclick="ixcbadvForgotPass(this);" value="<?php echo $this->__('Send') ?>" />
+						</label>
+						&nbsp;&nbsp;
+						<a href="javascript:void(0);" onclick="return showhideforgotpassword('login-div', 'block', 'forgot_password_div', 'none');"><?php echo $this->__('Back') ?></a>
+					  </div>
+
+				  </div> <!-- lightfaceMessageBox end -->
+				  <div class="lightfaceFooter" style="display: block;"> <!-- lightfaceFooter start -->
+					 <!-- <img src="<?php echo $this->getSkinUrl('ixcbadv/images/truste-logo.jpg') ?>" class="fl" alt=""> -->
+					 <label><input type="button" value="Close" onclick="ixcbadv_login.hide('login_1_div');"></label>
+					 <div class="cl"></div>
+				  </div> <!-- lightfaceFooter end -->
+			  </div> <!-- lightfaceContent end -->
+			</div> <!-- lightface end -->
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+		<!--
+
+		function showhideforgotpassword(id, display, hid, displayhide) {
+			if(document.getElementById(hid)) { document.getElementById(hid).style.display = displayhide; }
+			if(document.getElementById(id)) { document.getElementById(id).style.display = display; }
+		}
+		
+		function showForgotixcbadv() {
+			if(document.getElementById('forgot-buttons-container')) { document.getElementById('forgot-buttons-container').style.display = 'none'; }
+			if(document.getElementById('forgot-please-wait')) { document.getElementById('forgot-please-wait').style.display = 'inline-block'; }
+		}
+		
+		function hideForgotixcbadv() {
+			if(document.getElementById('forgot-buttons-container')) { document.getElementById('forgot-buttons-container').style.display = 'inline-block'; }
+			if(document.getElementById('forgot-please-wait')) { document.getElementById('forgot-please-wait').style.display = 'none'; }
+		}
+
+		function showLoginIxcbadv() {
+			if(document.getElementById('login-buttons-container')) { document.getElementById('login-buttons-container').style.display = 'none'; }
+			if(document.getElementById('logplease-wait')) { document.getElementById('logplease-wait').style.display = 'inline-block'; }
+		}
+		function hideLoginIxcbadv() {
+			if(document.getElementById('login-buttons-container')) { document.getElementById('login-buttons-container').style.display = 'inline-block'; }
+			if(document.getElementById('logplease-wait')) { document.getElementById('logplease-wait').style.display = 'none'; }
+		}
+
+		function handlerFunctionLogin(button){
+			var request = new Ajax.Request(
+			<?php $saveLoginPost="";
+							if (Mage::app()->getStore()->isCurrentlySecure()) {
+								$saveLoginPost = $this->getUrl('ixcbadv/inline/loginPost', array('_secure'=>true));
+							}else{
+								$saveLoginPost = $this->getUrl('ixcbadv/inline/loginPost', array('_secure'=>false));
+							}
+						    ?>
+			    '<?php echo $saveLoginPost; ?>',
+			    {
+				method: 'post',
+				onComplete: function(transport){ // Defining Complete Callback Function
+				    // Getting Ajax Response Text Which is JSON Object
+				    var jsonResponse=transport.responseText;
+				    hideLoginIxcbadv();
+				    if(jsonResponse) {
+					var myRegExp = /elcome /;
+					if(jsonResponse.search(myRegExp) > 0) {
+						if(document.getElementById("topbar_ixcbadv")) {
+							document.getElementById("topbar_ixcbadv").innerHTML = '<div class="create-ac"><span class="or_name">'+jsonResponse+'</span></div>';
+						}
+						if(document.getElementById("hidden_login") && document.getElementById("hidden_login").value == 0) {
+							document.getElementById("hidden_login").value = 1;
+						}
+						ixcbadv_login.hide('login_1_div');
+					}else{
+					    alert(jsonResponse);						    
+					    return false;
+					}
+				    }else{
+					ixcbadv_login.hide('login_1_div');
+					window.location.reload();
+				    }
+				},
+				parameters: Form.serialize($("mini-login-form"))    // Seriallizing the form input values
+			    }
+			);
+		}
+
+		function handlerFunctionForgot(button){
+			var request = new Ajax.Request(
+			    '<?php echo $this->getUrl("ixcbadv/inline/forgotPost") ?>',
+			    {
+				method: 'post',
+				onComplete: function(transport){ // Defining Complete Callback Function
+		 
+				    // Getting Ajax Response Text Which is JSON Object
+				    var jsonResponse=transport.responseText;
+				    hideForgotixcbadv();
+				    if(jsonResponse) {
+					    alert(jsonResponse);
+					    var myRegExp = /link to reset your password/;
+					    if(jsonResponse.search(myRegExp) > 0) {
+						showhideforgotpassword('login-div', 'block', 'forgot_password_div', 'none');
+					    }
+					    return false;
+				    }
+				},
+				parameters: Form.serialize($("forgot-password-form"))    // Seriallizing the form input values
+			    }
+			);
+		}
+		//-->
+</script>
+
+<script type="text/javascript">
+	//<![CDATA[
+	    var loginForm = new VarienForm('mini-login-form', true);
+	    
+	    function ixcbadvLogin(button)
+	    {
+		if(loginForm.validator && loginForm.validator.validate()){
+		    showLoginIxcbadv(); // Start Waiting function call
+		    handlerFunctionLogin(button);
+		}
+	    }
+	    
+	    var forgotForm = new VarienForm('forgot-password-form', true);
+	    
+	    function ixcbadvForgotPass(button) {
+		if(forgotForm.validator && forgotForm.validator.validate()){
+		    showForgotixcbadv(); // Start Waiting function call
+		    handlerFunctionForgot(button);
+		}
+	    }
+	    
+	    var ixcbadv_login=new Ixcbadv_Agreements();
+	//]]>
+</script>
+
+<?php
+//}
+?>

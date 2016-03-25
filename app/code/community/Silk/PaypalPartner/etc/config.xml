@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Silk_PaypalPartner>
+            <version>0.1.0</version>
+        </Silk_PaypalPartner>
+    </modules>
+    <global>
+        <models>
+            <silk_paypalpartner>
+                <class>Silk_PaypalPartner_Model</class>
+            </silk_paypalpartner>
+            <paypal>
+                <rewrite>
+                    <config>Silk_PaypalPartner_Model_Config</config>
+                </rewrite>
+            </paypal>
+        </models>
+        <helpers>
+            <silk_paypalpartner>
+                <class>Silk_PaypalPartner_Helper</class>
+            </silk_paypalpartner>
+        </helpers>
+    </global>
+    <default>
+        <admin>
+            <paypalpartner>
+                <initiated_project>1</initiated_project>
+            </paypalpartner>
+        </admin>
+    </default>
+</config>

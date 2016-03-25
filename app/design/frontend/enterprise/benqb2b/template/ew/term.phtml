@@ -1,0 +1,44 @@
+<div class="warranty-term">
+   <input type="checkbox" name="term" id="term" /> <a onclick="popWin('<?php echo $this->getUrl('terms-conditions');?>','Termsandconditions','width=900,height=600,resizable=yes,scrollbars=yes')" href="#"><?php echo Mage::helper('ew')->__('I have read and agree to the Terms and Conditions.') ?></a>
+</div> 
+    <?php if(Mage::registry('current_product')->getAsWarrantyOption()): ?>
+    <ul >
+       <li class="field model_number">
+            <label for="module_field" class="required"><?php echo $this->__('Model No.') ?><em>*</em></label>
+            <div class="input-box">
+	            <select class="input-text required-entry" name="model_no" id="model_number">
+                <option value="">Please select one</option>
+                <?php $modelnos=explode(',',Mage::registry('current_product')->getModelNo()); ?>
+                <?php foreach ($modelnos as $value): ?>
+                    <option value="<?php echo $value; ?>"><?php echo $value;?></option>
+                <?php endforeach ?>
+                  
+             </select>
+            </div>       
+       </li>
+    <li class="field date_of_purchase">
+            <label for="date_of_purchase_field" class="required"><?php echo $this->__('Date Of Purchase') ?><em>*</em></label>
+            <div class="input-box">
+               <input id="date_of_purchase" class="input-text required-entry validate-date validate-length" name="purchase_date" type="text" value=" " readonly style="width: 100px;margin-right:5px;" / >
+               <img title="Select date" id="_dop_trig" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN)."adminhtml/default/default/images/grid-cal.gif";?>" class="v-middle" />
+              <!--  <button id="calendar-trigger" type="button">...</button> -->
+            </div>
+       </li>
+       <li class="field retail_price">
+            <label for="retail_price_field" class="required"><?php echo $this->__('Retail Price') ?><em>*</em></label>
+            <div class="input-box">
+                <input class="input-text required-entry validate-digits-range validate-length maximum-length-9 retail_price" name="retail_price" id="retail_price" type="text" value="" />
+            </div>
+       </li>
+       <li class="field serial_number">
+            <label for="serial_number_field" class="required"><?php echo $this->__('Serial No.') ?></label>
+            <div class="input-box">
+                <input class="input-text validate-serial" name="serial_number" id="serial_number" type="text" value="" />
+            </div>
+       </li>      
+       <li>
+       	<span>&nbsp;</span>
+       </li>
+   </ul>
+
+<?php endif; ?>

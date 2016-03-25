@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Silk_QisCategory>
+            <version>0.1.0</version>
+        </Silk_QisCategory>
+    </modules>
+    <global>
+        <models>
+            <qiscategory>
+                <class>Silk_QisCategory_Model</class>
+                <resourceModel>qiscategory_mysql4</resourceModel>
+            </qiscategory>
+            <qiscategory_mysql4>
+                <class>Silk_QisCategory_Model_Mysql4</class>
+                <entities>
+                </entities>
+            </qiscategory_mysql4>
+        </models>
+        <blocks>
+            <qiscategory>
+                <class>Silk_QisCategory_Block</class>
+            </qiscategory>
+          
+            <page>
+                <rewrite>
+                    <html_topmenu>Silk_QisCategory_Block_Page_Html_Topmenu</html_topmenu>
+                </rewrite>
+            </page>
+            
+            <catalog>
+		        <rewrite>
+		            <navigation>Silk_QisCategory_Block_Navigation</navigation>                
+		        </rewrite>
+		    </catalog>
+        </blocks>
+        
+        <resources>
+	        <qiscategory_setup>
+	            <setup>
+	                <module>Silk_QisCategory</module>
+	                <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+	            </setup>
+	            <connection>
+                    <use>core_setup</use>
+                </connection>
+	        </qiscategory_setup>
+	        <qiscategory_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </qiscategory_write>
+            <qiscategory_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </qiscategory_read>
+    </resources>
+    </global>
+    <adminhtml>
+    </adminhtml>
+    <admin>
+    </admin>
+</config>

@@ -1,0 +1,133 @@
+
+<div class="content-header">
+    <table cellspacing="0">
+        <tbody><tr>
+            <td><h3 class="head-dashboard">Search Processing XML</h3></td>
+        </tr>
+    </tbody></table>
+</div>
+<form action="" method="post" id="ixcbadv_search" onsubmit="return submitFunc();">
+<table width="100%">
+	<tbody>
+		<tr>
+		    <td>
+			<div class="entry-edit">
+				<div class="entry-edit-head">
+					<h4>Please Enter details to check the xml.</h4>
+				</div>
+				<div id="base_fieldset" class="fieldset fieldset-wide">
+				    <div class="hor-scroll">
+					<table cellspacing="0" class="form-list">
+					    <tbody>
+						<tr>
+							<td class="label">
+								<label for="code">Amazon Order ID <span class="required">*</span></label>
+							</td>
+							<td class="value">
+								<input type="text" class="input-text required-entry" title="Amazon Order Id" value="" name="order_id" id="order_id">            
+							</td>
+						</tr>
+						<tr>
+							<td class="label">
+								<label for="code">Action <span class="required">*</span></label>
+							</td>
+							<td class="value">
+								<select class="required-entry select" title="Action" name="action_id" id="action_id">
+									<option value="">Select</option>
+									<option value="order_xml">Order XML</option>
+									<!--<option value="authorize_xml">Authorization Notification XML</option>
+									<option value="capture_xml">Capture Notification XML</option>
+									<option value="refund_xml">Refund Notification XML</option>
+									<option value="cancel_xml">Cancel Notification XML</option>
+									<option value="mws_xml">Mws XML</option>-->
+								</select>            
+							</td>
+						</tr>
+						<tr id="reference_id_ixcbadv" style="display:none;">
+							<td class="label">
+								<label for="code">Reference Id <span class="required">*</span></label>
+							</td>
+							<td class="value">
+								<input type="text" class="input-text" title="Reference Id" value="" name="reference_id" id="reference_id">            
+							</td>
+						</tr>
+						<tr>
+							<td class="label">
+								&nbsp;
+							</td>
+							<td class="value">
+								<button style="" onclick="ixcbadvsearch.validate()&&submitFunc();" class="scalable save" type="button" title="Submit"><span><span><span>Submit</span></span></span></button>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<div id="result_div"></div>
+							</td>
+						</tr>
+					    </tbody>
+					</table>
+				    </div>
+				</div>
+			</div>
+		    </td>
+		</tr>
+	</tbody>
+</table>
+</form>
+<script type="text/javascript">
+    
+	function hasClass(ele,cls) {
+		return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
+	}
+
+	function addClass(ele,cls) {
+		if (!hasClass(ele,cls)) ele.className += " "+cls;
+	}
+
+	function removeClass(ele,cls) {
+		if (hasClass(ele,cls)) {
+			var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)');
+			ele.className=ele.className.replace(reg,' ');
+		}
+	}
+
+    $('action_id').onchange = checkAction;
+
+    function checkAction() {
+	if(this.value == 'mws_xml') {
+	    if(document.getElementById('reference_id_ixcbadv')) {
+		document.getElementById('reference_id_ixcbadv').style.display = '';
+		var ele = document.getElementById("reference_id");
+		addClass(ele, "required-entry");
+	    }
+	}else{
+	    if(document.getElementById('reference_id_ixcbadv')) {
+		document.getElementById('reference_id_ixcbadv').style.display = 'none';
+		var ele = document.getElementById("reference_id");
+		removeClass(ele, "required-entry");
+	    }
+	}
+    }
+
+    ixcbadvsearch = new varienForm('ixcbadv_search', '');
+    function submitFunc(){
+	
+	var request = new Ajax.Request(
+	    '<?php echo $this->getUrl("ixcbadv/adminhtml_ixcbadvxml/getDetails/", array("_secure"=>true)) ?>',
+	    {
+		method: 'post',
+		onComplete: function(transport){ // Defining Complete Callback Function
+ 
+		    // Getting Ajax Response Text Which is JSON Object
+		    var jsonResponse = transport.responseText;
+		    if(document.getElementById('result_div')) {
+			document.getElementById('result_div').innerHTML = jsonResponse;
+		    }
+		},
+		parameters: Form.serialize($("ixcbadv_search"))    // Seriallizing the form input values
+	    }
+	);
+	return false;
+
+    }
+</script>

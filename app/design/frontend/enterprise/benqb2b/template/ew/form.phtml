@@ -1,0 +1,234 @@
+<?php $c = $this->getCustomer(); ?>
+<?php $a = $this->getAddr(); ?>
+<?php //$mo = $this->getModels();?>
+<?php $od = $this->getCustomerOrders();?>
+<?php //$wa = $this->getWarranties();?>
+<div class="page-title">
+<h1><?php echo $this->__('Apply Extended Warranty');?></h1>
+</div>
+
+    <form id="ewform" action="/extended-warranty/index/submit" method="POST">
+
+   <div class="fieldset">
+        <h2 class="legend"><?php echo $this->__('Customer Information') ?></h2>
+
+    <ul class="customerinfo_container form-list">
+
+       <li class="field name-firstname">
+            <label for="name_field" class="required"><?php echo $this->__('First Name') ?><em>*</em></label>
+            <div class="input-box">
+            <input class="input-text required-entry validate-length maximum-length-15" name="first_name" id="first_name" type="text" value="<?php echo ($a?$a->getFirstname():'');?>" />
+            </div>
+       </li>
+
+       <li class="field name-lastname">
+            <label for="name_field" class="required"><?php echo $this->__('Last Name') ?><em>*</em></label>
+            <div class="input-box">
+            <input class="input-text required-entry validate-length maximum-length-20" name="last_name" id="last_name" type="text" value="<?php echo ($a?$a->getLastname():'');?>" />
+            </div>
+       </li>
+
+      <li class="field address">
+            <label for="address" class="required"><?php echo $this->__('Street Address') ?><em>*</em></label>
+            <div class="input-box">
+            <input class="input-text required-entry validate-length maximum-length-30" name="street_address" id="street_address" type="text" value="<?php echo ($a?$a->getStreet1():'');?>" />
+            </div>
+       </li>
+
+
+       <li class="field address1">
+            <label for="address1" class="required"><?php echo $this->__('Stree Address 1') ?></label>
+            <div class="input-box">
+            <input class="input-text validate-length maximum-length-30" name="street_address1" id="street_address1" type="text" value="<?php echo ($a?$a->getStreet2():'');?>" />
+            </div>
+       </li>
+
+
+      <li class="field city">
+            <label for="city" class="required"><?php echo $this->__('City') ?><em>*</em></label>
+            <div class="input-box">
+            <input class="input-text required-entry validate-length maximum-length-20" name="city" id="city" type="text" value="<?php echo ($a?$a->getCity():'');?>" />
+            </div>
+       </li>
+
+      <li class="field state">
+            <label for="state" class="required"><?php echo $this->__('State') ?><em>*</em></label>
+            <div class="input-box">
+               <select class="input-text required-entry" name="state" id="state">
+                 <option value=""><?php echo $this->__('Please select a state') ?></option>
+                  <?php
+                    $regions = Mage::getResourceModel('directory/region_collection')->addCountryFilter('US')->load();
+                    foreach($regions as $region):?>
+                       <option value="<?php echo $region['code'] ?>" <?php echo ($a && $region['code']==$a->getRegionCode())?'selected':'' ?>><?php echo $region['name'] ?></option>
+                    <?php endforeach;?>
+</select>
+            </div>
+       </li>
+
+       <li class="field zip_code">
+            <label for="zip_code" class="required"><?php echo $this->__('Zip Code') ?><em>*</em></label>
+            <div class="input-box">
+            <input class="input-text required-entry validate-zip validate-length maximum-length-10" name="zip_code" id="zip_code" type="text" value="<?php echo ($a?$a->getPostcode():'');?>" />
+            </div>
+       </li>
+
+
+
+       <li class="field email">
+            <label for="email_field" class="required"><?php echo $this->__('Email') ?><em>*</em></label>
+            <div class="input-box">
+            <input class="input-text required-entry validate-email validate-length maximum-length-50" name="email" id="email" type="text" value="<?php echo $c->getEmail();?>" />
+            </div>
+       </li>
+       
+
+       <li class="field phone">
+            <label for="phone_field" class="required"><?php echo $this->__('Phone No.') ?><em>*</em></label>
+
+            <div class="input-box">
+            <input class="input-text required-entry validate-phoneStrict" name="phone" id="phone" type="text" value="<?php echo ($a?$a->getTelephone():'');?>" />
+            </div>
+       </li>
+
+</ul>
+</div>
+
+  <div class="fieldset">
+        <h2 class="legend"><?php echo $this->__('Product Information') ?></h2>
+
+    <ul class="productinfo_container form-list">
+
+ <li class="field order_number">
+            <label for="order_field" class="required"><?php echo $this->__('Order No.') ?><em>*</em></label>
+            <div class="input-box">
+<select class="input-text  required-entry"  onchange="getEwsku(this.value);" name="order_number" id="order_number">
+                    <option value="">Please select one</option>
+                <?php if ($od):?>
+                <?php foreach ($od as $o):?>
+                         <option value="<?php echo $o;?>"><?php echo $o;?></option>
+                <?php endforeach;?>
+<?php endif;?>
+                </select>
+            </div>
+ </li>
+
+
+        <li class="field warranty_sku_number">
+            <label for="warranty_sku_field" class="required"><?php echo $this->__('Warranty SKU No.') ?><em>*</em></label>
+            <div class="input-box">
+          <select class="input-text required-entry" onchange="getModel(this.value);" name="ew_sku" id="ew_sku">
+                    <option value="">Please select one</option>
+         </select>
+            </div>
+       </li>
+
+
+
+       <li class="field model_number">
+            <label for="module_field" class="required"><?php echo $this->__('Model No.') ?><em>*</em></label>
+            <div class="input-box">
+<select class="input-text required-entry" name="model_number" id="model_number">
+                    <option value="">Please select one</option>
+                </select>
+
+            </div>
+
+
+           
+       </li>
+
+
+       
+        <li class="field serial_number">
+            <label for="serial_number_field" class="required"><?php echo $this->__('Serial No.') ?></label>
+            <div class="input-box">
+                <input class="input-text validate-serial" name="serial_number" id="serial_number" type="text" value="" />
+            </div>
+       </li>
+       <li class="field date_of_purchase">
+            <label for="date_of_purchase_field" class="required"><?php echo $this->__('Date Of Purchase') ?><em>*</em></label>
+            <div class="input-box">
+                <input class="input-text required-entry validate-date validate-length" name="date_of_purchase" id="date_of_purchase" type="text" value="" readonly style="width: 100px;margin-right:5px;" />
+        <img title="Select date" id="_dop_trig" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN)."adminhtml/default/default/images/grid-cal.gif";?>" class="v-middle">
+            </div>
+       </li>
+       <li class="field retail_price">
+            <label for="retail_price_field" class="required"><?php echo $this->__('Retail Price') ?><em>*</em></label>
+            <div class="input-box">
+                <input class="input-text required-entry validate-digits-range validate-length maximum-length-9 retail_price" name="retail_price" id="retail_price" type="text" value="" />
+            </div>
+       </li>
+
+</ul>
+</div>
+
+<div class="buttons-set form-buttons">
+    <p class="back-link"><a href="/extended-warranty/index/list"><small>&laquo; </small><?php echo $this->__('Go back') ?></a></p>
+    <button type="submit" class="button" title="<?php echo $this->__('Request') ?>"><?php echo $this->__('Request') ?></button>
+</div>
+<p class="required"><?php echo $this->__('* Required Fields') ?></p>
+ <input  name="account_id" id="account_id" type="hidden" value="0" />
+        
+    </form>
+<script type="text/javascript">
+//<![CDATA[
+    var ewForm = new VarienForm('ewform', true);
+    Validation.add('validate-serial','Please enter a valid serial number.',function(v){
+        if(/^[A-Z]{2}[A-Z0-9]{3}[0-9]{5}[A-Z0-9]{3}$/.test(v) || v == '')
+        {
+            return true;
+        }
+        return false;
+    });
+     Validation.add('retail_price','Please enter a valid number.',function(v){
+       if(/^\d+(\.\d{1,2})?$/.test(v) ){ return true;}else{return false;}
+     })
+//]]>   
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+    Calendar.setup({
+        inputField:'date_of_purchase',
+        ifFormat:'%m/%e/%Y',
+        button:'_dop_trig',
+        align:'Bl',
+        singleClick : true
+    });
+//]]>
+</script>
+
+<script>
+var getEwsku = function(val) {
+    var ewskuurl = '/extended-warranty/index/loadewsku/';
+    jQuery("#ew_sku").empty();
+    jQuery('#ew_sku').append('<option>Loading...</option>');
+    new Ajax.Request(ewskuurl, {
+        method: 'get',
+            parameters: "order_number="+val,
+            onComplete: function(transport) {
+                jQuery("#ew_sku").empty();
+                jQuery("#model_number").empty();
+                jQuery('#ew_sku').append(transport.responseText);
+            }
+    });
+}
+</script>
+
+
+<script>
+var getModel = function(val) {
+    var reloadurl = '/extended-warranty/index/loadmodel/';
+    jQuery("#model_number").empty();
+    jQuery('#model_number').append('<option>Loading...</option>');
+    new Ajax.Request(reloadurl, {
+        method: 'get',
+            parameters: "ew_sku="+val,
+            onComplete: function(transport) {
+                jQuery("#model_number").empty();
+                jQuery('#model_number').append(transport.responseText);
+            }
+    });
+}
+</script>
+

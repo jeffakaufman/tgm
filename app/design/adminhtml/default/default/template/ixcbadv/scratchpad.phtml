@@ -1,0 +1,397 @@
+<div class="content-header">
+    <table cellspacing="0">
+        <tbody><tr>
+            <td><h3 class="head-dashboard">Backup Scratchpad</h3></td>
+        </tr>
+    </tbody></table>
+</div>
+<form action="" method="post" id="ixcbadv_search" onsubmit="return submitFunc();">
+<table width="100%">
+	<tbody>
+		<tr>
+		    <td>
+			<div class="entry-edit">
+				<div class="entry-edit-head">
+					<h4>Login & Pay with Amazon API Scratchpad</h4>
+				</div>
+				<div id="base_fieldset" class="fieldset fieldset-wide">
+				    <div class="hor-scroll">
+					<table cellspacing="0" class="form-list">
+					    <tbody>
+					    <!--<tr>
+							<td class="label">
+								<label for="code">Amazon Order ID <span class="required">*</span></label>
+							</td>
+							<td class="value">
+								<input type="text" class="input-text required-entry" title="Amazon Order Id" value="" name="order_id" id="order_id">            
+							</td>
+						</tr>-->
+						<tr>
+
+						</tr>
+						<tr>
+							<td class="label">
+								<label for="code">Select API <span class="required">*</span></label>
+							</td>
+							<td class="value">
+								<select class="required-entry select" title="API" name="api_id" id="api_id">
+									<option value="">Select</option>
+									<option value="authorize">Authorize</option>
+									<option value="getauthorizationdetails">GetAuthorizationDetails</option>
+									<option value="closeauthorization">CloseAuthorization</option>
+									<option value="capture">Capture</option>
+									<option value="getcapturedetails">GetCaptureDetails</option>
+									<option value="refund">Refund</option>
+									<option value="getrefunddetails">GetRefundDetails</option>
+									
+									
+								</select>            
+							</td>
+						</tr>
+						<tr id="reference_id_ixcbadv" style="display:none;">
+							<td class="label">
+								<label for="code">AmazonOrderReferenceId <span class="required">*</span></label>
+							</td>
+							
+							
+							<td class="value">
+					<input type="text" class="input-text" title="Reference Id" value="" name="reference_id" id="reference_id">            
+							</td>
+						</tr>
+						
+						<tr id="authorization_amount_ixcbadv" style="display:none;">
+							
+							<td class="label">
+								<label for="code">Authorization Amount <span class="required">*</span></label>
+							</td>
+							
+							<td class="value">
+		<input type="text" class="input-text" title="Authorization Amount" value="" name="authorization_amount" id="authorization_amount">            
+							</td>
+						</tr>
+						
+						<tr id="authorization_id_ixcbadv" style="display:none;">
+							
+							<td class="label">
+								<label for="code">AmazonAuthorizationId <span class="required">*</span></label>
+							</td>
+							
+							<td class="value">
+		<input type="text" class="input-text" title="AmazonAuthorizationId" value="" name="authorization_id" id="authorization_id">            
+							</td>
+						</tr>
+						
+						<tr id="capture_amount_ixcbadv" style="display:none;">
+							
+							<td class="label">
+								<label for="code">Capture Amount <span class="required">*</span></label>
+							</td>
+							
+							<td class="value">
+		<input type="text" class="input-text" title="Capture Amount" value="" name="capture_amount" id="capture_amount">            
+							</td>
+						</tr>
+						
+						<tr id="capture_id_ixcbadv" style="display:none;">
+							
+							<td class="label">
+								<label for="code">AmazonCaptureId <span class="required">*</span></label>
+							</td>
+							
+							<td class="value">
+		<input type="text" class="input-text" title="AmazonCaptureId" value="" name="capture_id" id="capture_id">            
+							</td>
+						</tr>
+						
+						<tr id="refund_amount_ixcbadv" style="display:none;">
+							
+							<td class="label">
+								<label for="code">Refund Amount <span class="required">*</span></label>
+							</td>
+							
+							<td class="value">
+		<input type="text" class="input-text" title="Refund Amount" value="" name="refund_amount" id="refund_amount">            
+							</td>
+						</tr>
+						
+						<tr id="refund_id_ixcbadv" style="display:none;">
+							
+							<td class="label">
+								<label for="code">AmazonRefundId <span class="required">*</span></label>
+							</td>
+							
+							<td class="value">
+		<input type="text" class="input-text" title="AmazonRefundId" value="" name="refund_id" id="refund_id">            
+							</td>
+						</tr>
+						
+						<tr>
+						<td class="label">
+								&nbsp;
+							</td>
+						</tr>
+						Make sure that you put the plugin in correct mode for your API operations: either Sandbox or Production.<br>
+						<br>
+						<tr>
+							<td class="label">
+								&nbsp;
+							</td>
+							
+							<td class="value">
+								<button style="" onclick="ixcbadvsearch.validate()&&submitFunc();" class="scalable save" type="button" title="Submit"><span><span><span>Submit</span></span></span></button>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<div id="result_div"></div>
+							</td>
+						</tr>
+					    </tbody>
+					</table>
+				    </div>
+				</div>
+			</div>
+		    </td>
+		</tr>
+	</tbody>
+</table>
+</form>
+
+<script type="text/javascript">
+    
+	function hasClass(ele,cls) {
+		return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
+	}
+
+	function addClass(ele,cls) {
+		if (!hasClass(ele,cls)) ele.className += " "+cls;
+	}
+
+	function removeClass(ele,cls) {
+		if (hasClass(ele,cls)) {
+			var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)');
+			ele.className=ele.className.replace(reg,' ');
+		}
+	}
+
+    $('api_id').onchange = checkAction;
+
+    function checkAction() {
+	if(this.value == 'authorize') {
+	    if(document.getElementById('reference_id_ixcbadv')) {
+		document.getElementById('reference_id_ixcbadv').style.display = '';
+		var ele = document.getElementById("reference_id");
+		addClass(ele, "required-entry");
+	    }
+	    
+	  if(document.getElementById('authorization_amount_ixcbadv')) {
+		document.getElementById('authorization_amount_ixcbadv').style.display = '';
+		var ele = document.getElementById("authorization_amount");
+		addClass(ele, "required-entry");
+	    }
+	    
+	    
+	    
+	}else{
+	    if(document.getElementById('reference_id_ixcbadv')) {
+		document.getElementById('reference_id_ixcbadv').style.display = 'none';
+		var ele = document.getElementById("reference_id");
+		removeClass(ele, "required-entry");
+	    }
+	    
+	     if(document.getElementById('authorization_amount_ixcbadv')) {
+		document.getElementById('authorization_amount_ixcbadv').style.display = 'none';
+		var ele = document.getElementById("authorization_amount");
+		removeClass(ele, "required-entry");
+	    }
+	    
+	}
+	
+	if(this.value == 'getauthorizationdetails' || this.value == 'closeauthorization' || this.value == 'capture') {
+	    if(document.getElementById('authorization_id_ixcbadv')) {
+		document.getElementById('authorization_id_ixcbadv').style.display = '';
+		var ele = document.getElementById("authorization_id");
+		addClass(ele, "required-entry");
+	    }
+	    
+	    
+	}else{
+	    if(document.getElementById('authorization_id_ixcbadv')) {
+		document.getElementById('authorization_id_ixcbadv').style.display = 'none';
+		var ele = document.getElementById("authorization_id");
+		removeClass(ele, "required-entry");
+	    }
+	    
+	    
+	}
+	
+	
+	if(this.value == 'capture') {
+	    if(document.getElementById('capture_amount_ixcbadv')) {
+		document.getElementById('capture_amount_ixcbadv').style.display = '';
+		var ele = document.getElementById("capture_amount");
+		addClass(ele, "required-entry");
+	    }
+	    
+	    
+	}else{
+	    if(document.getElementById('capture_amount_ixcbadv')) {
+		document.getElementById('capture_amount_ixcbadv').style.display = 'none';
+		var ele = document.getElementById("capture_amount");
+		removeClass(ele, "required-entry");
+	    }
+	    
+	    
+	}
+	
+	if(this.value == 'getcapturedetails' || this.value == 'refund') {
+	    if(document.getElementById('capture_id_ixcbadv')) {
+		document.getElementById('capture_id_ixcbadv').style.display = '';
+		var ele = document.getElementById("capture_id");
+		addClass(ele, "required-entry");
+	    }
+	    
+	    
+	}else{
+	    if(document.getElementById('capture_id_ixcbadv')) {
+		document.getElementById('capture_id_ixcbadv').style.display = 'none';
+		var ele = document.getElementById("capture_id");
+		removeClass(ele, "required-entry");
+	    }
+	    
+	    
+	}
+	
+	if(this.value == 'refund') {
+	    if(document.getElementById('refund_amount_ixcbadv')) {
+		document.getElementById('refund_amount_ixcbadv').style.display = '';
+		var ele = document.getElementById("refund_amount");
+		addClass(ele, "required-entry");
+	    }
+	    
+	    
+	}else{
+	    if(document.getElementById('refund_amount_ixcbadv')) {
+		document.getElementById('refund_amount_ixcbadv').style.display = 'none';
+		var ele = document.getElementById("refund_amount");
+		removeClass(ele, "required-entry");
+	    }
+	    
+	    
+	}
+	
+	if(this.value == 'getrefunddetails') {
+	    if(document.getElementById('refund_id_ixcbadv')) {
+		document.getElementById('refund_id_ixcbadv').style.display = '';
+		var ele = document.getElementById("refund_id");
+		addClass(ele, "required-entry");
+	    }
+	    
+	    
+	}else{
+	    if(document.getElementById('refund_id_ixcbadv')) {
+		document.getElementById('refund_id_ixcbadv').style.display = 'none';
+		var ele = document.getElementById("refund_id");
+		removeClass(ele, "required-entry");
+	    }
+	    
+	    
+	}
+	
+
+    }
+    
+
+        ixcbadvsearch = new varienForm('ixcbadv_search', '');
+	/* CUstom code for JSON response view */	
+	function tryParseJSON (jsonString){
+    try {
+        var o = JSON.parse(jsonString);
+
+        // Handle non-exception-throwing cases:
+        // Neither JSON.parse(false) or JSON.parse(1234) throw errors, hence the type-checking,
+        // but... JSON.parse(null) returns 'null', and typeof null === "object", 
+        // so we must check for that, too.
+        if (o && typeof o === "object" && o !== null) {
+            return o;
+        }
+    }
+    catch (e) { }
+
+    return false;
+	}	
+	/*function obj_is(child_obj1){
+					for(var child_prop in child_obj1){
+					var child_obj=tryParseJSON(child_obj1[child_prop]);
+					if(child_obj){
+						response_string += obj_is(child_obj); 		
+						
+					}
+					else{
+						response_string += child_prop+" : "+child_obj[child_prop]+"<br/>";
+					
+					}
+					}
+					return response_string;
+	}*/
+	/* *********************************** */	
+    function submitFunc(){
+	if(document.getElementById('api_id') && document.getElementById('api_id').value!='') {
+		var request = new Ajax.Request(
+		    '<?php echo $this->getUrl("ixcbadv/adminhtml_scratchpad/getDetails/", array("_secure"=>true)) ?>',
+		    {
+			method: 'post',
+			onComplete: function(transport){ // Defining Complete Callback Function
+				var response_string = "";
+			    // Getting Ajax Response Text Which is JSON Object
+			    var jsonResponse = transport.responseText;
+			    if(document.getElementById('result_div')) {
+				//document.getElementById('result_div').innerHTML = jsonResponse;
+				//alert(jsonResponse);
+				var main_obj = JSON.parse(jsonResponse);
+				for (var prop in main_obj) {
+					var child_obj=tryParseJSON(main_obj[prop]);
+					if(child_obj){
+						for(var child_prop in child_obj){
+							var child_obj1=tryParseJSON(child_obj[child_prop]);
+							if(child_obj1){
+									for(var child_prop1 in child_obj1){
+										var child_obj2=tryParseJSON(child_obj1[child_prop1]);
+										if(child_obj2){
+											for(var child_prop2 in child_obj2){
+													response_string += child_prop2+" : "+child_obj2[child_prop2]+"<br/>";
+											}
+										}
+										else{
+													response_string += child_prop1 + " : " + child_obj1[child_prop1]+"<br/>";
+										
+										}
+									}
+							}
+							else{
+										response_string += child_prop + " : " + child_obj[child_prop]+"<br/>";
+							
+							}
+						}
+					}
+					else{
+								response_string += prop + " : " + main_obj[prop]+"<br/>";
+					
+					}
+				} 
+				document.getElementById('result_div').innerHTML = response_string;
+				
+			    }
+			},
+			parameters: Form.serialize($("ixcbadv_search"))    // Seriallizing the form input values
+		    }
+		);
+		return false;
+	} else {
+		return false;
+	}
+    }
+    
+    
+</script>
+

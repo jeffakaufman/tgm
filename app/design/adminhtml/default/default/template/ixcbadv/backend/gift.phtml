@@ -1,0 +1,32 @@
+<?php
+if(is_array(ioncube_check_license_properties()) == false ) { 
+
+//Place module code here
+?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4><?php echo $this->__('Gift Information'); ?></h4>
+    </div>
+    <div class="fieldset fieldset-wide">
+
+	<?php if($this->getOrder()->getExtOrderId()): ?>
+
+		<?php
+			$write = Mage::getSingleton('core/resource')->getConnection('core_write');
+			$tableName = Mage::getSingleton('core/resource')->getTableName('ixcbadv_gift_information');
+
+			$sql_qry = "select * from $tableName where order_id = '".$this->getOrder()->getExtOrderId()."' and order_comments != '' ";
+			$readresult = $write->query($sql_qry);
+
+			if($res = $readresult->fetch()) {
+				$order_comments = $res['order_comments'];
+				echo nl2br($order_comments);
+			}
+		?>
+		
+	<?php endif; ?>
+
+    </div>
+</div>
+
+<?php } ?>

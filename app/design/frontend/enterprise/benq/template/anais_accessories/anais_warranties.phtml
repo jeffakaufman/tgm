@@ -1,0 +1,74 @@
+<?php 
+/**
+ * Anais_Accessories extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   Anais
+ * @package    Anais_Accessories
+ * @copyright  Copyright (c) 2011 Anais Software Services
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */ 
+ /**
+ * @category   Anais
+ * @package    Anais_Accessories
+ * @author     Marius Strajeru <marius.strajeru@anais-it.com>
+ */ 
+?>
+<?php if(count($this->getItemCollection()->getItems())): ?>
+<div class="product-options warranty-options">
+<h4 class="warranty-title"><?php echo $this->__('Optional Extended Service Contract') ?></h4>
+
+    <?php $this->resetItemsIterator() ?>
+    <?php if($this->getRowCount()>0):?>
+     <select name="warranty-options" id="warranty-options" onchange="addWarranty()">
+<option value="" price="0">Select one</option>
+    <?php for($_i=0;$_i<$this->getRowCount();$_i++): ?>
+       
+        <?php for($_j=0;$_j<$this->getColumnCount();$_j++): ?>
+            <?php if($_link=$this->getIterableItem()): ?>
+            <option value="<?php echo $_link->getId() ?>" price="<?php echo $_link->getFinalPrice() ?>"><?php echo $this->htmlEscape($_link->getName()) ?> +<?php echo Mage::helper('core')->currency($_link->getFinalPrice()) ?></option>
+      
+            <?php endif; ?>
+        <?php endfor; ?>
+ 
+    <?php endfor; ?>
+           </select>
+           <?php endif;?>
+ 
+   
+</div>
+
+<?php echo $this->getChildHtml('term') ?>
+
+<?php endif ?>
+<script>
+var addWarranty=function() {
+    wproductid = jQuery('select[name="warranty-options"]').val();
+    wprice = jQuery("#warranty-options").find(':selected').attr('price');
+    baseprice = jQuery('#product_baseprice').val();
+    basepid = jQuery('#parent_product_id').val();
+    jQuery('#product-price-'+basepid).find('.price').html(formatCurrency(parseFloat(baseprice)+parseFloat(wprice)));
+    jQuery('#related-products-field').val(wproductid);
+    if (wproductid) {
+        jQuery('#term').addClass('required-entry');
+    }else{
+        jQuery('#term').attr('class','');//removeAllClass();
+        jQuery('#advice-required-entry-term').remove();
+    }
+}
+
+function formatCurrency(total) {
+    var neg = false;
+    if(total < 0) {
+        neg = true;
+        total = Math.abs(total);
+    }
+    return (neg ? "-$" : '$') + parseFloat(total, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString();
+}
+</script>

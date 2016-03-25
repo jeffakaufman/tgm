@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_sales_order_view>
+        <reference name="order_info">
+        	<action method='setTemplate'><template>custom/sales/order/info.phtml</template></action>
+        	<block type="adminhtml/sales_order_view_info" name="order_info2" template="sales/order/view/info.phtml"></block>
+            <block type="custom/adminhtml_custom_order" name="custom.order" template='custom/order.phtml'/>           
+        </reference>
+    </adminhtml_sales_order_view>
+     <adminhtml_sales_order_create_index>
+    	 <reference name="form_account">
+		<action method='setTemplate'><template>custom/sales/order/comment.phtml</template></action>
+		 <block type="adminhtml/sales_order_create_form_account" template="sales/order/create/form/account.phtml" name="form.account" />
+		 <block type="core/template" name="custom_field" template='custom/sales/order/field.phtml'/>  
+    	</reference>
+    </adminhtml_sales_order_create_index> 
+    <adminhtml_sales_order_create_load_block_data>
+    	 <reference name="form_account">
+		<action method='setTemplate'><template>custom/sales/order/comment.phtml</template></action>
+		 <block type="adminhtml/sales_order_create_form_account" template="sales/order/create/form/account.phtml" name="form.account" />
+		 <block type="core/template" name="custom_field" template='custom/sales/order/field.phtml'/>  
+    	</reference>
+    </adminhtml_sales_order_create_load_block_data> 
+    <adminhtml_checkout_index>
+    	 <reference name="checkout.store.switcher">
+		<action method='setTemplate'><template>custom/checkout/message.phtml</template></action>
+		<block type="enterprise_checkout/adminhtml_manage_store_switcher" name="checkout_store_switcher"/>
+		 <block type="core/template" name="custom_field" template='custom/sales/order/field.phtml'/>  
+    	</reference>
+    </adminhtml_checkout_index>
+</layout>

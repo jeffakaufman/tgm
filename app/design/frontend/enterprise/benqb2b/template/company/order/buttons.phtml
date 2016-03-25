@@ -1,0 +1,17 @@
+<?php  $_order = $this->getOrder() ?>
+<?php if ($this->helper('company')->canProcessOrder($_order)) : ?>
+<div class='order-buttons'>
+    <div class="button left">
+        <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->getBackTitle() ?></a></p>
+    </div>
+    <div class="right">
+        <button type="button" class="button" onclick="window.location='<?php echo $this->getCancelUrl($_order) ?>';"><?php echo $this->__('cancel'); ?></button>
+        <button type="button" class="button" onclick="window.location='<?php echo $this->getApproveUrl($_order) ?>';"><?php echo $this->__('approve'); ?></button>
+    </div>
+    <div class="clear"></div>
+</div>
+<?php else: ?>
+     <div class="button-set">
+        <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->getBackTitle() ?></a></p>
+    </div>
+<?php endif ?>

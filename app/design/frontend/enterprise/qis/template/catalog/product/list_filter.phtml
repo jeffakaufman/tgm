@@ -1,0 +1,29 @@
+<?php $_result = $this->getAllCategory(); ?>
+<?php if($_result):?>
+<div class="catset mobile"><img id="mobile_active"/><span id="mobile_active_name"></span></div>
+<select id="list_filter" class="mobile">
+<?php $activeSrc = "";$activeName = '';?>
+<?php foreach($_result as $val):?>
+<option <?php if(Mage::getModel('catalog/layer')->getCurrentCategory()->getId()==$val->getId()):
+$activeSrc=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."catalog/category/".$val->getData('active');
+$img=$val->getData('active');
+$activeName = $val->getName();
+?>selected="selected"<?php endif?> value="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB)?><?php echo $val->getUrlPath()?>"><?php echo $val->getName()?></option>
+<?php endforeach;?>
+</select>
+<script type="text/javascript">
+(function($){
+	$("#list_filter").on("change",function(){
+		window.location.href = $(this).val();
+	});
+    var img='<?php echo $img;?>';
+    if (img != '') {
+	    $("#mobile_active").attr("src","<?php echo $activeSrc?>");
+    }else{
+        $("#mobile_active").remove();
+    }
+	$("#mobile_active_name").html("<?php echo $activeName?>");
+	$(".toolbar-bottom .catset").remove();
+})(jQuery);	
+</script>
+<?php endif;?>

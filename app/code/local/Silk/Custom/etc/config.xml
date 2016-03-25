@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Silk_Custom>
+            <version>0.1.0</version>
+        </Silk_Custom>
+    </modules>
+    <frontend>
+        <routers>
+            <custom>
+                <use>standard</use>
+                <args>
+                    <module>Silk_Custom</module>
+                    <frontName>custom</frontName>
+                </args>
+            </custom>
+        </routers>
+        <layout>
+            <updates>
+                <custom>
+                    <file>custom.xml</file>
+                </custom>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+	<custom>
+		<use>admin</use>
+		<args>
+			<module>Silk_Custom</module>
+			<frontName>custom</frontName>
+		</args>
+	</custom>
+        </routers>
+         <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Silk_custom before="Enterprise_Checkout_Adminhtml">Silk_Custom_Adminhtml</Silk_custom>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+		<layout>
+			<updates>
+				<custom>
+					<file>custom.xml</file>
+				</custom>
+			</updates>
+		</layout>
+    </adminhtml>   
+    <global>
+    	<events>
+	     <sales_quote_save_before> <!-- Name of Event -->
+	         <observers>
+	                   <save_before>
+	                    <type>singleton</type>
+	                    <class>Silk_Custom_Model_Observer</class> <!-- Over Model Class -->
+	                    <method>saveQuoteBefore</method> <!-- name of function -->
+	                  </save_before>
+	        </observers>
+	      </sales_quote_save_before>
+	      <sales_quote_save_after> <!-- Name of Event -->
+	         <observers>
+	                   <save_after>
+		                    <type>singleton</type>
+		                    <class>Silk_Custom_Model_Observer</class> <!-- Over Model Class -->
+		                    <method>saveQuoteAfter</method> <!-- name of function -->
+	                  </save_after>
+	        </observers>
+	      </sales_quote_save_after>
+	      <sales_quote_load_after>
+	      		<observers>
+	      	 		<load_after>
+		                    <type>singleton</type>
+		                    <class>Silk_Custom_Model_Observer</class> <!-- Over Model Class -->
+		                    <method>loadQuoteAfter</method> <!-- name of function -->
+	                 </load_after>
+	             </observers>
+	      </sales_quote_load_after>
+	      <sales_model_service_quote_submit_after>
+	      		<observers>
+	      	 		<sales_model_service_quote_submit_after>
+		                    <type>singleton</type>
+		                    <class>Silk_Custom_Model_Observer</class> <!-- Over Model Class -->
+		                    <method>saveOrderAfter</method> <!-- name of function -->
+	                 </sales_model_service_quote_submit_after>
+	             </observers>
+	      </sales_model_service_quote_submit_after>
+	      <sales_order_load_after>
+	      		<observers>
+	      	 		<sales_order_load_after>
+		                    <type>singleton</type>
+		                    <class>Silk_Custom_Model_Observer</class> <!-- Over Model Class -->
+		                    <method>loadOrderAfter</method> <!-- name of function -->
+	                 </sales_order_load_after>
+	             </observers>
+	      </sales_order_load_after>
+	        <sales_model_service_quote_submit_success>
+	            <observers>
+	                <create_order>
+	                    <type>singleton</type>
+	                   <class>Silk_Custom_Model_Observer</class> 
+		         <method>createOrderAfter</method>
+	                </create_order>
+	            </observers>
+	        </sales_model_service_quote_submit_success>
+	</events> 	
+        <models>
+            <custom>
+                <class>Silk_Custom_Model</class>
+            </custom>  
+            <sales>
+		<rewrite>
+			<order>Silk_Custom_Model_Sales_Order</order>
+		</rewrite>
+	</sales>   
+        </models>
+        <blocks>
+            <custom>
+                <class>Silk_Custom_Block</class>
+            </custom>
+        </blocks>
+        <helpers>
+            <custom>
+                <class>Silk_Custom_Helper</class>
+            </custom>
+        </helpers>
+    </global>
+</config>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <tabs>
+    <silk_module translate="label"  module="silk">
+      <label>Silk Modules</label>
+      <sort_order>104</sort_order>
+    </silk_module>
+  </tabs>
+</config>

@@ -1,0 +1,31 @@
+.amconf-image{/*padding: 3px;margin-right: 5px; */padding: 0;width: 2.0625em;border-radius: 0.3125em;}
+.zoomLens {/*background-color: white;*/background-color: #000;}
+.zoomContainer {z-index: 10;}
+.zoomWindow {z-index: 70000 !important;}
+.zoomWrapper {margin: 0 auto;}
+.product-view .product-img-box .product-image {overflow: visible;z-index: 0 !important;}
+.swatch-title{font-weight: 600;position: absolute;padding-left: 3px;}
+.amconf-image-selected{padding: 0px;border: 2px solid #fff;border-radius: 0.3125em;}
+.amconf-image-outofstock{padding: 0px;border: 3px solid #303030;opacity:0.6;filter:alpha(opacity=60);}
+#amconf-block .amconf-images-container{width:auto;clear: both;padding:0;margin-right: 0;float:right;}
+.product-options .amconf-images-container{width: 100%;padding-left: 3.13316%;padding-bottom: 1.0625em;margin-right: 0;}
+.amconf-image-container{float:left;position:relative;/*text-align: center;*/text-align: left;height:8px;margin-right:5px;margin-bottom: 0.4em;width: 8px\9;}
+.product-options  .amconf-image-container {margin-bottom: 0;width: 33px\9;height:28px;}
+.amconf-image-title{margin-bottom:5px;}
+#amconf_price_clone_container {float: left;}
+#amconf_price_clone_container ul{clear: both;}
+.MagicScrollArrows {cursor: pointer;position: absolute;display: block;}
+.MagicScrollArrowPrev { width: 35px;height: 35px;background: url(../images/miscellaneous_sprite_sm.png) 0 -35px no-repeat transparent;left:0;}
+.MagicScrollArrowNext {width: 35px;height: 35px; background: url(../images/miscellaneous_sprite_sm.png) -35px -35px no-repeat transparent;right:0;}
+#nextGallery.disabled, #prevGallery.disabled {opacity: 0.4;filter: alpha(opacity = 40);cursor: default;}
+.caroufredsel_wrapper {margin:0 auto !important;}
+#amasty_gallery a{text-decoration: none;padding: 0 1px 0 5px;}
+#ampagination {text-align: center;}
+#ampagination a {background: url(../images/miscellaneous_sprite.png) 0 -300px no-repeat transparent;width: 15px;height: 15px;margin: 0 5px 0 0;display: inline-block;}
+#ampagination a.selected {background-position: -25px -300px;cursor: default;}
+#ampagination a span {display: none;}
+.no-display{display: none !important;}
+
+/*------------------------------重写上面的本身的css样式--------------------------------------*/
+.MagicScrollArrowPrev { background: url(../images/la.gif) no-repeat;width: 28px;padding-right: 12px;left:0;}
+.MagicScrollArrowNext {background: url(../images/ra.gif) no-repeat;width: 22px;margin-left: 6px;right:0;}

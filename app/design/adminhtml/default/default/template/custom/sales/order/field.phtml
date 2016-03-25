@@ -1,0 +1,44 @@
+<?php $controllerName=$this->getRequest()->getControllerName(); ?>
+<?php if($controllerName=="checkout"): ?>
+<?php $quote=Mage::registry('checkout_current_quote'); ?>
+<?php $PoNumber=$quote->getPayment()->getPoNumber(); ?>
+<?php else: ?>
+<?php $PoNumber=$this->getRequest()->getParam('PoNumber',"") ;?>
+<?php endif; ?>
+<div class="entry-edit">
+	<div class="entry-edit-head">
+		<h4 class="icon-head fieldset-legend head-account"><?php echo $this->__('Reference') ?></h4>
+	</div>
+	<div class="fieldset">
+	 <table cellspacing="0" class="form-list">
+            <tbody>
+                <tr>
+        	     <td class="label"><label for="order-billing_address_prefix"><?php echo $this->__('P.O.#') ?></label></td>
+	    <td class="value" >
+	        <input type="text" name="custom[PoNumber]" value="<?php echo $PoNumber; ?>" title="<?php echo $this->__('P.O.#') ?>" class="input-text  validate-length minimum-length-0 maximum-length-11" id="billing_comment"  placeholder="less than 11 characters" maxlength="11" onblur="getPonumber()" />  </td>
+	    </tr>
+	<tr>
+            </tbody>
+        </table>
+	</div>
+</div>
+<?php if($controllerName=="checkout"): ?>
+<script type="text/javascript">
+function getPonumber(){
+	var number=$$('#billing_comment')[0].value;
+	if(number){
+		var url="<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/checkout/getPonumber') ?>";
+		 new Ajax.Request(url, {
+		          method: 'post',
+		          parameters: { PoNumber: number,paymentId:<?php echo $quote->getPayment()->getId(); ?>},
+		          onComplete: function(req) {       
+		                                               
+		                if(req){
+		                	return;
+		                }
+		          }
+       		 });
+	}
+}
+</script>
+<?php endif; ?>

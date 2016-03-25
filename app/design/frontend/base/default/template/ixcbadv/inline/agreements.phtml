@@ -1,0 +1,129 @@
+<?php
+/**
+ * Mageix LLC
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to Mageix LLC's  End User License Agreement
+ * that is bundled with this package in the file LICENSE.pdf
+ * It is also available through the world-wide-web at this URL:
+ * http://ixcba.com/index.php/license-guide/
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to webmaster@mageix.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ * 
+ * Magento Mageix IXCBADV Module
+ *
+ * @category	Checkout & Payments, Customer Registration & Login
+ * @package 	Mageix_Ixcbadv
+ * @copyright   Copyright (c) 2014 -  Mageix LLC 
+ * @author      Brian Graham
+ * @license	    http://ixcba.com/index.php/license-guide/   End User License Agreement
+ *
+ *
+ *
+ * Magento Mageix IXCBA Module
+ * 
+ * @category   Checkout & Payments
+ * @package	   Mageix_Ixcba
+ * @copyright  Copyright (c) 2011 Mageix LLC
+ * @author     Brian Graham
+ * @license   http://mageix.com/index.php/license-guide/   End User License Agreement
+ */
+
+$styles = ''; $getConfigVar =  Mage::helper('ixcbadv')->getAllConfigVarsStyles();
+      if($getConfigVar['header_bg_color'] != '' || $getConfigVar['header_font_style'] != '' || $getConfigVar['header_font_color'] != '' || $getConfigVar['header_border_color'] != '') {
+	if($getConfigVar['header_bg_color'] != '') { $getConfigVar['header_bg_color'] = 'background-color: '.$getConfigVar['header_bg_color'].'; '; }
+	if($getConfigVar['header_font_style'] != '') { $getConfigVar['header_font_style'] = 'font-family: '.$getConfigVar['header_font_style'].'; '; }
+	if($getConfigVar['header_font_color'] != '') { $getConfigVar['header_font_color'] = 'color: '.$getConfigVar['header_font_color'].'; '; }
+	if($getConfigVar['header_border_color'] != '') { $getConfigVar['header_border_color'] = 'border: 1px solid '.$getConfigVar['header_border_color'].'; '; }
+	$styles .= ".ixcbadv .lightface .lightfaceContent .lightfaceTitle, .ixcbadv .lightface .coupon { ".$getConfigVar['header_bg_color'].$getConfigVar['header_font_style'].$getConfigVar['header_font_color'].$getConfigVar['header_border_color']."  } "; 
+      }
+
+      if($getConfigVar['header_font_color'] != '') {
+        $styles .= ".ixcbadv .lightface .lightfaceFooter label.lightfaceblue input { ".$getConfigVar['header_font_color']." }";
+      }
+      
+      if($getConfigVar['buttons_bg_color'] != '' || $getConfigVar['buttons_border_color'] != '') {
+	if($getConfigVar['buttons_bg_color'] != '') { $getConfigVar['buttons_bg_color'] = 'background-color: '.$getConfigVar['buttons_bg_color'].'; '; }
+	if($getConfigVar['buttons_border_color'] != '') { $getConfigVar['buttons_border_color'] = 'border: 1px solid '.$getConfigVar['buttons_border_color'].'; '; }
+	$styles .= ".ixcbadv .lightface .lightfaceFooter label.lightfacegreen, .ixcbadv .lightface label.lightfacegreen_login { ".$getConfigVar['buttons_bg_color'].$getConfigVar['buttons_border_color']."  } "; 
+      }
+
+      if($getConfigVar['buttons_font_style'] != '' || $getConfigVar['buttons_font_color'] != '') {
+	if($getConfigVar['buttons_font_style'] != '') { $getConfigVar['buttons_font_style'] = 'font-family: '.$getConfigVar['buttons_font_style'].'; '; }
+	if($getConfigVar['buttons_font_color'] != '') { $getConfigVar['buttons_font_color'] = 'color: '.$getConfigVar['buttons_font_color'].'; '; }
+	$styles .= ".ixcbadv .lightface .lightfaceFooter label.lightfacegreen input, .ixcbadv .lightface label.lightfacegreen_login input { ".$getConfigVar['buttons_font_style'].$getConfigVar['buttons_font_color']."  } "; 
+      }
+
+      if($getConfigVar['inline_bg_color'] != '' || $getConfigVar['inline_font_style'] != '' || $getConfigVar['inline_font_color'] != '') {
+	if($getConfigVar['inline_bg_color'] != '') { $getConfigVar['inline_bg_color'] = 'background-color: '.$getConfigVar['inline_bg_color'].'; '; }
+	if($getConfigVar['inline_font_style'] != '') { $getConfigVar['inline_font_style'] = 'font-family: '.$getConfigVar['inline_font_style'].'; '; }
+	if($getConfigVar['inline_font_color'] != '') { $getConfigVar['inline_font_color'] = 'color: '.$getConfigVar['inline_font_color'].'; '; }
+	$styles .= " .ixcbadv .lightface .block-head, .ixcbadv .lightface .footer_grand_total { ".$getConfigVar['inline_bg_color']."  } "; 
+	$styles .= " .ixcbadv .lightface .block-head h2 { ".$getConfigVar['inline_font_style'].$getConfigVar['inline_font_color']."  } "; 
+      }
+
+      if($getConfigVar['inline_message_bg_color'] != '' || $getConfigVar['inline_message_font_color'] != '' || $getConfigVar['inline_message_font_style'] != '' || $getConfigVar['inline_message_border_color'] != '') {
+        if($getConfigVar['inline_message_bg_color'] != '') { $getConfigVar['inline_message_bg_color'] = 'background-color: '.$getConfigVar['inline_message_bg_color'].'; '; }
+	if($getConfigVar['inline_message_font_color'] != '') { $getConfigVar['inline_message_font_color'] = 'color: '.$getConfigVar['inline_message_font_color'].'; '; }
+	if($getConfigVar['inline_message_font_style'] != '') { $getConfigVar['inline_message_font_style'] = 'font-family: '.$getConfigVar['inline_message_font_style'].'; '; }
+	if($getConfigVar['inline_message_border_color'] != '') { $getConfigVar['inline_message_border_color'] = 'border-color: '.$getConfigVar['inline_message_border_color'].'; '; }
+
+	$styles .= " .ixcbadv .lightface .before_selection_message { ".$getConfigVar['inline_message_bg_color'].$getConfigVar['inline_message_font_color'].$getConfigVar['inline_message_font_style'].$getConfigVar['inline_message_border_color']."  } .ixcbadv .lightface .before_selection_message h1 { ".$getConfigVar['inline_message_font_color']." } ";
+	
+	$width = $getConfigVar['agreement_width'];
+	if(!$width) $width = '500'; elseif( $width < 500 ) $width = '500';
+	
+	$ixcbadv_width = $width - 40;
+
+	$styles .= " .ixcbadv .lightface .lightfaceContent { width: ".$ixcbadv_width."px; } ";
+      }
+?>
+<?php if($styles != '') { ?> <style> <?php echo $styles; ?> </style> <?php } ?>
+
+<?php if (!$this->getAgreements()) return; ?>
+<?php if (count($this->getAgreements()) <= 0) return; ?>
+<div class="agreements_border">
+	<?php foreach ($this->getAgreements() as $_a): ?>
+	    <p class="ixcbadv-agreement-p">
+		<input class="checkbox required-entry" type="checkbox" name="agreement[]" value="1" title="<?php echo $this->htmlEscape($_a->getCheckboxText()) ?>" class="checkbox" />
+		<?php echo $this->htmlEscape($_a->getName()) ?>
+		<a href="javascript:void(0);" class="demo-btn" title="<?php echo $this->htmlEscape($_a->getCheckboxText()) ?>" onclick="ixcbadv_agreements.show('<?php echo $_a->getId(); ?>')"><?php echo $this->htmlEscape($_a->getCheckboxText()) ?></a>
+	    </p>
+	   
+	    <div id="<?php echo 'QC-AG-Bk'. $_a->getId() ;?>" class="ixcbadv-agreement-back" style="visibility:hidden;" onclick="ixcbadv_agreements.hide('<?php echo $_a->getId();?>');"></div>
+
+	    <div id="<?php echo 'QC-AG-CO' . $_a->getId() ;?>" class="ixcbadv-agreement-content" style="display:none;">
+		 <div class="width" style="width:<?php echo $width; ?>px;">
+			<div class="ixcbadv">
+			     <div class="lightface">  <!-- lightface start -->
+				  <div class="lightfaceContent fl"> <!-- lightfaceContent start -->
+					  <h2 class="lightfaceTitle"><?php echo $this->htmlEscape($_a->getCheckboxText()) ?></h2>
+					  <div class="lightfaceMessageBox"> <!-- lightfaceMessageBox start -->
+						  <div class="cl"></div>
+						  <p class="ixcbadv-agreement-content-p">
+							<?php if ($_a->getIsHtml()){echo $_a->getContent();}else{echo nl2br($this->htmlEscape($_a->getContent()));} ?>
+						  </p>
+					   </div> <!-- lightfaceMessageBox end -->
+					   <div class="lightfaceFooter" style="display: block;"> <!-- lightfaceFooter start -->
+						<label><input type="button" value="Close" onclick="ixcbadv_agreements.hide('<?php echo $_a->getId();?>');"></label>
+						<div class="cl"></div>
+					    </div> <!-- lightfaceFooter end -->
+				   </div> <!-- lightfaceContent end -->
+			      </div> <!-- lightface end -->
+			</div>
+		  </div>
+	    </div>
+
+	<?php endforeach ?>
+</div>
+<script type="text/javascript" charset="utf-8">
+  var ixcbadv_agreements=new Ixcbadv_Agreements();
+</script>
+
+<?php
+ //}
+?>

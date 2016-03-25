@@ -1,0 +1,62 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+<?php /* @var $this Mage_Catalog_Block_Product_View_Abstract */?>
+<?php $_product = $this->getProduct() ?>
+
+<?php if ($_product->isAvailable()): ?>
+    <p class="availability in-stock"><em><?php echo $this->__('In Stock') ?></em><!--<span>Estimated ship date:<span id="shipdate">03/07/2013</span></span>--></p>
+<?php else: ?>
+    <p class="availability out-of-stock"><em><?php echo $this->__('Out Of Stock') ?></em></p>
+<?php endif; ?>
+<script type="text/javascript">
+/*window.onload=function(){
+Date.prototype.format = function(format)      
+    {      
+       var o = {      
+         "M+" : this.getMonth()+1,    
+         "d+" : this.getDate(),          
+         "h+" : this.getHours(),      
+         "m+" : this.getMinutes(),       
+         "s+" : this.getSeconds(),      
+         "q+" : Math.floor((this.getMonth()+3)/3),     
+         "S" : this.getMilliseconds()    
+       }      
+       if(/(y+)/.test(format)) format=format.replace(RegExp.$1,(this.getFullYear()+"").substr(4 - RegExp.$1.length));      
+       for(var k in o)if(new RegExp("("+ k +")").test(format))      
+       format = format.replace(RegExp.$1,RegExp.$1.length==1 ? o[k] :("00"+ o[k]).substr((""+ o[k]).length));     
+       return format;      
+  }
+	var d = new Date();                   
+  d.setDate(d.getDate()+5);
+  d = d.format("MM/dd/yyyy");
+   var oshipdate=document.getElementById("shipdate");
+   oshipdate.innerHTML=d;
+}
+*/
+</script>
+<?php echo $this->getChildHtml('product_type_data_extra') ?>
+<?php echo $this->getPriceHtml($_product) ?>

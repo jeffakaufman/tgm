@@ -1,0 +1,164 @@
+<?php
+/**
+ * Mageix LLC
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to Mageix LLC's  End User License Agreement
+ * that is bundled with this package in the file LICENSE.pdf
+ * It is also available through the world-wide-web at this URL:
+ * http://ixcba.com/index.php/license-guide/
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to webmaster@mageix.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ * 
+ * Magento Mageix IXCBADV Module
+ *
+ * @category	Checkout & Payments, Customer Registration & Login
+ * @package 	Mageix_Ixcbadv
+ * @copyright   Copyright (c) 2014 -  Mageix LLC 
+ * @author      Brian Graham
+ * @license	    http://ixcba.com/index.php/license-guide/   End User License Agreement
+ *
+ *
+ *
+ * Magento Mageix IXCBA Module
+ * 
+ * @category   Checkout & Payments
+ * @package	   Mageix_Ixcba
+ * @copyright  Copyright (c) 2011 Mageix LLC
+ * @author     Brian Graham
+ * @license   http://mageix.com/index.php/license-guide/   End User License Agreement
+ */
+
+?>
+
+<?php if ($this->getQuote()->isVirtual()) { ?>
+    <span class="no-display"><input name="shipping_method" type="radio" value="no_shipping" id="s_method_no_shipping" checked="checked" /></span>
+    <p><?php echo $this->__('No Shipping Required.') ?></p>
+    <script type="text/javascript">
+	//<![CDATA[
+		setTimeout("render_wallet()", 1000);
+	//]]>
+    </script>
+<?php } else { ?>
+<?php if (!($_shippingRateGroups = $this->getShippingRates())): ?>
+    <p><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></p>
+<?php else: ?>
+    
+    <?php $shippingCodePrice = array(); ?>
+    <?php $_sole = count($_shippingRateGroups) == 1; foreach ($_shippingRateGroups as $code => $_rates): ?>
+        <span class="united-title"><?php echo $this->getCarrierName($code) ?></span><br />
+        
+            <?php $_sole = $_sole && count($_rates) == 1; foreach ($_rates as $_rate): ?>
+                <?php $shippingCodePrice[] = "'".$_rate->getCode()."':".(float)$_rate->getPrice(); ?>
+                
+                   <?php if ($_rate->getErrorMessage()): ?>
+                    <br /><ul class="messages"><li class="error-msg"><ul><li><?php echo $_rate->getErrorMessage() ?></li></ul></li></ul>
+                   <?php else: ?>
+                        <?php if ($_sole) : ?>
+                        <span class="no-display"><input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" id="s_method_<?php echo $_rate->getCode(); ?>" checked="checked" /></span>
+			<script type="text/javascript">
+                            //<![CDATA[
+				//setTimeout("render_wallet()", 1000);
+                            //]]>
+                        </script>
+                        <?php else: ?>
+                        <input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod()) { echo ' checked="checked"'; } ?> class="radio"/>
+
+                        <?php if ($_rate->getCode() === $this->getAddressShippingMethod()): ?>
+                        <script type="text/javascript">
+                            //<![CDATA[
+                                lastPrice = <?php echo (float)$_rate->getPrice(); ?>;
+				//setTimeout("render_wallet()", 1000);
+                            //]]>
+                        </script>
+                        <?php endif; ?>
+
+                        <?php endif; ?>
+                        <label for="s_method_<?php echo $_rate->getCode() ?>">
+				<?php echo $_rate->getMethodTitle() ?>
+				<strong>
+					<?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+					<?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
+					<?php echo $_excl; ?>
+					<?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+					    (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+					<?php endif; ?>
+				</strong>
+                        </label>
+                   <?php endif ?>
+                <br />
+            <?php endforeach; ?>
+
+    <?php endforeach; ?>
+<script type="text/javascript">
+//<![CDATA[
+    <?php if (!empty($shippingCodePrice)): ?>
+        var shippingCodePrice = {<?php echo implode(',',$shippingCodePrice); ?>};
+    <?php endif; ?>
+
+    $$('input[type="radio"][name="shipping_method"]').each(function(el){
+        Event.observe(el, 'click', function(){
+            if (el.checked == true) {
+                var getShippingCode = el.getValue();
+		
+		document.getElementById("confirmMessagePayment").style.display = 'block';
+		document.getElementById("confirmAction").style.display = 'none';
+
+		$jQueryconflict(".totals-board").html('<div class="before_selection_message_loading height_big"><div class="loading_next_step small_center" />Cart Total Loading. Please Wait</div>');
+		
+		<?php
+			if (Mage::app()->getStore()->isCurrentlySecure()) {
+				$saveShippingMethod = $this->getUrl('ixcbadv/inline/saveShippingMethod/', array('_secure'=>true));
+			}else{
+				$saveShippingMethod = $this->getUrl('ixcbadv/inline/saveShippingMethod/', array('_secure'=>false));
+			}
+		?>
+		$jQueryconflict.post("<?php echo $saveShippingMethod; ?>",{"shipping_method":getShippingCode}, function(data){
+			data = $jQueryconflict.parseJSON(data);
+			//alert(data);		
+			$jQueryconflict(".totals-board").html(data.update_section.html);
+			setTimeout("render_wallet()", 1000);
+		});
+		/*var newPrice = shippingCodePrice[getShippingCode];
+		alert(getShippingCode+":"+newPrice);*/
+            }
+       });
+    });
+
+    
+	$$('input[type="radio"][name="shipping_method"]').each(function(el){
+		
+	    if (el.checked == true) {
+		var getShippingCode = el.getValue();
+		
+		document.getElementById("confirmMessagePayment").style.display = 'block';
+		document.getElementById("confirmAction").style.display = 'none';
+
+		$jQueryconflict(".totals-board").html('<div class="before_selection_message_loading height_big"><div class="loading_next_step small_center" />Cart Total Loading. Please Wait</div>');
+		
+		<?php
+			if (Mage::app()->getStore()->isCurrentlySecure()) {
+				$saveShippingMethod = $this->getUrl('ixcbadv/inline/saveShippingMethod/', array('_secure'=>true));
+			}else{
+				$saveShippingMethod = $this->getUrl('ixcbadv/inline/saveShippingMethod/', array('_secure'=>false));
+			}
+		?>
+		$jQueryconflict.post("<?php echo $saveShippingMethod; ?>",{"shipping_method":getShippingCode}, function(data){
+			data = $jQueryconflict.parseJSON(data);
+			//alert(data);		
+			$jQueryconflict(".totals-board").html(data.update_section.html);
+			setTimeout("render_wallet()", 1000);
+		});
+		/*var newPrice = shippingCodePrice[getShippingCode];
+		alert(getShippingCode+":"+newPrice);*/
+	    }
+	       
+	});
+//]]>
+</script>
+<?php endif; ?>
+<?php } ?>

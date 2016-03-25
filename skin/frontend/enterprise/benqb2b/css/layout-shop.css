@@ -1,0 +1,607 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600);
+@font-face {
+    font-family: 'Arial';
+    src: url('fonts/Arial.eot');
+    src: url('fonts/Arial.eot') format('embedded-opentype'),
+         url('fonts/Arial.woff2') format('woff2'),
+         url('fonts/Arial.woff') format('woff'),
+         url('fonts/Arial.ttf') format('truetype'),
+         url('fonts/Arial.svg#Arial') format('svg');
+}
+.dark-bg {
+  background: #b7bac0;
+}
+
+#trevolo {
+  /*width: 788px;*/
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  /*margin: -30px -30px 0 -30px;*/
+  background: #ffffff;
+  overflow: hidden;
+  font-family: 'Open Sans' !important;
+  /* HTML5 display-role reset for older browsers */
+}
+#trevolo.wrap {
+  margin: 0 auto;
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 0 6px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 0 6px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0 6px;
+}
+#trevolo div, #trevolo span, #trevolo iframe,
+#trevolo h1, #trevolo h2, #trevolo h3, #trevolo h4, #trevolo h5, #trevolo h6, #trevolo p, #trevolo a, #trevolo ol, #trevolo ul, #trevolo li,
+#trevolo table, #trevolo caption, #trevolo tbody, #trevolo tfoot, #trevolo thead, #trevolo tr, #trevolo th, #trevolo td,
+#trevolo section {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+#trevolo article, #trevolo aside, #trevolo details, #trevolo figcaption, #trevolo figure,
+#trevolo footer, #trevolo header, #trevolo hgroup, #trevolo menu, #trevolo nav, #trevolo section {
+  display: block;
+}
+#trevolo ul, #trevolo ul li {
+  list-style: none !important;
+}
+#trevolo blockquote, #trevolo q {
+  quotes: none;
+}
+#trevolo blockquote:before, #trevolo blockquote:after,
+#trevolo q:before, #trevolo q:after {
+  content: '';
+  content: none;
+}
+#trevolo table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+#trevolo .text-center {
+  text-align: center;
+}
+#trevolo .text-right {
+  text-align: right;
+}
+#trevolo .text-left {
+  text-align: left;
+}
+#trevolo .right {
+  float: right;
+}
+#trevolo .left {
+  float: left;
+}
+#trevolo .img-size img, #trevolo #section-1 img, #trevolo #section-2 img, #trevolo #section-3 img, #trevolo #section-4 img, #trevolo #section-5 img, #trevolo #section-5 .animate img, #trevolo #section-6 img, #trevolo #section-7 img, #trevolo #section-8 .img img, #trevolo #section-9 img, #trevolo #section-11 img {
+  min-width: 100%;
+  width: 100%;
+  outline: 0;
+  vertical-align: top;
+}
+#trevolo h2 {
+  font-size: 30px !important;
+  font-weight: 300 !important;
+  margin-bottom: 15px !important;
+  line-height: 1.6 !important;
+  border-bottom: 0 !important;
+}
+#trevolo h3 {
+  font-size: 24px !important;
+  font-weight: 300 !important;
+  margin-bottom: 50px !important;
+  line-height: 1.6 !important;
+  border-bottom: 0 !important;
+}
+#trevolo h4 {
+  font-size: 20px !important;
+  font-weight: 300 !important;
+  margin-bottom: 50px !important;
+  border-bottom: 0 !important;
+}
+#trevolo h4.mini {
+  margin-bottom: 0px !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  border-bottom: 0 !important;
+}
+#trevolo h4.mini-s {
+  margin-bottom: 10px !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  border-bottom: 0 !important;
+}
+#trevolo h5 {
+  font-size: 15px !important;
+  font-weight: 400 !important;
+  margin-bottom: 50px !important;
+  border-bottom: 0 !important;
+}
+#trevolo h5.big {
+  font-size: 16px !important;
+}
+#trevolo h6 {
+  font-size: 15px !important;
+  font-weight: 300 !important;
+  border-bottom: 0 !important;
+}
+#trevolo p {
+  font-size: 13px !important;
+  color: #67696c !important;
+}
+#trevolo small {
+  font-size: 12px !important;
+}
+@media screen and (max-width: 1000px) {
+  #trevolo h2 { font-size: 26px !important; }
+}
+@media screen and (max-width: 640px), screen and (max-device-width: 736px) {
+  #trevolo h2 { font-size: 21px !important; }
+}
+#trevolo a {
+  text-decoration: none;
+  outline: 0;
+}
+#trevolo a img {
+  outline: 0;
+  border: none;
+}
+#trevolo .button {
+  line-height: 40px !important;
+  padding: 5px 15px !important;
+  background: transparent;
+  font-size: 16px !important;
+  height: 40px !important;
+  color: #8E8E8E !important;
+  font-weight: 300 !important;
+  text-decoration: none;
+  border: 1px solid #B0B0B0;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  -webkit-transition-property: all;
+  transition-property: all;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+}
+#trevolo .button:hover {
+  background: #502e91;
+  color: #ffffff !important;
+}
+#trevolo table {
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  border: 1px #eeeeee solid;
+  background: #ffffff;
+  width: 100%;
+  clear: both;
+}
+#trevolo table th {
+  color: #502e91;
+  border-bottom: 1px #e9eef3 solid;
+  padding: 8px 20px;
+  text-align: left;
+}
+#trevolo table td {
+  color: #000000;
+  font-size: 15px;
+  font-weight: 300;
+  border-bottom: 1px #e9eef3 solid;
+  border-right: 1px #e9eef3 solid;
+  padding: 8px 20px;
+}
+#trevolo table td:last-child {
+  border-right: 0;
+}
+#trevolo .row {
+  width: 82.653061224%;
+  margin: 0 auto;
+  padding: 75px 0;
+  clear: both;
+  overflow: hidden;
+}
+#trevolo body {
+  background: transparent;
+  color: #000000;
+  line-height: 1.4;
+}
+#trevolo header nav {
+  width: 100%;
+  border-top: 1px #d8d9d9 solid;
+  border-bottom: 3px #502e91 solid;
+}
+#trevolo header nav a {
+  display: inline-block;
+  padding: 9px 20px;
+  border-right: 1px #d8d9d9 solid;
+  font-size: 15px;
+  font-weight: 400;
+  text-decoration: none;
+  color: #8976b4;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  -webkit-transition-property: all;
+  transition-property: all;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+}
+#trevolo header nav a.active, #trevolo header nav a:hover {
+  background: #502e91;
+  color: #ffffff;
+}
+#trevolo footer {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  overflow: hidden;
+  float: left;
+  width: 100%;
+  color: #6a6a6b;
+  line-height: 18px;
+}
+#trevolo footer a {
+  color: #6a6a6b;
+  font-size: 12px;
+  text-decoration: none;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  -webkit-transition-property: all;
+  transition-property: all;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+}
+#trevolo footer a.active, #trevolo footer a:hover {
+  color: #8976b4;
+}
+#trevolo footer span {
+  font-size: 12px;
+}
+#trevolo .section {
+  clear: both;
+  width: 100%;
+  /*float: left;*/
+  overflow: hidden;
+}
+#trevolo #section-1 {
+  position: relative;
+  padding-top: 40px;
+}
+#trevolo #section-1 .text {
+  padding: 0 12.5%;
+  z-index: 1000px;
+}
+#trevolo #section-1 .text-top {
+  /*position: absolute;*/
+  max-width: 70%;
+  width: 70%;
+  top: 2.8%;
+  z-index: 1000px;
+  margin: 0 auto;
+}
+#trevolo #section-1 .text-top h2 {
+  line-height: 40px;
+}
+#trevolo #section-1 img.tre-logo {
+  position: absolute;
+  width: 113px !important;
+  min-width: 113px !important;
+  height: 38px !important;
+  left: 25px;
+  top: 40px;
+  z-index: 1000px;
+}
+@media screen and (max-width: 1000px) {
+  #trevolo #section-1 .text-top { position: relative; margin: 0 15%; left: 0; }
+  #trevolo #section-1 img.tre-logo { position: relative; margin: 0 auto; left: 50%; margin: 0 0 20px -56px; top: 0; }
+}
+@media screen and (max-width: 640px), screen and (max-device-width: 736px) {
+  #trevolo #section-1 .text { padding: 5%; }
+  #trevolo #section-1 .text-top { width: 90%; margin: 0 5%; }
+}
+#trevolo #section-3 {
+  position: relative;
+  background: #ffffff url("/media/wysiwyg/trevolo/images/tre_03.jpg") 0 0 no-repeat;
+}
+#trevolo #section-3 .text {
+  width: 75%;
+  margin: 0 auto;
+  padding: 75px 0 0 0;
+}
+#trevolo #section-3 h4 {
+  margin-bottom: 0 !important;
+}
+#trevolo #section-1 h5, #trevolo #section-3 h5 {
+  margin-bottom: 0 !important;
+}
+#trevolo #section-3 a {
+  display: block;
+}
+#trevolo #section-3 a p {
+  color: #67696c !important;
+  text-decoration: none;
+}
+#trevolo #section-3 a:hover p, #trevolo #section-3 a:active p {
+  color: #8976b4 !important;
+}
+#trevolo #section-3 ul {
+  margin-bottom: 30px;
+}
+#trevolo #section-3 ul li {
+  margin-bottom: 15px;
+}
+#trevolo #section-3 .media-box {
+  width: 100%;
+  overflow: hidden;
+  height: 377px;
+  background: url("/media/wysiwyg/trevolo/images/tre_04.jpg") 50% 0 no-repeat;
+}
+#trevolo #section-3 .media-box ul {
+  max-width: 630px;
+  margin: 80px auto 0 auto;
+  clear: both;
+}
+#trevolo #section-3 .media-box ul li {
+  width: 33.3333%;
+  text-align: center;
+  float: left;
+}
+#trevolo #section-3 .media-box ul li img {
+  width: inherit;
+  min-width: inherit;
+}
+#trevolo #section-4 h3 {
+  padding: 0 0% !important;
+  font-size: 21px !important;
+  font-size: 20px\9 !important;
+}
+#trevolo #section-4 h5 {
+  padding: 0 20% !important;
+}
+#trevolo #section-4 .sec-1 {
+  position: relative;
+}
+#trevolo #section-4 .sec-1 .text {
+  width: 35%;
+  position: absolute;
+  left: 47%;
+  top: 68.5%;
+  z-index: 1000px;
+}
+#trevolo #section-4 .sec-2 {
+  position: relative;
+}
+#trevolo #section-4 .sec-2 .text {
+  width: 35%;
+  position: absolute;
+  left: 28%;
+  top: 17%;
+  z-index: 1000px;
+}
+#trevolo #section-4 .sec-2 .text-2 {
+  width: 35%;
+  position: absolute;
+  left: 28%;
+  top: 51%;
+  z-index: 1000px;
+}
+#trevolo #section-4 .sec-3 {
+  position: relative;
+}
+#trevolo #section-4 .sec-3 .text {
+  width: 65%;
+  position: absolute;
+  left: 34%;
+  top: 6%;
+  z-index: 1000px;
+}
+#trevolo #section-4 .sec-3 .text-2 {
+  width: 23%;
+  position: absolute;
+  left: 49.2%;
+  top: 61%;
+  z-index: 1000px;
+}
+#trevolo #section-4 .sec-3 .text-3 {
+  width: 23%;
+  position: absolute;
+  left: 77.2%;
+  top: 61%;
+  z-index: 1000px;
+}
+#trevolo #section-5 {
+  background: #eaeff4 url("/media/wysiwyg/trevolo/images/tre_08.jpg") 0 0 no-repeat;
+}
+#trevolo #section-5 .text {
+  width: 86.5%;
+  margin: 0 auto;
+}
+#trevolo #section-5 .animate {
+  background: url("/media/wysiwyg/trevolo/images/tre_10.gif") 0 0 no-repeat;
+  background-size: 100%;
+  position: relative;
+}
+#trevolo #section-5 .animate .text {
+  position: absolute;
+  left: 16%;
+  top: 16.5%;
+  z-index: 1000;
+}
+#trevolo #section-5 .animate .text img {
+  width: inherit;
+  min-width: inherit;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+#trevolo #section-5 .animate .text-2 {
+  position: absolute;
+  left: 16%;
+  top: 83.5%;
+  z-index: 1000;
+}
+#trevolo #section-6 .sec-left {
+  width: 50%;
+  float: left;
+}
+#trevolo #section-6 .sec-right {
+  width: 50%;
+  float: right;
+}
+#trevolo #section-6 h6 {
+  margin-bottom: 50px !important;
+}
+#trevolo #section-6 .box {
+  clear: both;
+  margin: 30px 0;
+  float: left;
+  width: 100%;
+}
+#trevolo #section-6 .box h4 {
+  margin-bottom: 10px !important;
+  line-height: 35px !important;
+}
+#trevolo #section-6 .box .text-1 {
+  background: url("/media/wysiwyg/trevolo/images/arrow-2.png") 0 0 no-repeat;
+  padding-left: 50px;
+  margin: 5% 10% 10% 10%;
+}
+#trevolo #section-6 .box .text-2 {
+  background: url("/media/wysiwyg/trevolo/images/arrow-3.png") 0 0 no-repeat;
+  padding-left: 50px;
+  margin: 5% 10% 10% 10%;
+}
+#trevolo #section-6 .box .text-3 {
+  background: url("/media/wysiwyg/trevolo/images/arrow-4.png") 0 0 no-repeat;
+  padding-left: 50px;
+  margin: 5% 10% 10% 10%;
+}
+#trevolo #section-7 {
+  background: #e9eef3;
+}
+#trevolo #section-7 h6 {
+  width: 67%;
+  margin: 0 auto;
+}
+#trevolo #section-8 h6 {
+  width: 84%;
+  margin: 0 auto 50px auto;
+}
+#trevolo #section-8 .img {
+  width: 23%;
+  padding-top: 5px;
+}
+#trevolo #section-8 .text {
+  width: 72%;
+}
+#trevolo #section-8 .text .hide {
+  display: none;
+}
+#trevolo #section-8 .box {
+  padding: 30px 0;
+  float: left;
+  overflow: hidden;
+}
+#trevolo #section-8 .box h4 {
+  margin-bottom: 10px !important;
+}
+#trevolo #section-8 .box h6 {
+  width: 100% !important;
+  margin: 0 0 20px 0 !important;
+}
+#trevolo #section-8 .box h5 {
+  margin-bottom: 20px !important;
+}
+#trevolo #section-9 {
+  background: #e9eef3;
+}
+#trevolo #section-10 {
+  border-top: 1px #e9eef3 solid;
+}
+#trevolo #section-10 .item {
+  width: 245px;
+  margin: 0 auto;
+}
+#trevolo #section-10 .item a {
+  color: #000000;
+  text-decoration: none;
+}
+#trevolo #section-10 .item a:hover {
+  color: #502e91;
+}
+#trevolo #section-10 .item a h4 {
+  margin-top: 15px !important;
+}
+#trevolo #section-11 {
+  background: #e9eef3;
+  padding-bottom: 50px;
+}
+#trevolo #section-11 .tab-box {
+  background: #ffffff;
+  width: 100%;
+  float: left;
+  overflow: hidden;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  border: 1px #eeeeee solid;
+}
+#trevolo #section-11 .tab {
+  width: 100%;
+  clear: both;
+  border-bottom: 1px #d0d1d2 solid;
+  overflow: hidden;
+}
+#trevolo #section-11 .tab li {
+  width: 20%;
+  float: left;
+  border-right: 1px #e9eef3 solid;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#trevolo #section-11 .tab li:last-child {
+  border-right: 0;
+}
+#trevolo #section-11 .tab li a {
+  font-size: 15px;
+  display: block;
+  text-align: center;
+  color: #000000;
+  padding: 16px 0;
+  text-decoration: none;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  -webkit-transition-property: all;
+  transition-property: all;
+  -moz-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+}
+#trevolo #section-11 .tab li a.active, #trevolo #section-11 .tab li a:hover, #trevolo #section-11 .tab li a:active, #trevolo #section-11 .tab li a:focus {
+  background: #8976b4;
+  color: #ffffff;
+}
+#trevolo #section-11 .content-box .content {
+  padding: 30px 50px;
+}
+#trevolo #section-11 .content-box .content li {
+  background: url("/media/wysiwyg/trevolo/images/arrow.png") 0 8px no-repeat;
+  padding-left: 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  font-weight: 300;
+  color: #000000;
+}
+#trevolo #section-11 .content-box .content li:last-child {
+  margin-bottom: 0;
+}
+.col-main #jameskerridge{display:none;}
+#jameskerridge{color:black;}

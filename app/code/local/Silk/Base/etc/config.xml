@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Silk_Base>
+            <version>0.1.0</version>
+        </Silk_Base>
+    </modules>
+    <global>
+        <helpers>
+            <silk>
+                <class>Silk_Base_Helper</class>
+            </silk>
+        </helpers>
+        <models>
+            <silk>
+                <class>Silk_Base_Model</class>
+            </silk>
+        </models>
+    </global>
+</config>

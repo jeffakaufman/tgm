@@ -1,0 +1,46 @@
+<?php
+$order = Mage::getModel('sales/order')->load(Mage::getSingleton('checkout/session')->getLastOrderId());
+$discount =  abs(number_format($order->getDiscountAmount(),2));
+$i=1;
+$items = $order->getAllItems();
+$qty = 0;
+$cjString = '';
+foreach ($items as $item){
+    $product = Mage::getModel('catalog/product')->setStoreId($order->getStoreId())->load($item->getProductId());
+    $sku = $product->getData('sku');
+    $getPrice = number_format($item->getPrice(),2);
+    $ItemsCount = number_format($item->getQtyOrdered(),0);
+    $qty = $qty + $ItemsCount;
+    //$dcnt = "";
+    //if ($item->getDiscountAmount() > 0) {
+        $dcnt = ",'DCNT':'".number_format($item->getDiscountAmount())."'";
+     //   $discount = 0;
+    //}
+    $cjString .= "{'ITEM':'".$sku."',
+        'AMT':'".$getPrice."',
+        'QTY':'".$ItemsCount."'".$dcnt."}";
+    if ($i < count($items)) {
+        $cjString .= ',';
+    }
+    $i++;
+}
+//$discountStr = '';
+//if ($discount>0){
+    $discountStr = "'DISCOUNT':'".$discount."',";
+//}
+?>
+<script type="text/javascript"> 
+var MasterTmsUdo = {
+    'CJ':{
+            'CID':'1528840',
+            'TYPE':'365209', <?php echo $discountStr;?> 
+            'OID':'<?php echo $order->getIncrementId();?>',
+            'CURRENCY':'USD',
+            'COUPON':'<?php echo $order->getCouponCode();?>',
+            PRODUCTLIST:[<?php echo $cjString;?>] 
+    }}; 
+</script>
+
+<script type="text/javascript"> 
+(function(e){var t="669",n=document,r,i,s={http:"http://cdn.mplxtms.com/s/MasterTMS.min.js",https:"https://secure-cdn.mplxtms.com/s/MasterTMS.min.js"},o=s[/\w+/.exec(window.location.protocol)[0]];i=n.createElement("script"),i.type="text/javascript",i.async=!0,i.src=o+"#"+t,r=n.getElementsByTagName("script")[0],r.parentNode.insertBefore(i,r),i.readyState?i.onreadystatechange=function(){if(i.readyState==="loaded"||i.readyState==="complete")i.onreadystatechange=null}:i.onload=function(){try{e()}catch(t){}}})(function(){}); 
+</script>

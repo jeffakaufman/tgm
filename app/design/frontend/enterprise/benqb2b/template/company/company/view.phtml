@@ -1,0 +1,92 @@
+<?php
+/**
+ * Silk_Company extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Silk
+ * @package        Silk_Company
+ * @copyright      Copyright (c) 2015
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+/**
+ * Company view template
+ *
+ * @category    Silk
+ * @package     Silk_Company
+ * @author      Ultimate Module Creator
+ */
+?>
+<?php $_company = $this->getCurrentCompany();?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<div class="page-title company-title">
+    <h1><?php echo $_company->getName(); ?></h1>
+</div>
+<div class="company-view">
+    <div class="company-name">
+        <?php echo Mage::helper('silk_company')->__('Name');?>:<?php echo $_company->getName();?>
+
+    </div>
+    <div class="company-zip">
+        <?php echo Mage::helper('silk_company')->__('Zip');?>:<?php echo $_company->getZip();?>
+
+    </div>
+    <div class="company-address">
+        <?php echo Mage::helper('silk_company')->__('Company Address');?>:<?php echo $_company->getAddress();?>
+
+    </div>
+    <div class="company-address2">
+        <?php echo Mage::helper('silk_company')->__('Company Address2');?>:<?php echo $_company->getAddress2();?>
+
+    </div>
+    <div class="company-street">
+        <?php echo Mage::helper('silk_company')->__('Street');?>:<?php echo $_company->getStreet();?>
+
+    </div>
+    <div class="company-city">
+        <?php echo Mage::helper('silk_company')->__('City');?>:<?php echo $_company->getCity();?>
+
+    </div>
+    <div class="company-state">
+        <?php echo Mage::helper('silk_company')->__('State/Province');?>:<?php echo $_company->getState();?>
+
+    </div>
+    <div class="company-country">
+        <?php echo Mage::helper('silk_company')->__('Country');?>:<?php echo $_company->getCountry();?>
+
+    </div>
+    <div class="company-phone">
+        <?php echo Mage::helper('silk_company')->__('Phone');?>:<?php echo $_company->getPhone();?>
+
+    </div>
+    <div class="company-fax">
+        <?php echo Mage::helper('silk_company')->__('Fax');?>:<?php echo $_company->getFax();?>
+
+    </div>
+    <div class="company-email">
+        <?php echo Mage::helper('silk_company')->__('Email');?>:<?php echo $_company->getEmail();?>
+
+    </div>
+    <div class="company-payment_term">
+        <?php echo Mage::helper('silk_company')->__("Payment Term");?>:<?php echo Mage::getSingleton('silk_company/company_attribute_source_paymentterm')->getOptionText($_company->getPaymentTerm());?>
+
+    </div>
+    <div class="company-group">
+        <?php echo Mage::helper('silk_company')->__("Company Group");?>:<?php echo Mage::getSingleton('silk_company/company_attribute_source_group')->getOptionText($_company->getGroup());?>
+
+    </div>
+    <div class="company-homepage">
+        <?php echo Mage::helper('silk_company')->__('Home Page');?>:<?php echo $_company->getHomepage();?>
+
+    </div>
+    <div class="company-about">
+        <?php echo Mage::helper('silk_company')->__('About');?>:<?php echo $_company->getAbout();?>
+
+    </div>
+
+</div>

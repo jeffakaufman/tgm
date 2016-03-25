@@ -1,0 +1,325 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     enterprise_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ * @see Mage_Review_Block_Product_View
+ */
+?>
+<?php $_helper = $this->helper('catalog/output'); ?>
+<?php $_product = $this->getProduct(); ?>
+<?php $attributeSetName = Mage::getModel('eav/entity_attribute_set')->load($_product->getAttributeSetId())->getAttributeSetName(); ?>
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->setEscapeMessageFlag(true)->toHtml() ?></div>
+<div class="product-view <?php echo $attributeSetName; ?>">
+    <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+        <div class="no-display">
+            <input type="hidden" id="parent_product_id" name="product" value="<?php echo $_product->getId() ?>" />
+            <input type="hidden" id="product_baseprice" name="product_baseprice" value="<?php echo $_product->getFinalPrice() ?>" />
+            <input type="hidden" name="related_product" id="related-products-field" value="" />
+        </div>
+        <div class="product-essential clearfix">
+            <div class="product-img-box">
+                <?php echo $this->getChildHtml('media') ?>
+            </div>
+            <div class="product-shop">
+                <div class="product-main-info">
+                    <div class="product-name">
+                        <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+                        <h2><?php echo $_product->getAttributeText('model_series');?></h2> <!-- static -->
+                    </div>
+                    <p class="product-ids"><?php echo $this->__('SKU-%s %s', $this->escapeHtml($_product->getSku()), $_product->getAttributeText('condition')); ?></p>
+                    <?php echo $this->getReviewsSummaryHtml($_product, false, true)?>
+                    <?php if ($_product->getShortDescription()):?>
+                        <div class="short-description std">
+                            <h4><?php echo $this->__('Model Highlights') ?></h4>
+                            <?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?>
+                        </div>
+                    <?php endif;?>
+                    <?php echo $this->getChildHtml('alert_urls') ?>
+                    <?php echo $this->getChildHtml('product_type_data') ?>
+                </div>
+                <?php echo $this->getChildHtml('tierprices') ?>
+                <?php echo $this->getChildHtml('extrahint') ?>
+
+                <?php echo $this->getChildHtml('warranties') ?>
+
+                <?php if ($_product->getAsWarrantyOption()):?>
+                     <?php echo $this->getChildHtml('term') ?>
+                        <script>jQuery('#term').addClass('required-entry');</script>
+                <?php endif;?>
+
+                <?php if (!$this->hasOptions()):?>
+                    <div class="add-to-box">
+                        <?php if($_product->isSaleable()): ?>
+                            <?php echo $this->getChildHtml('addtocart') ?>
+                        <?php endif; ?>
+                    </div>
+                  <?php else:?>
+                        <?php if ($_product->isSaleable() && $this->hasOptions() && $this->getChildChildHtml('container1') ):?>
+                            <div class="options-container-small add-to-box">
+                                <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+                            </div>
+                        <?php else: ?>
+                         <div class="add-to-box">
+                            <?php echo $this->getChildHtml('addto') ?>
+                             </div>
+                        <?php endif;?>
+               <?php endif; ?>
+               <div class="clearfix"></div>
+
+        <?php if ($_product->isSaleable() && $this->hasOptions() && $this->getChildChildHtml('container2') ):?>
+            <div class="options-container-big">
+                <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+
+            </kiv>
+        <?php  endif;?>
+<!-- <div id="_GUARANTEE_Kicker" name="_GUARANTEE_Kicker" type="Kicker Custom 1"></div> -->
+
+ <div class="share clearfix">
+	  <div class="addthis_toolbox addthis_default_style ">
+		  <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+		  <a class="addthis_button_tweet"></a>
+		  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+                  <a class="addthis_button_pinterest_pinit"></a>
+	  </div>
+     <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f419f410efe76d3"></script>
+</div>
+   </div>
+</div>
+    </form>
+
+</div>
+<div class="clear"></div>
+<div id="product_tab">
+    <?php if ($detailedInfoGroup = $this->getChildGroup('detailed_info', 'getChildHtml')):?>
+    <ul id="product_tab-nav" class="clearfix">
+        <li class="item overview first"><em>Overview</em></li>
+        <li class="item specs"><em>Specs</em></li>
+        <li class="item warranty"><em>Warranty</em></li>
+        <li class="item downloads"><em>Downloads</em></li>
+        <li class="item accessories"><em>Accessories</em></li>
+        <li class="item reviews last"><em>Reviews</em></li>
+    </ul>
+    <div class="content">
+        <div class="tab overview clearfix">
+            <div class="overview_content"><?php echo $_helper->productAttribute($_product, $_product->getFeatures(), 'features');?></div>
+        </div>
+        <div class="tab specs clearfix">
+            <h4>Specifications</h4>
+             <?php echo $_helper->productAttribute($_product, $_product->getSpecifications(), 'specifications');?>
+        </div>
+        <div class="tab warranty clearfix">
+        <h4>Warranty</h4>
+             <?php echo $_helper->productAttribute($_product, $_product->getWarranty(), 'warranty');?>
+        </div>
+        <div class="tab downloads clearfix">
+        <h4>Downloads</h4>
+         <?php echo $this->getChildHtml('product_additional_data') ?>
+        </div>
+        <div class="tab accessories clearfix">
+        <h4>Accessories</h4>
+        <?php echo $this->getChildHtml('accessories_products');?>
+        </div>
+        <div class="tab reviews clearfix">
+
+ <?php //echo $this->getChildHtml('product_review') ?>
+ <?php echo $_product->getTrustpilotReview(); ?>
+
+        </div>
+    </div>
+    <?php endif; ?>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+    var productAddToCartForm = new VarienForm('product_addtocart_form');
+    <?php if(Mage::registry('current_product')->getAsWarrantyOption()): ?>
+      Validation.add('retail_price','Please enter a valid number.',function(v){
+        if(/^\d+(\.\d{1,2})?$/.test(v) ){ return true;}else{return false;}
+     });
+      Validation.add('validate-serial','Please enter a valid serial number.',function(v){
+        if(/^[A-Z]{2}[A-Z0-9]{3}[0-9]{5}[A-Z0-9]{3}$/.test(v) || v == '')
+        {
+            return true;
+        }
+        return false;
+     });
+      <?php endif; ?>
+    productAddToCartForm.submit = function(button, url) {
+        if (this.validator.validate()) {
+            var form = this.form;
+            var oldUrl = form.action;
+
+            if (url) {
+               form.action = url;
+            }
+            var e = null;
+            try {
+                this.form.submit();
+            } catch (e) {
+            }
+            this.form.action = oldUrl;
+            if (e) {
+                throw e;
+            }
+
+            if (button && button != 'undefined') {
+                button.disabled = true;
+            }
+        }
+    }.bind(productAddToCartForm);
+
+    productAddToCartForm.submitLight = function(button, url){
+        if(this.validator) {
+            var nv = Validation.methods;
+            delete Validation.methods['required-entry'];
+            delete Validation.methods['validate-one-required'];
+            delete Validation.methods['validate-one-required-by-name'];
+            // Remove custom datetime validators
+            for (var methodName in Validation.methods) {
+                if (methodName.match(/^validate-datetime-.*/i)) {
+                    delete Validation.methods[methodName];
+                }
+            }
+
+            if (this.validator.validate()) {
+                if (url) {
+                    this.form.action = url;
+                }
+                this.form.submit();
+            }
+            Object.extend(Validation.methods, nv);
+        }
+    }.bind(productAddToCartForm);
+//]]>
+jQuery(document).ready(function(){
+    function procuctTabContent(){
+        var aTabUlLi=jQuery("#product_tab-nav li");
+        var aTabContentTab=jQuery("#product_tab div.content div.tab");
+        aTabUlLi.first().addClass("active");
+       jQuery("#product_tab div.content").find("div.tab:not(:first-child)").hide();
+       aTabContentTab.attr("id", function(){return idNumber("No")+ aTabContentTab.index(this)});
+       aTabUlLi.click(function(){
+            var c = aTabUlLi;
+           var index = c.index(this);
+           var p = idNumber("No");
+           show(c,index,p)
+        });            
+        function show(controlMenu,num,prefix){
+            var content= prefix + num;
+            jQuery('#'+content).siblings().hide();
+            jQuery('#'+content).show();
+            controlMenu.eq(num).addClass("active").siblings().removeClass("active");
+        };
+        function idNumber(prefix){
+            var idNum = prefix;
+            return idNum;
+        };
+         aTabUlLi.hover(
+          function () {jQuery(this).addClass("hover")},
+          function () {jQuery(this).removeClass("hover")}
+        );
+    }
+    procuctTabContent();
+    function specsBgChange(){
+        jQuery("table.specs_list tr:even").addClass('even');
+    }
+    specsBgChange();
+
+ });
+</script>
+<script>
+jQuery(document).ready(function(){
+    <?php if (isset($_GET['type']) && $_GET['type'] == 'review'):?>
+      switchreview();
+    <?php endif;?>
+    jQuery('.gotab').click(function(){
+        switchreview();
+    });
+
+});
+
+var switchreview = function() {
+    jQuery('#product_tab-nav li.item').removeClass('active');
+    jQuery('#product_tab div.tab').css('display', 'none');
+    jQuery('#product_tab-nav li.reviews').addClass('active');
+    jQuery('#product_tab div.reviews').css('display', 'block');
+}
+</script>
+<?php if(Mage::registry('current_product')->getAsWarrantyOption()): ?>
+<script type="text/javascript">
+//<![CDATA[
+    /*Calendar.setup({
+        inputField:'date_of_purchase',
+        ifFormat:'%m/%e/%Y',
+        button:'_dop_trig',
+        align:'Bl',
+    });*/
+Date.prototype.format = function(format){
+            var o = {
+            "M+" :this.getMonth()+1, //month
+            "d+" : this.getDate(), //day
+            "h+" : this.getHours(), //hour
+            "m+" : this.getMinutes(), //minute
+            "s+" : this.getSeconds(), //second
+            "q+" : Math.floor((this.getMonth()+3)/3), //quarter
+            "S" : this.getMilliseconds() //millisecond
+            }
+
+            if(/(y+)/.test(format)) {
+            format = format.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+            }
+
+            for(var k in o) {
+            if(new RegExp("("+ k +")").test(format)) {
+            format = format.replace(RegExp.$1, RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
+            }
+            }
+            return format;
+        }
+    var today=new Date();
+    var minday=new Date(today.getTime()-60*60*24*335*1000);
+    minday=parseInt(minday.format("yyyyMMdd"));
+    today=parseInt(today.format("yyyyMMdd"));
+Calendar.setup({
+    inputField : "date_of_purchase",
+    trigger    : "_dop_trig",
+    dateFormat:"%m/%d/%Y",
+    onSelect   : function() { this.hide() },
+    min:minday,
+    max:today
+
+});
+//]]>
+</script>
+<?php endif; ?>
+
+

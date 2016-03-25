@@ -1,0 +1,105 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+?>
+<div class="page-title">
+    <h1><?php echo $this->__('Your order has been received.') ?></h1>
+</div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<h2 class="sub-title"><?php echo $this->__('Thank you for your purchase!') ?></h2>
+
+<?php if ($this->getOrderId()):?>
+<?php if ($this->getCanViewOrder()) :?>
+    <p><?php echo $this->__('Your order # is: %s.', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getViewOrderUrl()), $this->escapeHtml($this->getOrderId()))) ?></p>
+<?php  else :?>
+    <p><?php echo $this->__('Your order # is: %s.', $this->escapeHtml($this->getOrderId())) ?></p>
+<?php endif;?>
+    <p><?php echo $this->__('You will receive an order confirmation email with details of your order and a link to track its progress.') ?></p>
+<?php if ($this->getCanViewOrder() && $this->getCanPrintOrder()) :?>
+    <p>
+        <?php echo $this->__('Click <a href="%s" onclick="this.target=\'_blank\'">here to print</a> a copy of your order confirmation.', $this->getPrintUrl()) ?>
+        <?php echo $this->getChildHtml() ?>
+    </p>
+<?php endif;?>
+<?php endif;?>
+
+<?php if ($this->getAgreementRefId()): ?>
+    <p><?php echo $this->__('Your billing agreement # is: %s.', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getAgreementUrl()), $this->escapeHtml($this->getAgreementRefId())))?></p>
+<?php endif;?>
+
+<?php if ($profiles = $this->getRecurringProfiles()):?>
+<p><?php echo $this->__('Your recurring payment profiles:'); ?></p>
+<ul class="disc">
+<?php foreach($profiles as $profile):?>
+<?php $profileIdHtml = ($this->getCanViewProfiles() ? sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getProfileUrl($profile)), $this->escapeHtml($this->getObjectData($profile, 'reference_id'))) : $this->escapeHtml($this->getObjectData($profile, 'reference_id')));?>
+    <li><?php echo $this->__('Payment profile # %s: "%s".', $profileIdHtml, $this->escapeHtml($this->getObjectData($profile, 'schedule_description')))?></li>
+<?php endforeach;?>
+</ul>
+<?php endif;?>
+
+<div class="buttons-set">
+    <button type="button" class="button" title="<?php echo $this->__('Continue Shopping') ?>" onclick="window.location='<?php echo $this->getUrl() ?>'"><?php echo $this->__('Continue Shopping') ?></button>
+</div>
+<?php
+$lastOrderId = Mage::getSingleton('checkout/session')->getLastOrderId();
+$order = Mage::getSingleton('sales/order');
+$order->load($lastOrderId);
+$_totalData =$order->getData();
+$_sub = $_totalData['subtotal'];
+?>
+<script type="text/javascript">
+var USI_orderID = '<?php echo $this->getOrderId();?>';
+var USI_orderAmt = '<?php echo $_sub;?>';
+var USI_headID = document.getElementsByTagName("head")[0];
+var USI_dynScript = document.createElement("script");
+USI_dynScript.setAttribute('type','text/javascript');
+USI_dynScript.src = 'http'+ (document.location.protocol=='https:'?'s://www':'://www')+ '.upsellit.com/upsellitReporting.jsp?command=REPORT&siteID=9228&productID=77&position=1&orderID='+escape(USI_orderID)+'&orderAmt='+escape(USI_orderAmt);
+USI_headID.appendChild(USI_dynScript);
+var USI_dynScript2 = document.createElement("script");
+USI_dynScript2.setAttribute('type','text/javascript');
+USI_dynScript2.src = 'http'+ (document.location.protocol=='https:'?'s://www':'://www')+'.upsellit.com/hound/sale.jsp?orderID='+escape(USI_orderID)+'&orderAmt='+escape(USI_orderAmt);
+USI_headID.appendChild(USI_dynScript2);
+</script>
+
+
+<?php
+$_GUARANTEE_orderNum = Mage::getSingleton('checkout/session')->getLastRealOrderId();
+$_GUARANTEE_order = Mage::getModel('sales/order')->loadByIncrementId($_GUARANTEE_orderNum);
+$_GUARANTEE_amount = number_format($_GUARANTEE_order->getGrandTotal(),2);
+$_GUARANTEE_email = $_GUARANTEE_order->getCustomerEmail();
+?>
+<!-- BEGIN: Norton Shopping Guarantee -->
+<span id="_GUARANTEE_GuaranteeSpan"></span>
+<script type="text/javascript" src="//nsg.symantec.com/private/rollover/rollover.js"></script>
+<script type="text/javascript">
+if(window._GUARANTEE && _GUARANTEE.Loaded) {
+    _GUARANTEE.Hash = 'BlaKtSN7kPFnPndyie9uY8tSzQqI%2Fo9TKsTDJBtA49OUKctNFLY4FZ13ghu3tw6ja%2BGIm5%2BJqKQomzh%2BXFesug%3D%3D';
+    _GUARANTEE.Guarantee.order = '<?php echo $_GUARANTEE_orderNum; ?>'; //Order Number
+    _GUARANTEE.Guarantee.total = '<?php echo $_GUARANTEE_amount; ?>'; // Order Amount
+    _GUARANTEE.Guarantee.email = '<?php echo $_GUARANTEE_email; ?>'; // Email
+    _GUARANTEE.WriteGuarantee("JavaScript", "_GUARANTEE_GuaranteeSpan");
+}
+</script>
+<!-- END: Norton Shopping Guarantee Guarantee -->

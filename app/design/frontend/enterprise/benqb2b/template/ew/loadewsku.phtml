@@ -1,0 +1,8 @@
+<?php $wa = $this->getEws();?>
+  <option value="">Please select one</option>
+  <?php if ($wa):?>
+             <?php foreach ($wa as $m):?>
+                       <option value="<?php echo $m;?>"><?php echo $m;?></option>
+               <?php endforeach;?>
+  <?php endif;?>
+

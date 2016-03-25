@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Silk
+ * @package     Silk_Misc
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+-->
+<config>
+    <modules>
+        <Silk_Misc>
+            <version>0.1.0</version>
+        </Silk_Misc>
+    </modules>
+     <adminhtml>
+    <cms>
+      <browser>
+        <extensions>
+          <allowed>
+            <jpg>1</jpg>
+            <jpeg>1</jpeg>
+            <png>1</png>
+            <gif>1</gif>
+            <pdf>1</pdf>
+          </allowed>
+        </extensions>
+      </browser>
+    </cms>
+  </adminhtml>
+    <global>
+        <models>
+            <shipping>
+                <rewrite>
+                    <carrier_flatrate>Silk_Misc_Model_Carrier_Flatrate</carrier_flatrate>
+                 </rewrite>
+            </shipping>
+            <paypal>
+                <rewrite>
+                    <payflowpro>Silk_Misc_Model_Paypal_Payflowpro</payflowpro>
+                </rewrite>
+            </paypal>
+            <misc>
+                <class>Silk_Misc_Model</class>
+                <resourceModel>misc_mysql4</resourceModel>
+            </misc>
+            <misc_mysql4>
+                <class>Silk_Misc_Model_Mysql4</class>
+                <entities>
+                    <misc>
+                        <table>silk_warrantyorder</table>
+                    </misc>
+                </entities>
+            </misc_mysql4>
+        </models>
+       <helpers>
+            <misc>
+                <class>Silk_Misc_Helper</class>
+            </misc>
+       </helpers>
+        <resources>
+            <misc_setup>
+                <setup>
+                    <module>Silk_Misc</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </misc_setup>
+            <misc_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </misc_write>
+            <misc_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </misc_read>
+        </resources>
+        <sales>
+                <order>
+                    <item>
+                            <product_attributes>
+                                    <as_warranty_option />
+                            </product_attributes>
+                    </item>
+                </order>
+        </sales>
+  </global>
+</config>

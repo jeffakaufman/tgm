@@ -1,0 +1,29 @@
+/**
+ * quick order css
+ */
+
+.data-table-quick{
+	width: 100%;
+}
+.category-products .data-table {
+	border: 1px solid #d9d9d9;
+	width: 100%;
+	border-collapse: separate;
+}
+.category-products .quickorder-top-button{
+	margin-bottom: 5px;
+	width: 100%;
+	text-align: right;
+}
+.category-products .quickorder-add-button{
+	margin-bottom: 5px;
+	width: 100%;
+	text-align: right;
+}
+.quickorder-bottom-button{
+	margin-top: 5px;
+	width: 100%;
+	text-align: right;
+}
+
+.search-box a {text-decoration-line: underline;}

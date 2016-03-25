@@ -1,0 +1,79 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+
+$_cat = new Mage_Catalog_Block_Navigation();
+$currentCat = $_cat->getCurrentCategory();
+$cid = $currentCat->getId();
+$collection = Mage::getModel('catalog/category')->getCollection()
+                    ->addAttributeToSelect('*')
+                    ->addFieldToFilter('featured_home',array('eq' => 1))
+                    ->addIsActiveFilter()
+                    ->addAttributeToSort('position', 'asc');
+$featureds = array();
+foreach ($collection as $_category) {
+    $thumb_url = Mage::getBaseUrl('media').'catalog/category/default.jpg';
+    if($_category->getThumbnail()){
+      $thumb_url = Mage::getBaseUrl('media').'catalog/category/'.$_category->getThumbnail();
+    }
+    $featureds[$_category->getLevel()][] = array('thumburl'=>$thumb_url, 'name'=>$_category->getName(), 'url'=>$_category->getUrl());
+}
+$_columnCount = 3;
+?> 
+
+
+ <div class="benq-category">
+  
+<!-- top featured categories -->
+<?php $i = 0; foreach($featureds[2] as $f):?>
+<?php if ($i++%$_columnCount==0): ?>
+    <ul class="category clearfix">
+    <?php endif ?>
+        <li class="item <?php echo $_columnCount.'items'; if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+            <div class="alb"><a href="<?php echo $f['url']; ?>" title="<?php echo $f['name']; ?>"><img src="<?php echo $f['thumburl']; ?>" width="142" height="142"  /></a></div>
+            <h4 class="category-name"><a href="<?php echo $f['url']; ?>" title="<?php echo $f['name']; ?>"><?php echo $f['name']; ?></a></h4>
+        </li>
+    <?php if ($i%$_columnCount==0 || $i==count($featureds[2])): ?>
+    </ul>
+    <?php endif ?>
+<?php endforeach ?>
+
+<!-- sub featured categories -->
+<?php $_columnCount = 4;?>    
+<?php $i = 0; foreach($featureds[3] as $f):?>
+<?php if ($i++%$_columnCount==0): ?>
+    <ul class="subcategory clearfix">
+    <?php endif ?>
+        <li class="item <?php echo $_columnCount.'items';  if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+            <div class="alb"><a href="<?php echo $f['url']; ?>" title="<?php echo $f['name']; ?>"><img src="<?php echo $f['thumburl']; ?>" width="101" height="101"  /></a></div>
+            <h5 class="category-name"><a href="<?php echo $f['url']; ?>" title="<?php echo $f['name']; ?>"><?php echo $f['name']; ?></a></h5>
+        </li>
+    <?php if ($i%$_columnCount==0 || $i==count($featureds[3])): ?>
+    </ul>
+    <?php endif ?>
+<?php endforeach ?>
+    
+    
+</div>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Silk_Tablerate>
+            <version>0.1.1</version>
+        </Silk_Tablerate>
+    </modules>
+    <global>
+        <models>
+            <tablerate>
+                <class>Silk_Tablerate_Model</class>
+            </tablerate>
+            <shipping>
+                <rewrite>
+                        <carrier_tablerate>Silk_Tablerate_Model_Carrier_Tablerate</carrier_tablerate>
+                </rewrite>
+            </shipping>
+        </models>
+        <helpers>
+            <tablerate>
+                <class>Silk_Tablerate_Helper</class>
+            </tablerate>
+        </helpers>
+        <blocks>
+            <tablerate>
+            <class>Silk_Tablerate_Block</class>
+           </tablerate>
+        </blocks>
+    </global>
+</config>

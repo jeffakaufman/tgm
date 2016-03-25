@@ -1,0 +1,65 @@
+<?php 
+/**
+ * Silk_Company extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Silk
+ * @package        Silk_Company
+ * @copyright      Copyright (c) 2015
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+/**
+ * Company list template
+ *
+ * @category    Silk
+ * @package     Silk_Company
+ * @author      Ultimate Module Creator
+ */
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php $_customers = $this->getCustomers(); ?>
+<div class="page-title employee-title">
+    <h1><?php echo Mage::helper('company')->__('Manage Employees') ?> </h1>
+</div>
+<div class="dashboard">
+    <div class="box-head">
+        <h2>Company Employees</h2>
+        <a href="<?php echo $this->getUrl('company/employee/new')?>">Add New Employee</a>    
+    </div>
+</div>
+<?php if ($_customers->getSize() > 0) :?>
+    <?php echo $this->getPagerHtml(); ?>
+    <div class="company-list-container">
+    <table class="data-table" id="company_customers">
+        <thead>
+            <th>#Id</th>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Email</th>
+            <th></th>
+        </thead>
+        <tbody>
+        <?php foreach ($_customers as $_customer) : ?>
+            <tr>
+                <td><?php echo $_customer->getId();?></td>
+                <td><?php echo $_customer->getName();?></td>
+                <td><?php echo $_customer->getAttributeText('role_id');?></td>
+                <td><?php echo $_customer->getEmail();?></td>
+                <td><?php if($_customer->getRoleId != Silk_Company_Model_Role::getRole('ADMIN')):?><a href="<?php echo $this->getUrl('company/employee/edit', array('id'=>$_customer->getId()));?>">Edit</a><?php endif;?></td>
+            </tr>
+        <?php endforeach;?>
+        </tbody>
+    </table>
+    </tbody>
+    </table>
+    </div>
+    <?php echo $this->getPagerHtml(); ?>
+<?php else : ?>
+    <?php echo Mage::helper('company')->__('There are no user at this moment');?>
+<?php endif;?>

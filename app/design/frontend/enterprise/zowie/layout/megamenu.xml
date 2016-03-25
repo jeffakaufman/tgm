@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="top.menu">
+			<action method="unsetChild" ifconfig="megamenu/general/enabled">
+                <name>catalog.topnav</name>
+            </action>
+            <block type="megamenu/megamenu" name="megamenu" template="megamenu/navigation.phtml" ifconfig="megamenu/general/enabled"/>
+        </reference>
+    </default>
+</layout> 

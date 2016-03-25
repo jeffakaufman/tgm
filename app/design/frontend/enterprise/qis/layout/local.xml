@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+ 			<action method="addCss">
+			    <stylesheet>css/local.css</stylesheet>
+			</action>
+        </reference>
+        <reference name="head">
+ 			<action method="addCss">
+			    <stylesheet>css/qisstyles.css</stylesheet>
+			</action>
+        </reference>
+	</default>
+	
+	
+ </layout>

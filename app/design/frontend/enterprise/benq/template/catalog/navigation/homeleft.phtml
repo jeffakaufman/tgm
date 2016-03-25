@@ -1,0 +1,55 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+
+/**
+ * Category left navigation
+ *
+ * @see Mage_Catalog_Block_Navigation
+ */
+?>
+<?php $_categories = $this->getCurrentChildCategories() ?>
+<div class="categories_list">
+    <h2><?php echo $this->__('BenQ Store') ?></h2>
+    <ul>
+        <?php foreach ($_categories as $_category): ?>            
+        <?php if($_category->getIsActive()): ?>
+        <li class="type">
+            <h4><?php echo $this->htmlEscape($_category->getName()) ?></h4>
+            <?php $_cg = Mage::getModel('catalog/category')->load($_category->entity_id) ;
+                       $_childs = $_cg->getChildrenCategories(); ?>
+            <ul>
+                <?php foreach ($_childs as $_child): ?>
+                <li><a href="<?php echo $this->getCategoryUrl($_child) ?>" title="<?php echo $this->htmlEscape($_child->getName()) ?>">
+                <?php echo $this->htmlEscape($_child->getName()) ?></a>
+                </li>
+                <?php endforeach ?>
+            </ul>
+        </li>
+        <?php endif; ?>
+        <?php endforeach ?>
+    </ul>
+    
+</div>

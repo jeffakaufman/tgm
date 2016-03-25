@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Silk_Company extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Silk
+ * @package        Silk_Company
+ * @copyright      Copyright (c) 2015
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<layout>
+    
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="company" ifconfig="company/company/company"><name>employees</name><path>company/employee/list</path><label>Employees</label></action>
+        </reference>
+    </customer_account>
+
+    <company_employee_list translate="label" module="company">
+        <label>Customer List</label>
+        <update handle="customer_account" />
+        <reference name="content">
+            <block type="company/employee_list" name="employee_list" template="company/employee/list.phtml" />
+        </reference>
+    </company_employee_list>
+    <company_employee_edit translate="label" module="company">
+        <label>Customer Edit</label>
+        <update handle="customer_account" />
+        <reference name="content">
+            <block type="company/employee_edit" name="employee_edit" template="company/account/form/edit.phtml" />
+        </reference>
+    </company_employee_edit>
+
+    <company_employee_new translate="label" module="company">
+        <label>Customer Edit</label>
+        <update handle="customer_account" />
+        <reference name="content">
+            <block type="company/employee_edit" name="employee_edit" template="company/account/form/new.phtml" />
+        </reference>
+    </company_employee_new>
+
+    <customer_account_index translate="label">
+        <reference name="my.account.wrapper">
+            <reference name="customer_account_dashboard">
+                <block type="company/account_dashboard_info" name="customer_account_dashboard_info" as="company_info" template="company/account/dashboard/info.phtml"/>
+            </reference>
+        </reference>
+    </customer_account_index>
+</layout>

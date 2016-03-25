@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Silk_Cybersourcetax
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+   <sections>
+        <orderstatusemail translate="label" module="silk_orderstatusemail">
+            <label>Email Notify Configuration</label>
+            <tab>sales</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>301</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <finance_dept translate="label">
+                    <label>Finance Dept</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>11</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <orderemail translate="label">
+                            <label>Recipients Email</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>silk_orderstatusemail/adminhtml_system_config_backend_orderemail_address</backend_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </orderemail>
+                        
+                         <orderstatus translate="label">
+                            <label>Order Status</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>silk_orderstatusemail_adminhtml/system_config_source_order_status</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </orderstatus>
+                        
+                    </fields>
+                </finance_dept>
+                
+                <marketing_dept translate="label">
+                    <label>Marketing Dept</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>12</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <orderemail translate="label">
+                            <label>Recipients Email</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>silk_orderstatusemail/adminhtml_system_config_backend_orderemail_address</backend_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </orderemail>
+                        
+                         <orderstatus translate="label">
+                            <label>Order Status</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>silk_orderstatusemail_adminhtml/system_config_source_order_status</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </orderstatus>
+                        
+                        
+                    </fields>
+                </marketing_dept>
+                
+                
+                <send_orders translate="label">
+                    <label>Filter for Sending QShop Pending Orders</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>13</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						  <orderemail translate="label">
+                            <label>Recipients Email</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>silk_orderstatusemail/adminhtml_system_config_backend_orderemail_address</backend_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </orderemail>
+                         <orderstatus translate="label">
+                            <label>Order Status</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>silk_orderstatusemail_adminhtml/system_config_source_order_status</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </orderstatus>
+                    </fields>
+                </send_orders>
+                
+                
+                
+               <email_template translate="label">
+                    <label>Notify Email Templates</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>14</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                         <template1 translate="label">
+                            <label>Email Template 1 (when order status change)</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </template1>
+                        
+                        <template2 translate="label">
+                           <label>Email Template 2 (when add comment for order)</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </template2>
+                        
+                        <template3 translate="label">
+                           <label>Email Template for QShop Pending Orders</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </template3>
+
+                        <template4 translate="label">
+                           <label>Email Template for Warranty Alert </label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </template4>
+                        
+                    </fields>
+                </email_template>
+                
+                <warranty_sender translate="label">
+                    <label>Warranty Alert Email To</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>15</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                          <warrantyemail translate="label">
+                            <label>Recipients Email</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>silk_orderstatusemail/adminhtml_system_config_backend_orderemail_address</backend_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </warrantyemail>
+                    </fields>
+                </warranty_sender>
+                
+                
+            </groups>
+        </orderstatusemail>
+    </sections>
+</config>

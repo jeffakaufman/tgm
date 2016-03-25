@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+   <!--  <default>
+        <reference name="top.links">
+            <action method="addLink" translate="label title" module="quickorder" ifconfig="quickorder/quickorder/quickorder"><label>Quick Order</label><url helper="quickorder/getQuickorderUrl"/><title>Quick Order</title><prepare/><urlParams/><position>10</position></action>
+        </reference>
+    </default> -->
+    <quickorder_index_index>
+	    	<reference name="head">
+	    		<action method="addItem" ifconfig="quickorder/quickorder/quickorder"><type>skin_css</type><name>css/quickorder/custom.css</name></action>
+	    	</reference>
+		<reference name="root">
+		  <action method="setTemplate" ifconfig="quickorder/quickorder/quickorder"><template>page/2columns-right.phtml</template></action>
+		</reference>
+		<reference name="content">
+		  <block type="quickorder/quickorder" name="quickorder_quickorder" template="quickorder/quickorder.phtml"/>
+		</reference>
+	</quickorder_index_index>
+	<quickorder_account_show>
+		<reference name="customer_account_navigation">
+			<action method="addLink" translate="label" module="customer" ifconfig="quickorder/quickorder/quickorder"><name>quickorder_account</name><path>quickorder/index/account/</path><label>Quick Order</label></action>
+		</reference>
+	</quickorder_account_show>
+	<customer_account>
+		<update handle="quickorder_account_show" />
+	</customer_account>
+	<quickorder_index_account>
+		<update handle="customer_account"/>
+		<reference name="head">
+			<action method="addItem" ifconfig="quickorder/quickorder/quickorder"><type>skin_css</type><name>css/quickorder/custom.css</name></action>
+		</reference>
+		<reference name="root">
+			<action method="setTemplate" ifconfig="quickorder/quickorder/quickorder"><template>page/2columns-left.phtml</template></action>
+		</reference>
+		<reference name="content">
+			<block type="core/template" template="quickorder/quickaccounttitle.phtml"/>
+			<block type="quickorder/quickorder" name="quickorder_quickorder" template="quickorder/quickorder.phtml"/>
+		</reference>
+	</quickorder_index_account>
+</layout>

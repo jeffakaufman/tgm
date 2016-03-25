@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <template>
+        <adminhtml>
+            <file path="design--adminhtml--default--default--template--catalog--product--edit--action--inventory"></file>
+            <file path="design--adminhtml--default--default--template--catalog--product--tab--inventory"></file>
+        </adminhtml>
+    </template>
+</config>

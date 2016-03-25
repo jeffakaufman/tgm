@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Mage
+ * @package     Mage_Tax
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+-->
+<config>
+        <modules>
+        <Silk_CybersourceTax>
+            <version>0.1.7</version>
+        </Silk_CybersourceTax>
+    </modules>
+    <global>
+        
+      <blocks>
+            <silk_cybersourcetax>
+                <class>Silk_CybersourceTax_Block</class>
+            </silk_cybersourcetax>
+
+            <tax>
+                <rewrite>
+                    <sales_order_tax>Silk_CybersourceTax_Block_Sales_Order_Tax</sales_order_tax>
+                </rewrite>
+            </tax>
+            
+            <adminhtml>
+                <rewrite>
+                    <sales_order_totals_tax>Silk_CybersourceTax_Block_Adminhtml_Sales_Order_Totals_Tax</sales_order_totals_tax>
+                </rewrite>
+            </adminhtml>
+            
+        </blocks>
+        
+        
+       <models>
+            <silk_cybersourcetax>
+                <class>Silk_CybersourceTax_Model</class>
+            </silk_cybersourcetax>
+          <tax>
+              <rewrite>
+                  <calculation>Silk_CybersourceTax_Model_Calculation</calculation>
+                  <sales_total_quote_tax>Silk_CybersourceTax_Model_Sales_Total_Quote_Tax</sales_total_quote_tax>
+              </rewrite>
+          </tax>
+          
+          <sales>
+              <rewrite>
+                  <quote_address>Silk_CybersourceTax_Model_Sales_Address</quote_address>
+                  <order_pdf_total_default>Silk_CybersourceTax_Model_Sales_Order_Pdf_Total_Taxdetail</order_pdf_total_default>
+              </rewrite>
+          </sales>
+          
+          
+       </models>
+       
+       <helpers>
+            <cybersourcetax>
+                <class>Silk_CybersourceTax_Helper</class>
+            </cybersourcetax>
+        </helpers>
+        
+     <resources>
+         <cybersourcetax_setup>
+              <setup>
+                  <module>Silk_CybersourceTax</module>
+                  <class>Mage_Sales_Model_Mysql4_Setup</class>
+              </setup>
+         </cybersourcetax_setup>
+     </resources>
+     
+     <!--
+     <events>
+        <sales_quote_collect_totals_before>
+            <observers>
+                <avatax>
+                    <type>singleton</type>
+                    <class>silk_cybersourcetax/observer</class>
+                    <method>salesQuoteCollectTotalsBefore</method>
+                </avatax>
+            </observers>
+        </sales_quote_collect_totals_before>
+    </events>-->
+    
+    <events>
+              <controller_action_layout_render_before>
+                <observers>
+                    <silk_cybersourcetax_model_observer>
+                        <class>silk_cybersourcetax/observer</class>
+                        <method>unsetSessionAfterLoadAdminhtml</method>
+                    </silk_cybersourcetax_model_observer>
+                </observers>
+            </controller_action_layout_render_before>
+      </events>
+    
+     
+ <fieldsets>
+    <sales_convert_quote_address>
+        <state_tax><to_order>*</to_order></state_tax>
+         <city_tax><to_order>*</to_order></city_tax>
+          <county_tax><to_order>*</to_order></county_tax>
+           <district_tax><to_order>*</to_order></district_tax>
+    </sales_convert_quote_address>
+    <sales_convert_order>
+        <state_tax><to_invoice>*</to_invoice><to_cm>*</to_cm></state_tax>
+        <city_tax><to_invoice>*</to_invoice><to_cm>*</to_cm></city_tax>
+        <county_tax><to_invoice>*</to_invoice><to_cm>*</to_cm></county_tax>
+        <district_tax><to_invoice>*</to_invoice><to_cm>*</to_cm></district_tax>
+    </sales_convert_order>
+</fieldsets>
+
+<sales>
+    <quote>
+        <item>
+            <product_attributes>
+                <gift_box_width />
+                <gift_box_height />
+                <gift_box_length />
+            </product_attributes>
+        </item>
+    </quote>
+</sales>
+
+        
+       <!--
+         <sales>
+            <quote>
+                <totals>
+                    <citytax>
+                        <class>silk_cybersourcetax/taxes_quoteaddress_citytax</class>
+                         <before>subtotal</before>
+                    </citytax>
+                    <countytax>
+                        <class>silk_cybersourcetax/taxes_quoteaddress_countytax</class>
+                         <before>subtotal</before>
+                    </countytax>
+                    <statetax>
+                        <class>silk_cybersourcetax/taxes_quoteaddress_statetax</class>
+                    </statetax>
+                     <districttax>
+                        <class>silk_cybersourcetax/taxes_quoteaddress_districttax</class>
+                         <before>subtotal</before>
+                    </districttax>
+    
+                </totals>
+            </quote>
+
+    
+        </sales>
+        -->
+        
+ <pdf>
+    <totals>
+        
+        <citytax translate="title">
+        <title>City Tax</title>
+        <source_field>city_tax</source_field>
+        <font_size>7</font_size>
+        <display_zero>0</display_zero>
+        <sort_order>141</sort_order>
+      </citytax>
+      
+      
+       <districttax translate="title">
+        <title>District Tax</title>
+        <source_field>district_tax</source_field>
+        <font_size>7</font_size>
+        <display_zero>0</display_zero>
+        <sort_order>142</sort_order>
+      </districttax>
+      
+       <countytax translate="title">
+        <title>County Tax</title>
+        <source_field>county_tax</source_field>
+        <font_size>7</font_size>
+        <display_zero>0</display_zero>
+        <sort_order>143</sort_order>
+      </countytax>
+      
+       <statetax translate="title">
+        <title>State Tax</title>
+        <source_field>state_tax</source_field>
+        <font_size>7</font_size>
+        <display_zero>0</display_zero>
+        <sort_order>144</sort_order>
+      </statetax>
+      
+    </totals>
+  </pdf>
+  
+        
+        
+          
+    </global>
+    
+    <default>
+        <sales>
+            <totals_sort>
+                <discount>20</discount>
+                <grand_total>100</grand_total>
+                <shipping>30</shipping>
+                <subtotal>10</subtotal>
+                <tax>40</tax>
+                <citytax>31</citytax>
+                <countytax>32</countytax>
+                <districttax>33</districttax>
+                <statetax>34</statetax>
+            </totals_sort>
+            <reorder>
+                <allow>1</allow>
+            </reorder>
+        </sales>
+        </default>
+        
+    
+    <frontend>
+        <layout>
+            <updates>
+                <cybersourcetax>
+                    <file>cybersourcetax.xml</file>
+                </cybersourcetax>
+            </updates>
+        </layout>
+    </frontend>
+    <adminhtml>
+        <layout>
+            <updates>
+                <cybersourcetax>
+                    <file>cybersourcetax.xml</file>
+                </cybersourcetax>
+            </updates>
+        </layout>
+    </adminhtml> 
+
+</config>

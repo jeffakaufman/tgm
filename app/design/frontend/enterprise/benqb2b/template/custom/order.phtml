@@ -1,0 +1,20 @@
+<div class="col-set order-info-box">
+            <h2 class="table-caption"><?php echo $this->__('Reference') ?></h2>
+            <div class="box-content">
+                <table class="data-table">
+                    <tr>
+                	<?php
+                		$custom = $this->getCustomVars();
+                		foreach($custom as $key => $value){
+                	?>
+                        <td>
+                                <h3 class="product-name"><?php echo $this->__($key);?> :</h3>
+                        </td>
+                	<td>	
+                                     <?php echo $value;?>
+                        </td>
+                	<?php } ?>
+                    </tr>
+                </table>
+            </div>
+</div>
